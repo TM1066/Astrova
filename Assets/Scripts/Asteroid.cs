@@ -1,0 +1,74 @@
+using System;
+using System.Collections;
+using Unity.VisualScripting;
+using UnityEngine;
+
+public class Asteroid : MonoBehaviour
+{
+    private float asteroidHealth = 1f;
+
+    private bool canDamagePlayer;
+
+    private Animator animator;
+
+    private void OnTriggerEnter2D(Collider2D collision) 
+    {
+        if(collision.gameObject.CompareTag("Projectile")) 
+        {   
+            asteroidHealth -= collision.gameObject.GetComponent<Projectile>().GetDamage();
+            if (asteroidHealth <= 0)
+            {
+                GameManager.IncrementScore();
+                IsDestroyed();
+            } 
+            GameObject.Destroy(collision.GameObject());
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other) 
+    {
+        if (other.gameObject.CompareTag("Player") && !canDamagePlayer)
+        {
+            TriggerCooldown(5f);
+
+            // Actual Damage Calculation
+            float damage = Mathf.Abs((0.1f * this.transform.localScale.x) * (other.gameObject.GetComponent<Rigidbody2D>().linearVelocityX + other.gameObject.GetComponent<Rigidbody2D>().linearVelocityY)) / 40; 
+            // Rounding to 2dp
+            damage = float.Parse(damage.ToString("n2"));
+
+            other.gameObject.GetComponent<PlayerShip>().DecreaseHealth(damage); // Change how much damage depending on Size
+        }    
+    }
+
+    void TriggerCooldown(float cooldownDuration)
+    {
+        StartCoroutine(ScriptUtils.BooleanDelay(
+            () => canDamagePlayer,         // Getter: how to read the bool
+            value => canDamagePlayer = value, // Setter: how to modify the bool
+            cooldownDuration));      // Duration of the cooldown
+    }
+
+    void IsDestroyed() // uses animation to be destroyed and whatnot
+    {
+        animator.SetBool("Destroyed",true);
+    }
+
+    void DestroyThis()
+    {
+        GameObject.Destroy(this.gameObject);
+    }
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        //Set Variables
+        animator = this.GetComponent<Animator>();
+
+
+        // Randomly change size
+        float scaleRandomChange = UnityEngine.Random.Range(0.0f, 0.8f);
+
+        this.transform.localScale = new Vector3(this.transform.localScale.x - scaleRandomChange, this.transform.localScale.y - scaleRandomChange);
+        asteroidHealth -= scaleRandomChange; // also scale health with asteroid size
+    }
+}

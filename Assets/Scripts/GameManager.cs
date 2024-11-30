@@ -6,7 +6,7 @@ public static class GameManager
 {
     private static int score = 0;
 
-    private static string playerName;
+    private static string currentPlayerName;
 
     public static int GetScore()
     {
@@ -21,14 +21,14 @@ public static class GameManager
         score ++;
     }
 
-    public static string GetPlayerName()
+    public static string GetCurrentPlayerName()
     {
-        return playerName;
+        return currentPlayerName;
     }
 
-    public static void SetPlayerName(string name)
+    public static void SetCurrentPlayerName(string name)
     {
-        playerName = name;
+        currentPlayerName = name;
     }
 
     public static IEnumerator GameOver()

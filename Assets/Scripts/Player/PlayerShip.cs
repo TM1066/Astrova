@@ -1,12 +1,10 @@
 using System.Collections;
 using System;
 using UnityEngine;
-using UnityEngine.UIElements;
-using UnityEngine.Analytics;
-using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.ParticleSystemJobs;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 public class PlayerShip : MonoBehaviour
 {
@@ -21,34 +19,12 @@ public class PlayerShip : MonoBehaviour
     [SerializeField] SpriteRenderer lightsRendererSprite;
     [SerializeField] Light2D bodyLight;
 
-    //Really don't like how I'm doing this right now, dumbbb
-
-    [SerializeField] SpriteRenderer engineMainRendererSprite;
-    [SerializeField] ParticleSystem engineMainParticles;
-    [SerializeField] Light2D mainEngineLight;
-
-    [SerializeField] SpriteRenderer engineLeftRendererSprite;
-    [SerializeField] ParticleSystem engineLeftParticles;
-    [SerializeField] Light2D leftEngineLight;
-
-    [SerializeField] SpriteRenderer engineRightRendererSprite;
-    [SerializeField] ParticleSystem engineRightParticles;
-    [SerializeField] Light2D rightEngineLight;
-
-    [SerializeField] SpriteRenderer engineFrontRightRendererSprite;
-    [SerializeField] ParticleSystem engineFrontRightParticles;
-    [SerializeField] Light2D frontRightEngineLight;
-
-    [SerializeField] SpriteRenderer engineFrontLeftRendererSprite;
-    [SerializeField] ParticleSystem engineFrontLeftParticles;
-    [SerializeField] Light2D frontLeftEngineLight;
-
-    // BETTER IMPLEMENTATION BUT NOT DONE YET
     [SerializeField] Engine[] leftFireEngines; // Engines on the right side
     [SerializeField] Engine[] rightFireEngines; // Engine on the left side
     [SerializeField] Engine[] mainFireEngines; // Main Big Engines/Engine
+    [SerializeField] Engine[] backFireEngines; // Engines on the front of the ship so you fire them to go backwards
 
-    private List<SpriteRenderer> engineSpriteRenderers = new List<SpriteRenderer>();
+    private List<Engine> allEngines = new List<Engine>();
 
     // Shootings
     private bool canShoot = true;
@@ -66,28 +42,58 @@ public class PlayerShip : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //Populating  lists
-        engineSpriteRenderers.Add(engineRightRendererSprite);
-        engineSpriteRenderers.Add(engineLeftRendererSprite);
-        engineSpriteRenderers.Add(engineMainRendererSprite);
-        engineSpriteRenderers.Add(engineFrontLeftRendererSprite);
-        engineSpriteRenderers.Add(engineFrontRightRendererSprite);
+        //Populating lists - AAAAAAAAA
+        foreach (var engine in leftFireEngines)
+        {
+            if (allEngines.Contains(engine))
+            {
+                
+            }
+            else 
+            {
+                allEngines.Add(engine);
+            }
+        }
+        foreach (var engine in rightFireEngines)
+        {
+            if (allEngines.Contains(engine))
+            {
+                
+            }
+            else 
+            {
+                allEngines.Add(engine);
+            }
+        }
+        foreach (var engine in backFireEngines)
+        {
+            if (allEngines.Contains(engine))
+            {
+                
+            }
+            else 
+            {
+                allEngines.Add(engine);
+            }
+        }
+        foreach (var engine in mainFireEngines)
+        {
+            if (allEngines.Contains(engine))
+            {
+                
+            }
+            else 
+            {
+                allEngines.Add(engine);
+            }
+        }
 
 
         //Starting Coroutines
         StartCoroutine(ShootHandler());
         StartCoroutine(HandleLightingIntensity());
 
-        Color shipColor = ScriptUtils.GetRandomColorFromSeed();
-
-        lightsRendererSprite.color = shipColor;
-        bodyLight.color = shipColor;
-
-        engineFrontLeftRendererSprite. color = shipColor;
-        engineFrontRightRendererSprite. color = shipColor;
-        engineLeftRendererSprite. color = shipColor;
-        engineRightRendererSprite. color = shipColor;
-        engineMainRendererSprite. color = shipColor;
+        SetColor(ScriptUtils.GetRandomColorFromSeed());
     }
 
     // Update is called once per frame
@@ -99,6 +105,10 @@ public class PlayerShip : MonoBehaviour
             if (Input.GetKey(KeyCode.UpArrow))
             {
                 rig.AddRelativeForceY(movementSpeed * shipHealth); //AAAAAAAAAAAAAA THIS WAS SO EASY IM SO DUMB
+            }
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                rig.AddRelativeForceY(-(movementSpeed * shipHealth)); 
             }
             if (Input.GetKey(KeyCode.LeftArrow)) // I could cap these but I'm leaving them for now because they're funny
             {
@@ -155,25 +165,20 @@ public class PlayerShip : MonoBehaviour
 
         //Emission System Nonsense - tying it into engine alpha to make it easierrr
 
-        var mainEngineParticlesMain = engineMainParticles.main;
-        mainEngineParticlesMain.startColor = engineMainRendererSprite.color;
-
-        var leftEngineParticlesMain = engineLeftParticles.main;
-        leftEngineParticlesMain.startColor = engineLeftRendererSprite.color;
-
-        var rightEngineParticlesMain = engineRightParticles.main;
-        rightEngineParticlesMain.startColor = engineRightRendererSprite.color;
-
-        var frontRightEngineParticlesMain = engineFrontRightParticles.main;
-        frontRightEngineParticlesMain.startColor = engineFrontRightRendererSprite.color;
-
-        var frontLeftEngineParticlesMain = engineFrontLeftParticles.main;
-        frontLeftEngineParticlesMain.startColor = engineFrontLeftRendererSprite.color;
-
+        foreach (var engine in allEngines)
+        {
+            var EngineParticlesMain = engine.particleEmitter.main;
+            EngineParticlesMain.startColor = CalculateColorBasedOnHealth(engine.spriteRenderer.color, Color.red); // have Engines shoot out more red Color as ship gets damaged
+        }
     }
 
 
     //INTERNAL METHODS
+    private Color CalculateColorBasedOnHealth(Color startColor, Color endColor)
+    {
+        return new Color (Color.Lerp(endColor, startColor, shipHealth).r, Color.Lerp(endColor, startColor, shipHealth).g, Color.Lerp(endColor, startColor, shipHealth).b, startColor.a); // weird but works & retains start alpha
+    }
+
     private float AddWithMax(float floatToAddTo, float floatToAdd, float maxValue)
     {
         if ((floatToAddTo + floatToAdd) < maxValue)
@@ -188,32 +193,39 @@ public class PlayerShip : MonoBehaviour
 
     private IEnumerator HandleLightingIntensity()
     {
-
+            
         while (true)
         {
+            List<Color> rightFireEnginesColors = new List<Color>();
+            List<Color> leftFireEnginesColors = new List<Color>();
+            List<Color> mainFireEnginesColors = new List<Color>();
+            List<Color> backFireEnginesColors = new List<Color>();
+
+            foreach (var engine in rightFireEngines)
+            {
+                rightFireEnginesColors.Add(engine.spriteRenderer.color);
+            }
+            foreach (var engine in leftFireEngines)
+            {
+                leftFireEnginesColors.Add(engine.spriteRenderer.color);
+            }
+            foreach (var engine in mainFireEngines)
+            {
+                mainFireEnginesColors.Add(engine.spriteRenderer.color);
+            }
+            foreach (var engine in backFireEngines)
+            {
+                backFireEnginesColors.Add(engine.spriteRenderer.color);
+            }
+
+
             Color lightsTempColor = lightsRendererSprite.color;  //We want the lights of the ship to light up more when Shooting and decrease when not
-            Color engineRightTempColor = engineRightRendererSprite.color;
-            Color engineLeftTempColor = engineLeftRendererSprite.color;
-            Color engineMainTempColor = engineMainRendererSprite.color;
-            Color engineFrontLeftTempColor = engineFrontLeftRendererSprite.color;
-            Color engineFrontRightTempColor = engineFrontRightRendererSprite.color;
-
-
-            if (Input.GetKey(KeyCode.Z))
-            {
-                lightsTempColor.a += AddWithMax(lightsTempColor.a, 0.01f, 1.5f);
-            }
-            else 
-            {
-                if (lightsTempColor.a - 0.01f >= 0)
-                {
-                    lightsTempColor.a -= (0.01f) / 15f ;
-                }
-                else 
-                {
-                    lightsTempColor.a = 0;
-                }
-            }
+            
+            Color rightFireEnginesTempColor = ScriptUtils.GetAverageColor(rightFireEnginesColors);
+            Color engineRightTempColor = ScriptUtils.GetAverageColor(rightFireEnginesColors);
+            Color engineLeftTempColor = ScriptUtils.GetAverageColor(leftFireEnginesColors);
+            Color engineMainTempColor = mainFireEnginesColors[0];
+            Color engineBackTempColor = ScriptUtils.GetAverageColor(backFireEnginesColors);
 
             if (Input.GetKey(KeyCode.LeftArrow)) // Right Engine for Moving Left
             {
@@ -263,13 +275,28 @@ public class PlayerShip : MonoBehaviour
                 }
             }
 
+            if (Input.GetKey(KeyCode.DownArrow)) // Right Engine for Moving Left
+            {
+                engineBackTempColor.a += AddWithMax(engineBackTempColor.a, 0.01f, 1.5f);
+            }
+            else 
+            {
+                if (engineBackTempColor.a - 0.01f >= 0)
+                {
+                    engineBackTempColor.a -= (0.05f) / 15f ;
+                }
+                else 
+                {
+                    engineBackTempColor.a = 0;
+                }
+            }
+
             if (Input.GetKey(KeyCode.Space)) // Fire all Engines to slow down
             {
                 engineMainTempColor.a += AddWithMax(engineMainTempColor.a, 0.01f, UnityEngine.Random.Range(1.0f, 1.5f));
                 engineRightTempColor.a += AddWithMax(engineRightTempColor.a, 0.01f, UnityEngine.Random.Range(1.0f, 1.5f));
                 engineLeftTempColor.a += AddWithMax(engineLeftTempColor.a, 0.01f, UnityEngine.Random.Range(1.0f, 1.5f));
-                engineFrontLeftTempColor.a += AddWithMax(engineFrontLeftTempColor.a, 0.01f, UnityEngine.Random.Range(1.0f, 2f));
-                engineFrontRightTempColor.a += AddWithMax(engineFrontRightTempColor.a, 0.01f, UnityEngine.Random.Range(1.0f, 2f));
+                engineBackTempColor.a += AddWithMax(engineBackTempColor.a, 0.01f, UnityEngine.Random.Range(1.0f, 1.5f));
             }
             else 
             {
@@ -300,42 +327,44 @@ public class PlayerShip : MonoBehaviour
                     engineRightTempColor.a = 0;
                 }
 
-                if (engineFrontRightTempColor.a - 0.01f >= 0)
+                if (engineBackTempColor.a - 0.01f >= 0)
                 {
-                    engineFrontRightTempColor.a -= (0.05f) / 15f ;
+                    engineBackTempColor.a -= (0.05f) / 15f ;
                 }
                 else 
                 {
-                    engineFrontRightTempColor.a = 0;
-                }
-
-                if (engineFrontLeftTempColor.a - 0.01f >= 0)
-                {
-                    engineFrontLeftTempColor.a -= (0.05f) / 15f ;
-                }
-                else 
-                {
-                    engineFrontLeftTempColor.a = 0;
+                    engineBackTempColor.a = 0;
                 }
             }
 
-            lightsRendererSprite.color = lightsTempColor;
-            bodyLight.color = lightsTempColor;
+            lightsRendererSprite.color = CalculateColorBasedOnHealth(lightsTempColor, new Color(lightsRendererSprite.color.r, lightsRendererSprite.color.g, lightsRendererSprite.color.b,0f));
+            if (lightsRendererSprite.color.a <= 0.25f)
+            {
+                canShoot = true;
+            }
+            bodyLight.color = CalculateColorBasedOnHealth(lightsTempColor, Color.clear);
 
-            engineLeftRendererSprite.color = engineLeftTempColor;
-            leftEngineLight.color = engineLeftTempColor;
 
-            engineRightRendererSprite.color = engineRightTempColor;
-            rightEngineLight.color = engineRightTempColor;
-
-            engineMainRendererSprite.color = engineMainTempColor;
-            mainEngineLight.color = engineMainTempColor;
-
-            engineFrontLeftRendererSprite.color = engineFrontLeftTempColor;
-            frontLeftEngineLight.color = engineFrontLeftTempColor;
-
-            engineFrontRightRendererSprite.color = engineFrontRightTempColor;
-            frontRightEngineLight.color = engineFrontRightTempColor;
+            foreach (var engine in leftFireEngines)
+            {
+                engine.spriteRenderer.color = Color.Lerp(engineLeftTempColor,CalculateColorBasedOnHealth(engineLeftTempColor, Color.red), 0.001f); // Less intense than particles
+                engine.lightSource.color = Color.Lerp(engineLeftTempColor,CalculateColorBasedOnHealth(engineLeftTempColor, Color.red), 0.001f);
+            }
+            foreach (var engine in rightFireEngines)
+            {
+                engine.spriteRenderer.color = Color.Lerp(engineRightTempColor,CalculateColorBasedOnHealth(engineRightTempColor, Color.red), 0.001f);
+                engine.lightSource.color = Color.Lerp(engineRightTempColor,CalculateColorBasedOnHealth(engineRightTempColor, Color.red), 0.001f);
+            }
+            foreach (var engine in mainFireEngines)
+            {
+                engine.spriteRenderer.color = Color.Lerp(engineMainTempColor, CalculateColorBasedOnHealth(engineMainTempColor, Color.red), 0.001f);
+                engine.lightSource.color =Color.Lerp(engineMainTempColor, CalculateColorBasedOnHealth(engineMainTempColor, Color.red), 0.001f);
+            }
+            foreach (var engine in backFireEngines)
+            {
+                engine.spriteRenderer.color = engineBackTempColor;
+                engine.lightSource.color = engineBackTempColor;
+            }
 
             yield return null;
         }
@@ -343,10 +372,10 @@ public class PlayerShip : MonoBehaviour
 
     private IEnumerator ShootHandler()
     {
-        while (canShoot)
+        while (gameObject)
         {
             //Shootings
-            if (Input.GetKey(KeyCode.Z))
+            if (Input.GetKey(KeyCode.Z) && canShoot)
             {
                 Vector2 offset = this.transform.up * 2; // 'up' is relative to the ship's rotation
 
@@ -358,7 +387,11 @@ public class PlayerShip : MonoBehaviour
 
                 StartCoroutine(ScriptUtils.PositionLerp(projectile.transform, projectile.transform.position, this.transform.up * 1000,  20.5f - (rig.linearVelocityX / 10) - (rig.linearVelocityY / 10)));
             }
-            yield return new WaitForSeconds(0.7f); // Cooldown
+            else 
+            {
+                UiUtils.ShowMessage("Can't Shoot","Your Weapons are offline!",new Vector2(200,200),false);
+            }
+            yield return new WaitForSeconds(0.5f); // Cooldown
         }   
     }
 
@@ -389,7 +422,12 @@ public class PlayerShip : MonoBehaviour
 
     public void SetColor(Color color)
     {
+        lightsRendererSprite.color = new Color (color.r, color.g, color.b,1.5f);
+        bodyLight.color = color;
 
+        foreach (var engine in allEngines)
+        {
+            engine.spriteRenderer.color = color;
+        }
     }
-
 }

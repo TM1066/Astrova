@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.ParticleSystemJobs;
 
 public class Asteroid : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class Asteroid : MonoBehaviour
 
     private bool canDamagePlayer;
 
-    private Animator animator;
+    private ParticleSystem destructionParticleSystem;
 
     private void OnTriggerEnter2D(Collider2D collision) 
     {
@@ -19,7 +20,7 @@ public class Asteroid : MonoBehaviour
             if (asteroidHealth <= 0)
             {
                 GameManager.IncrementScore();
-                IsDestroyed();
+               DestroyThis();
             } 
             GameObject.Destroy(collision.GameObject());
         }
@@ -48,13 +49,10 @@ public class Asteroid : MonoBehaviour
             cooldownDuration));      // Duration of the cooldown
     }
 
-    void IsDestroyed() // uses animation to be destroyed and whatnot
+    private void DestroyThis() // blows up asteroid
     {
-        animator.SetBool("Destroyed",true);
-    }
+        destructionParticleSystem.Emit(50);
 
-    void DestroyThis()
-    {
         GameObject.Destroy(this.gameObject);
     }
 
@@ -62,8 +60,7 @@ public class Asteroid : MonoBehaviour
     void Start()
     {
         //Set Variables
-        animator = this.GetComponent<Animator>();
-
+        destructionParticleSystem = this.GetComponent<ParticleSystem>();
 
         // Randomly change size
         float scaleRandomChange = UnityEngine.Random.Range(0.0f, 0.8f);

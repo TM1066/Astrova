@@ -27,8 +27,6 @@ public class AsteroidManager : MonoBehaviour
 
     private void OnTriggerExit2D (Collider2D other)
     {
-        //Debug.Log("Something Has left the Asteroid Zone");
-
         if (other.gameObject.CompareTag("Player"))
         {
             //Debug.Log("The Player Has left the Asteroid Zone");
@@ -39,7 +37,6 @@ public class AsteroidManager : MonoBehaviour
             this.transform.position = GameObject.Find("SpaceShip").transform.position;
         }
     }
-
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -57,7 +54,6 @@ public class AsteroidManager : MonoBehaviour
     private void SpawnAsteroid (UnityEngine.Vector2 spawnLocation, Transform parent)
     {
         GameObject asteroid = Instantiate(asteroidPrefab,this.transform);
-        asteroid.transform.position = spawnLocation;
 
         asteroid.GetComponent<SpriteRenderer>().sprite = asteroidPossibleSprites[UnityEngine.Random.Range(0,asteroidPossibleSprites.Count)]; // Randomise Sprite
         ScriptUtils.RegeneratePolygonCollider2DPoints(asteroid.GetComponent<PolygonCollider2D>(), asteroid.GetComponent<SpriteRenderer>().sprite); // Regenerate Collider Mesh Depending on Sprite
@@ -67,22 +63,32 @@ public class AsteroidManager : MonoBehaviour
 
         asteroid.transform.SetParent(parent);
 
+        asteroid.transform.position = spawnLocation;
+
         currentAsteroids.Add(asteroid);
     }
 
     private void GetRidOfNonVisibleAsteroids()
+{
+    foreach (GameObject asteroid in currentAsteroids)
     {
-        foreach (GameObject asteroid in currentAsteroids)
+        if (asteroid != null)
         {
-            if (asteroid != null)
+            UnityEngine.Vector3 screenPosition = Camera.main.WorldToScreenPoint(asteroid.transform.position);
+
+            // Check if the asteroid is outside the screen bounds
+            if (screenPosition.x < 0 || screenPosition.x > Screen.width || screenPosition.y < 0 || screenPosition.y > Screen.height || screenPosition.z < 0) // z < 0 means the object is behind the camera
             {
-                if (Camera.main.WorldToScreenPoint(asteroid.transform.position).x > 0 && Camera.main.WorldToScreenPoint(asteroid.transform.position).x < 1 && Camera.main.WorldToScreenPoint(asteroid.transform.position).y < 1 && Camera.main.WorldToScreenPoint(asteroid.transform.position).y > 0) // checks if the asteroid is seen by the Player
-                {
-                    asteroid.GetComponent<SpriteRenderer>().color = Color.blue;
-                }
+                Destroy(asteroid); // Remove the asteroid if it's not visible
+            }
+            else
+            {
+                // For debugging: Color the visible asteroids
+                asteroid.GetComponent<SpriteRenderer>().color = Color.blue;
             }
         }
     }
+}
 
     private void PopulateAsteroids()
     {

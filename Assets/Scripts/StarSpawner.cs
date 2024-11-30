@@ -14,13 +14,6 @@ public class StarSpawner : MonoBehaviour
         SetStarBG();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
     private void SetStarBG()
     {
         List<Vector3> starPositions = new List<Vector3>();

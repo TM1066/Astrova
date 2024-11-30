@@ -1,16 +1,10 @@
 using UnityEngine;
+using UnityEngine.ParticleSystemJobs;
+using UnityEngine.Rendering.Universal;
 
 public class Engine : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public SpriteRenderer spriteRenderer;
+    public Light2D lightSource;
+    public ParticleSystem particleEmitter;
 }

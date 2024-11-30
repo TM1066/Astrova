@@ -28,7 +28,10 @@ public class GameTracker : MonoBehaviour
         // ACTUAL CODE TO BE RUN LITERALLY THE SECOND THE GAME STARTS (before first frame)
 
         //Will come from user input soon
-        UnityEngine.Random.InitState(ScriptUtils.GetNumberFromString("Taylor   "));
+        //UnityEngine.Random.InitState(ScriptUtils.GetNumberFromString("Taylor"));
+
+        Time.timeScale = 0f;
+
 
     }
 

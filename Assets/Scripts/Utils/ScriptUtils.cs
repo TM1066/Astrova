@@ -5,6 +5,26 @@ using System;
 
 public static class ScriptUtils
 {
+    public static Color GetAverageColor(List<Color> colors)
+    {
+        if (colors == null || colors.Count == 0)
+        {
+            return Color.clear; // Default to clear if no colors are provided
+        }
+
+        float r = 0f, g = 0f, b = 0f, a = 0f;
+
+        foreach (Color color in colors)
+        {
+            r += color.r;
+            g += color.g;
+            b += color.b;
+            a += color.a;
+        }
+
+        int count = colors.Count;
+        return new Color(r / count, g / count, b / count, a / count);
+    }
 
     public static int GetNumberFromString(string chars)
     {

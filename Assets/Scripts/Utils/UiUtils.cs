@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.UIElements;
+using UnityEditor.Animations;
 
 public static class UiUtils 
 {
@@ -13,11 +14,13 @@ public static class UiUtils
 
         textGO.transform.position = position;
 
-        textGO.transform.localScale = new Vector2(1f, 1f);
+        textGO.transform.localScale = new Vector2(3f, 3f);
 
         textGO.AddComponent<TextMeshProUGUI>();
         textGO.GetComponent<TextMeshProUGUI>().text = messageContents; 
-        textGO.GetComponent<TextMeshProUGUI>().font = Resources.Load<TMP_FontAsset>("Assets/Visual/Resources/Fonts/Silkscreen-Regular.ttf"); // Set Font
+        textGO.GetComponent<TextMeshProUGUI>().font = GameObject.Find("Game Tracker").GetComponent<GameTracker>().defaultFontAsset; // Set Font'
+
+        textGO.AddComponent<Animator>();
 
         if (backGroundPanel != null)
         {

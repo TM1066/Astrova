@@ -87,13 +87,12 @@ public class AsteroidManager : MonoBehaviour
         asteroid.GetComponent<Rigidbody2D>().linearVelocity = new UnityEngine.Vector2(UnityEngine.Random.Range(-5,5), UnityEngine.Random.Range(-5,5)); // Random Direction
         asteroid.GetComponent<Rigidbody2D>().angularVelocity = UnityEngine.Random.Range(-80f,80f); // Random Spin
 
-        while (asteroid.GetComponent<Asteroid>().IsVisible)
-        {
-            asteroid.transform.position = new UnityEngine.Vector2(UnityEngine.Random.Range(-maxSpawnWidth + 5, maxSpawnWidth - 5), UnityEngine.Random.Range(-maxSpawnHeight + 5, maxSpawnWidth - 5));
+        // while (asteroid.GetComponent<Asteroid>().IsVisible)
+        // {
+        //     asteroid.transform.position = new UnityEngine.Vector2(UnityEngine.Random.Range(-maxSpawnWidth + 5, maxSpawnWidth - 5), UnityEngine.Random.Range(-maxSpawnHeight + 5, maxSpawnWidth - 5));
 
-            SpawnAsteroid(new UnityEngine.Vector2(UnityEngine.Random.Range(-maxSpawnWidth + 5, maxSpawnWidth - 5), UnityEngine.Random.Range(-maxSpawnHeight + 5, maxSpawnWidth - 5)));
-        }
-
+        //     SpawnAsteroid(new UnityEngine.Vector2(UnityEngine.Random.Range(-maxSpawnWidth + 5, maxSpawnWidth - 5), UnityEngine.Random.Range(-maxSpawnHeight + 5, maxSpawnWidth - 5)));
+        // }
         currentAsteroids.Add(asteroid);
     }
 

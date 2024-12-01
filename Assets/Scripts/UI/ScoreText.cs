@@ -10,11 +10,11 @@ public class ScoreText : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        scoreText.text = "Score:" + GameManager.GetScore().ToString();
+        scoreText.text = "Score:" + GameManager.GetCurrentScore().ToString();
     }
 
     void Update()
     {
-        scoreText.text = "Score:" + GameManager.GetScore().ToString();
+        scoreText.text = "Score:" + GameManager.GetCurrentScore().ToString();
     }
 }

@@ -5,7 +5,8 @@ public class TurretEnemy : MonoBehaviour
 {
     private GameObject player;
 
-    private SpriteRenderer spriteRenderer;
+    private SpriteRenderer chassisSpriteRenderer;
+    private SpriteRenderer lightsSpriteRenderer;
     private Color thisColor;
 
     [SerializeField] float angleOffset;
@@ -19,11 +20,17 @@ public class TurretEnemy : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        //Setting up Variables
         player = GameObject.Find("SpaceShip");
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.color = ScriptUtils.GetComplimentaryColor(GameManager.GetCurrentUserColorFullAlpha());
-        thisColor = spriteRenderer.color;
+        chassisSpriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        chassisSpriteRenderer.color = ScriptUtils.GetComplimentaryColor(GameManager.GetCurrentUserColorFullAlpha());
+        thisColor = chassisSpriteRenderer.color;
 
+        lightsSpriteRenderer = transform.GetChild(2).GetComponent<SpriteRenderer>();
+        lightsSpriteRenderer.color = thisColor;
+
+
+        //Starting Coroutines
         StartCoroutine(ShootHandler());
     }
 
@@ -52,7 +59,7 @@ public class TurretEnemy : MonoBehaviour
             //Shootings
             if (Random.Range(0, 2) == 1)
             {
-                Vector2 offset = -this.transform.up * 1.5f; // 'up' is relative to the ship's rotation
+                Vector2 offset = this.transform.up * 1.5f; // 'up' is relative to the ship's rotation
 
                 GameObject projectile = Instantiate(projectilePrefab, (Vector2) this.transform.position + offset, this.transform.localRotation); // Offset so it's not inside the enemy
                 projectile.GetComponent<Projectile>().SetDamage(projectileDamage);
@@ -61,7 +68,7 @@ public class TurretEnemy : MonoBehaviour
                 //Change Projectile Color to match lights
                 projectile.GetComponent<SpriteRenderer>().color = new Color (thisColor.r, thisColor.g, thisColor.b, 1f);
 
-                StartCoroutine(ScriptUtils.PositionLerp(projectile.transform, projectile.transform.position, -this.transform.up * 1000,  25.5f));
+                StartCoroutine(ScriptUtils.PositionLerp(projectile.transform, projectile.transform.position, this.transform.up * 1000,  25.5f));
             }
             yield return new WaitForSeconds(1.5f); // Cooldown
         }   
@@ -69,18 +76,7 @@ public class TurretEnemy : MonoBehaviour
 
     private void Die()
     {
-        GameManager.AddToScore(5);
+        GameManager.AddToCurrentScore(5);
         Destroy(gameObject);
     }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Projectile"))
-        {   
-            health -= ScriptUtils.SubtractWithMin(health, other.GetComponent<Projectile>().GetDamage(), 0.07f);
-            Destroy(other);
-            Debug.Log("Hit Enemy");
-        }
-    }
-
 }

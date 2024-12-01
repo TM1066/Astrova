@@ -3,10 +3,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.AI;
+using TMPro;
+using UnityEditor.Animations;
 
 public class GameTracker : MonoBehaviour
 {
     private static GameTracker instance = null;
+
+    // Variables to be pulled from for other scripts
+
+    public TMP_FontAsset defaultFontAsset;
+
+    public AnimatorController uiMessageAnimator;
 
     //public static User user; - Trying to keep this in GameManager
 
@@ -18,6 +26,7 @@ public class GameTracker : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject); // Keep this object across scenes
+            GameManager.LoadLeaderboard();
         }
         else
         {

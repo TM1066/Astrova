@@ -146,6 +146,13 @@ public class NameInput : MonoBehaviour
             seedString += charInputValueDictionary[charInputField];
         }
 
+        seedString = seedString.Trim(' ');
+
+        if (seedString == "")
+        {
+            seedString = "Anonymous";
+        }
+
         Debug.Log($"Random seed will be generated from string: {seedString}");
         GameManager.SetCurrentUserName(seedString);
         UnityEngine.Random.InitState(ScriptUtils.GetNumberFromString(seedString));

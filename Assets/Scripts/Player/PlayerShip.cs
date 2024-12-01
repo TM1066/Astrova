@@ -33,7 +33,7 @@ public class PlayerShip : MonoBehaviour
 
     // GAME VARIABLES
     [SerializeField] float shipHealth = 1f; // Keep between 1 and 0 and just either display * 100 or as a bar
-    [SerializeField] float minHealth = 0.07f;
+    [SerializeField] float minHealth = 0.15f;
     [SerializeField] float projectileDamage = 0.33f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -216,7 +216,7 @@ public class PlayerShip : MonoBehaviour
             Color engineBackTempColor = ScriptUtils.GetAverageColor(backFireEnginesColors);
             Color engineBackHealthColor = CalculateColorBasedOnHealth(engineBackTempColor, Color.red);
 
-            if (Input.GetKey(KeyCode.LeftArrow)) // Right Engine for Moving Left
+            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) // Right Engine for Moving Left
             {
                 engineRightTempColor.a += ScriptUtils.AddWithMax(engineRightTempColor.a, 0.01f, 1.5f);
             }
@@ -232,7 +232,7 @@ public class PlayerShip : MonoBehaviour
                 }
             }
 
-            if (Input.GetKey(KeyCode.RightArrow)) // Right Engine for Moving Left
+            if (Input.GetKey(KeyCode.RightArrow)|| Input.GetKey(KeyCode.D)) // Right Engine for Moving Left
             {
                 engineLeftTempColor.a += ScriptUtils.AddWithMax(engineLeftTempColor.a, 0.01f, 1.5f);
             }
@@ -264,7 +264,7 @@ public class PlayerShip : MonoBehaviour
                 }
             }
 
-            if (Input.GetKey(KeyCode.DownArrow)) // Right Engine for Moving Left
+            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.J)) // Right Engine for Moving Left
             {
                 engineBackTempColor.a += ScriptUtils.AddWithMax(engineBackTempColor.a, 0.01f, 1.5f);
             }
@@ -280,7 +280,7 @@ public class PlayerShip : MonoBehaviour
                 }
             }
 
-            if (Input.GetKey(KeyCode.Space)) // Fire all Engines to slow down
+            if (Input.GetKey(KeyCode.N)|| Input.GetKey(KeyCode.L)) // Fire all Engines to slow down
             {
                 engineMainTempColor.a += ScriptUtils.AddWithMax(engineMainTempColor.a, 0.01f, UnityEngine.Random.Range(1.0f, 1.5f));
                 engineRightTempColor.a += ScriptUtils.AddWithMax(engineRightTempColor.a, 0.01f, UnityEngine.Random.Range(1.0f, 1.5f));

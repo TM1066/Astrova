@@ -6,14 +6,11 @@ using System.Collections.Generic;
 
 public static class GameManager
 {
-    private static int score = 0;
-
-    private static User currentUser = new User(" ", 0, Color.white);
-
+    private static User currentUser = new User(" ", 0, Color.cyan);
 
     // LEADERBOARD LOADING NONSENSE
     private static string leaderboardFilePath = Path.Combine(Application.persistentDataPath, "leaderboard.json");
-    public static List<User> leaderboard = new List<User>();
+    public static List<User> leaderboard = new List<User>( new User[10] );
 
     public static void LoadLeaderboard()
     {
@@ -28,6 +25,7 @@ public static class GameManager
         else
         {
             Debug.Log("No leaderboard file found; starting fresh.");
+            SaveLeaderboard();
         }
     }
     public static void SaveLeaderboard()
@@ -39,31 +37,35 @@ public static class GameManager
 
     public static void AddUserToLeaderboard(string userName, int score, Color userColor)
     {
-        User newUser = new User(userName, score, userColor);
-        leaderboard.Add(newUser);
+        // check if the Player's score is higher than the lowest score on leaderboard / the lowest entry is empty
 
-        // Sort leaderboard by score (descending)
-        leaderboard.Sort((a, b) => b.score.CompareTo(a.score));
-
-        SaveLeaderboard();
+        if (leaderboard.Count == 10 && score > leaderboard[9].score)
+        {
+            leaderboard.RemoveAt(9);
+            leaderboard.Add(new User(userName, score, userColor));
+        }
+        else if (leaderboard.Count < 10)
+        {
+            leaderboard.Add(new User(userName, score, userColor));
+        }
     }
     // END OF LEADERBOARD NONSENSE
 
-    public static int GetScore()
+    public static int GetCurrentScore()
     {
-        return score;
+        return currentUser.score;
     }
-    public static void SetScore(int setScore)
+    public static void SetCurrentScore(int setScore)
     {
-        score = setScore;
+        currentUser.score = setScore;
     }
-    public static void IncrementScore()
+    public static void IncrementCurrentScore()
     {
-        score ++;
+        currentUser.score ++;
     }
-    public static void AddToScore(int toAdd)
+    public static void AddToCurrentScore(int toAdd)
     {
-        score += toAdd;
+        currentUser.score += toAdd;
     }
 
     public static string GetCurrentUserName()
@@ -103,7 +105,7 @@ public static class GameManager
 
         yield return new WaitForSecondsRealtime(5f);
 
-        SceneManager.LoadScene("End Screen"); // Reload Scene
+        SceneManager.LoadScene("End Scene"); // Reload Scene
         Time.timeScale = 1f;
     }
 }

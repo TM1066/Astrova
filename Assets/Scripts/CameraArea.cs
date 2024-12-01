@@ -1,7 +1,4 @@
-using System.Net.Http.Headers;
-using UnityEditor.VisionOS;
 using UnityEngine;
-using UnityEngine.InputSystem.LowLevel;
 
 public class CameraArea : MonoBehaviour
 {

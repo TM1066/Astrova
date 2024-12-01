@@ -22,7 +22,7 @@ public class Asteroid : MonoBehaviour
 
             if (asteroidHealth <= 0)
             {
-                GameManager.IncrementScore();
+                GameManager.IncrementCurrentScore();
                DestroyThis();
             } 
 
@@ -87,5 +87,9 @@ public class Asteroid : MonoBehaviour
     private void OnApplicationQuit()
     {
         Destroy(gameObject);
+    }
+    void OnLevelWasLoaded(int level)
+    {
+       Destroy(gameObject);
     }
 }

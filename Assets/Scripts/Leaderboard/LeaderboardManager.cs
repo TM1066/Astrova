@@ -16,10 +16,33 @@ public class LeaderboardManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // Setting up all entries on Leaderboard
+        foreach (TextMeshProUGUI scoreText in scoreTexts)
+        {
+            scoreText.text = "";
+        }
+        foreach (TextMeshProUGUI nameText in nameTexts)
+        {
+            nameText.text = "";
+        }
+        foreach (Image image in colorDisplays)
+        {
+            image.color = Color.clear;
+        }
+
+        // Sequence VERY important here
+
+        int leaderboardAccessIndex = 0;
         foreach (User user in GameManager.leaderboard)
-    {
-        Debug.Log($"Name: {user.userName}, Score: {user.score}, Color: {user.hexColorString}");
-    }
+        {
+            Debug.Log($"Name: {user.userName}, Score: {user.score}, Color: {user.color}");
+
+            nameTexts[leaderboardAccessIndex].text = user.userName;
+            colorDisplays[leaderboardAccessIndex].color = new Color(user.color.r, user.color.g, user.color.b, 1f);
+            scoreTexts[leaderboardAccessIndex].text = user.score.ToString();
+
+            leaderboardAccessIndex++;
+        }
     }
 
     // Update is called once per frame

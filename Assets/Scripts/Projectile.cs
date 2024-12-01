@@ -9,7 +9,7 @@ public class Projectile : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        projectileDamage = GameObject.Find("SpaceShip").GetComponent<PlayerShip>().GetProjectileDamage();
+
     }
 
     // Update is called once per frame
@@ -21,5 +21,10 @@ public class Projectile : MonoBehaviour
     public float GetDamage()
     {
         return projectileDamage;
+    }
+
+    public void SetDamage(float damage)
+    {
+        projectileDamage = damage;
     }
 }

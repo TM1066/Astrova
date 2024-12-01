@@ -13,7 +13,7 @@ public static class UiUtils
 
         textGO.transform.position = position;
 
-        textGO.transform.localScale = new Vector2(0.5f, 0.5f);
+        textGO.transform.localScale = new Vector2(1f, 1f);
 
         textGO.AddComponent<TextMeshProUGUI>();
         textGO.GetComponent<TextMeshProUGUI>().text = messageContents; 
@@ -26,7 +26,7 @@ public static class UiUtils
                 GameObject panelGO;
                 panelGO = new GameObject("UI Message Panel");
 
-                panelGO.transform.SetParent(GameObject.Find("Canvas").transform);
+                panelGO.transform.SetParent(GameObject.Find("Canvas").transform,true);
 
                 panelGO.AddComponent<SpriteRenderer>();
                 panelGO.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Assets/Visual/Resources/Sprites/UI/Cube UI Sprite.png"); // Load BG Panel Sprite
@@ -35,7 +35,7 @@ public static class UiUtils
 
                 panelGO.transform.localScale = new Vector2 (2,2);
 
-                textGO.gameObject.transform.SetParent(panelGO.transform);
+                textGO.gameObject.transform.SetParent(panelGO.transform,true);
             }
         }
     }

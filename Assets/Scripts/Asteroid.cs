@@ -6,22 +6,37 @@ using UnityEngine.ParticleSystemJobs;
 
 public class Asteroid : MonoBehaviour
 {
-    private float asteroidHealth = 1f;
+    private float asteroidHealth = 2f;
 
     private bool canDamagePlayer;
+
+    public bool IsVisible;
 
     private ParticleSystem destructionParticleSystem;
 
     private void OnTriggerEnter2D(Collider2D collision) 
     {
-        if(collision.gameObject.CompareTag("Projectile")) 
+        if (collision.gameObject.CompareTag("Projectile")) // Player projectile
         {   
             asteroidHealth -= collision.gameObject.GetComponent<Projectile>().GetDamage();
+
             if (asteroidHealth <= 0)
             {
                 GameManager.IncrementScore();
                DestroyThis();
             } 
+
+            GameObject.Destroy(collision.GameObject());
+        }
+         else if (collision.gameObject.CompareTag("Evil Projectile")) 
+        {   
+            asteroidHealth -= collision.gameObject.GetComponent<Projectile>().GetDamage();
+
+            if (asteroidHealth <= 0)
+            {
+               DestroyThis();
+            } 
+
             GameObject.Destroy(collision.GameObject());
         }
     }
@@ -67,5 +82,10 @@ public class Asteroid : MonoBehaviour
 
         this.transform.localScale = new Vector3(this.transform.localScale.x - scaleRandomChange, this.transform.localScale.y - scaleRandomChange);
         asteroidHealth -= scaleRandomChange; // also scale health with asteroid size
+    }
+
+    private void OnApplicationQuit()
+    {
+        Destroy(gameObject);
     }
 }

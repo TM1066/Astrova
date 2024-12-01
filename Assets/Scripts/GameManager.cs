@@ -1,12 +1,15 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public static class GameManager
 {
     private static int score = 0;
 
-    private static string currentPlayerName;
+    private static List<User> leaderboard;  
+
+    private static User currentUser = new User() {userName = " ", color= Color.white, score = 0};
 
     public static int GetScore()
     {
@@ -21,22 +24,39 @@ public static class GameManager
         score ++;
     }
 
-    public static string GetCurrentPlayerName()
+    public static string GetCurrentUserName()
     {
-        return currentPlayerName;
+        return currentUser.userName;
     }
 
-    public static void SetCurrentPlayerName(string name)
+    public static void SetCurrentUserName(string name)
     {
-        currentPlayerName = name;
+        currentUser.userName = name;
     }
+
+    public static Color GetCurrentUserColor()
+    {
+        return currentUser.color;
+    }
+
+    public static Color GetCurrentUserColorFullAlpha()
+    {
+        return new Color(currentUser.color.r, currentUser.color.g, currentUser.color.b, 1f);
+    }
+
+    public static void SetCurrentUserColor(Color color)
+    {
+        currentUser.color = color;
+    }
+
 
     public static IEnumerator GameOver()
     {
         UiUtils.ShowMessage("GAME OVER","You Died!",UiUtils.GetCentreOfCamera(),true);
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSecondsRealtime(5f);
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload Scene
+        Time.timeScale = 1f;
     }
 }

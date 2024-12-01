@@ -5,12 +5,13 @@ using UnityEngine.Rendering.Universal;
 using UnityEngine.ParticleSystemJobs;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Unity.VisualScripting;
 
 public class PlayerShip : MonoBehaviour
 {
     // Movement
     [SerializeField] Rigidbody2D rig;
-    private float movementSpeed = 0.7f;
+    private float movementSpeed = 10f;
     [SerializeField] Vector2 maxMovementSpeed;
 
 
@@ -32,12 +33,8 @@ public class PlayerShip : MonoBehaviour
 
     // GAME VARIABLES
     [SerializeField] float shipHealth = 1f; // Keep between 1 and 0 and just either display * 100 or as a bar
+    [SerializeField] float minHealth = 0.07f;
     [SerializeField] float projectileDamage = 0.33f;
-
-    public float GetProjectileDamage()
-    {
-        return projectileDamage;
-    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -88,16 +85,14 @@ public class PlayerShip : MonoBehaviour
             }
         }
 
-
         //Starting Coroutines
         StartCoroutine(ShootHandler());
         StartCoroutine(HandleLightingIntensity());
 
-        SetColor(ScriptUtils.GetRandomColorFromSeed());
+        SetColor(GameManager.GetCurrentUserColor());
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {   
         // Handling movement
         if (Input.anyKey)
@@ -124,7 +119,7 @@ public class PlayerShip : MonoBehaviour
             {
                 if (rig.linearVelocity.magnitude > 0.01f)
                 {
-                    rig.linearVelocity *= 0.99f;
+                    rig.linearVelocity *= 0.91f;
                 }
                 else 
                 {
@@ -132,11 +127,11 @@ public class PlayerShip : MonoBehaviour
                 }
                 if (rig.angularVelocity > 0.01f)
                 {
-                    rig.angularVelocity *= 0.99f;
+                    rig.angularVelocity *= 0.91f;
                 }
                 else if (rig.angularVelocity < 0.01f)
                 {
-                    rig.angularVelocity *= 0.99f;
+                    rig.angularVelocity *= 0.91f;
                 }
                 else 
                 {
@@ -168,10 +163,13 @@ public class PlayerShip : MonoBehaviour
         foreach (var engine in allEngines)
         {
             var EngineParticlesMain = engine.particleEmitter.main;
-            EngineParticlesMain.startColor = CalculateColorBasedOnHealth(engine.spriteRenderer.color, Color.red); // have Engines shoot out more red Color as ship gets damaged
+
+            Color particleColor = Color.Lerp(CalculateColorBasedOnHealth(engine.spriteRenderer.color, Color.red),GameManager.GetCurrentUserColorFullAlpha(), UnityEngine.Random.Range(0f,1f));
+            particleColor.a = engine.spriteRenderer.color.a;
+
+            EngineParticlesMain.startColor = engine.spriteRenderer.color; // have Engines shoot out more red Color as ship gets damaged
         }
     }
-
 
     //INTERNAL METHODS
     private Color CalculateColorBasedOnHealth(Color startColor, Color endColor)
@@ -221,11 +219,14 @@ public class PlayerShip : MonoBehaviour
 
             Color lightsTempColor = lightsRendererSprite.color;  //We want the lights of the ship to light up more when Shooting and decrease when not
             
-            Color rightFireEnginesTempColor = ScriptUtils.GetAverageColor(rightFireEnginesColors);
             Color engineRightTempColor = ScriptUtils.GetAverageColor(rightFireEnginesColors);
+            Color engineRightHealthColor = CalculateColorBasedOnHealth(engineRightTempColor, Color.red);
             Color engineLeftTempColor = ScriptUtils.GetAverageColor(leftFireEnginesColors);
+            Color engineLeftHealthColor = CalculateColorBasedOnHealth(engineLeftTempColor, Color.red);
             Color engineMainTempColor = mainFireEnginesColors[0];
+            Color engineMainHealthColor = CalculateColorBasedOnHealth(engineMainTempColor , Color.red);
             Color engineBackTempColor = ScriptUtils.GetAverageColor(backFireEnginesColors);
+            Color engineBackHealthColor = CalculateColorBasedOnHealth(engineBackTempColor, Color.red);
 
             if (Input.GetKey(KeyCode.LeftArrow)) // Right Engine for Moving Left
             {
@@ -347,18 +348,18 @@ public class PlayerShip : MonoBehaviour
 
             foreach (var engine in leftFireEngines)
             {
-                engine.spriteRenderer.color = Color.Lerp(engineLeftTempColor,CalculateColorBasedOnHealth(engineLeftTempColor, Color.red), 0.001f); // Less intense than particles
-                engine.lightSource.color = Color.Lerp(engineLeftTempColor,CalculateColorBasedOnHealth(engineLeftTempColor, Color.red), 0.001f);
+                engine.spriteRenderer.color = engineLeftTempColor;
+                engine.lightSource.color = engineLeftTempColor;
             }
             foreach (var engine in rightFireEngines)
             {
-                engine.spriteRenderer.color = Color.Lerp(engineRightTempColor,CalculateColorBasedOnHealth(engineRightTempColor, Color.red), 0.001f);
-                engine.lightSource.color = Color.Lerp(engineRightTempColor,CalculateColorBasedOnHealth(engineRightTempColor, Color.red), 0.001f);
+                engine.spriteRenderer.color = engineRightTempColor;
+                engine.lightSource.color = engineRightTempColor;
             }
             foreach (var engine in mainFireEngines)
             {
-                engine.spriteRenderer.color = Color.Lerp(engineMainTempColor, CalculateColorBasedOnHealth(engineMainTempColor, Color.red), 0.001f);
-                engine.lightSource.color =Color.Lerp(engineMainTempColor, CalculateColorBasedOnHealth(engineMainTempColor, Color.red), 0.001f);
+                engine.spriteRenderer.color = engineMainTempColor;
+                engine.lightSource.color = engineMainTempColor;
             }
             foreach (var engine in backFireEngines)
             {
@@ -381,13 +382,15 @@ public class PlayerShip : MonoBehaviour
 
                 GameObject projectile = Instantiate(projectilePrefab, (Vector2) this.transform.position + offset,this.transform.localRotation); // Offset so it's not inside the ship
 
+                projectile.GetComponent<Projectile>().SetDamage(projectileDamage);
+
                 //Change Projectile Color to match lights
                 projectile.GetComponent<SpriteRenderer>().color = new Color (lightsRendererSprite.color.r, lightsRendererSprite.color.g, lightsRendererSprite.color.b, 1f);
                 projectile.GetComponent<Light2D>().color = new Color (lightsRendererSprite.color.r, lightsRendererSprite.color.g, lightsRendererSprite.color.b, 1f);
 
                 StartCoroutine(ScriptUtils.PositionLerp(projectile.transform, projectile.transform.position, this.transform.up * 1000,  20.5f - (rig.linearVelocityX / 10) - (rig.linearVelocityY / 10)));
             }
-            else 
+            else if (Input.GetKey(KeyCode.Z) && !canShoot)
             {
                 UiUtils.ShowMessage("Can't Shoot","Your Weapons are offline!",new Vector2(200,200),false);
             }
@@ -395,12 +398,21 @@ public class PlayerShip : MonoBehaviour
         }   
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Evil Projectile"))
+        {
+            DecreaseHealth(Mathf.Abs(other.GetComponent<Projectile>().GetDamage()));
+            Destroy(other);
+        }
+    }
+
     //EXTERNAL METHODS
     public void DecreaseHealth(float amount)
     {
         amount = Mathf.Abs(amount);
 
-        if ((shipHealth - amount) > 0f)
+        if ((shipHealth - amount) > minHealth)
         {
             shipHealth -= amount;
         }
@@ -418,6 +430,11 @@ public class PlayerShip : MonoBehaviour
     public float GetHealth()
     {
         return shipHealth;
+    }
+
+    public float GetMinHealth()
+    {
+        return minHealth;
     }
 
     public void SetColor(Color color)

@@ -48,6 +48,21 @@ public static class ScriptUtils
         return new Color32(r,g,b,0); // everything starts out 0 alpha
     }
 
+    public static Color GetComplimentaryColor(Color baseColor)
+    {
+        float r = 1f - baseColor.r + 0.2f; // Invert the red channel & make it looks slightly brighter for prettiness
+        float g = 1f - baseColor.g + 0.2f; // Invert the green channel & make it looks slightly brighter for prettiness
+        float b = 1f - baseColor.b + 0.2f; // Invert the blue channel & make it looks slightly brighter for prettiness
+
+        return new Color(r, g, b, baseColor.a); // Preserve the alpha channel
+    }
+
+    public static void PlaySound(AudioSource audioSource, AudioClip sound)
+    {
+        audioSource.resource = sound;
+        audioSource.Play();
+    }
+
     public static IEnumerator PositionLerp(Transform thingToMove, Vector3 vectorFrom, Vector3 vectorTo, float duration)
     {
         float timeElapsed = 0;
@@ -85,6 +100,8 @@ public static class ScriptUtils
         yield return new WaitForSecondsRealtime(duration);
 
         ValueLerpOverTime(Time.timeScale, 1.0f, 0.1f / howSlow);
+
+        Time.timeScale = 1f;
     }
 
     public static IEnumerator ValueLerpOverTime(float startValue,float finalValue, float duration)
@@ -94,7 +111,7 @@ public static class ScriptUtils
         while (timeElapsed < duration) 
         {
             startValue = Mathf.Lerp(startValue, finalValue, timeElapsed / duration);
-            timeElapsed += Time.unscaledDeltaTime;
+            timeElapsed += Time.fixedUnscaledDeltaTime;
             yield return null;
         }
     }

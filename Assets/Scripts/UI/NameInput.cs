@@ -14,10 +14,16 @@ public class NameInput : MonoBehaviour
 
     public Dictionary<GameObject,char> charInputValueDictionary = new Dictionary<GameObject,char>();
 
+    private AudioSource audioSource; // Audio Player
+    [SerializeField] AudioClip charChangeAudio;
+    [SerializeField] AudioClip charConfirmAudio;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         foreach (GameObject gameObjectcharInputField in charInputFields)
         {
             gameObjectcharInputField.GetComponent<Button>().onClick.AddListener(MoveToNextInputField); // Should hopefully work with
@@ -41,15 +47,31 @@ public class NameInput : MonoBehaviour
             currentlySelectedField = charInputFields[Array.IndexOf(charInputFields, currentlySelectedField) + 1]; // grab next input field
 
             EventSystem.current.SetSelectedGameObject(currentlySelectedField);
+
+            PlayCharConfirmSound();
         }
 
-        else { // Selection on last char input field
+        else 
+        { // Selection on last char input field
             EventSystem.current.SetSelectedGameObject(this.gameObject.transform.GetChild(0).transform.GetChild(2).gameObject); // Honestly not sure if this will work and even if it does, it'll break the second we change the amount of children!!! <- gross
+            PlayCharConfirmSound();
         }
+    }
+
+    void PlayCharChangeSound()
+    {
+        ScriptUtils.PlaySound(audioSource, charChangeAudio);
+    }
+
+    void PlayCharConfirmSound()
+    {
+        ScriptUtils.PlaySound(audioSource, charConfirmAudio);
     }
 
     private IEnumerator CharSelectorListener(GameObject charInputField) // Checks for input & changes currently selected char
     {
+        yield return new WaitForSecondsRealtime(0.2f); // Leave a delay so the Player can move back up to the fields from the done button
+
         while (this.gameObject != null && this.gameObject.activeInHierarchy)
         {
             if (EventSystem.current.currentSelectedGameObject == charInputField)
@@ -74,6 +96,8 @@ public class NameInput : MonoBehaviour
                         charInputValueDictionary[charInputField]++; // shoullddd take the ascii integer of the char, increment it and then spit another char back out
                     }
 
+                    PlayCharChangeSound();
+
                     charInputField.GetComponentInChildren<TextMeshProUGUI>().text = charInputValueDictionary[charInputField].ToString();
                     yield return new WaitForSecondsRealtime(0.1f);
                 }
@@ -97,6 +121,8 @@ public class NameInput : MonoBehaviour
                         charInputValueDictionary[charInputField]--; // shoullddd take the ascii integer of the char, increment it and then spit another char back out
                     }
 
+                    PlayCharChangeSound();
+
                     charInputField.GetComponentInChildren<TextMeshProUGUI>().text = charInputValueDictionary[charInputField].ToString();
                     yield return new WaitForSecondsRealtime(0.1f);
                 }
@@ -107,6 +133,9 @@ public class NameInput : MonoBehaviour
 
     public void DoneButton()
     {
+
+        PlayCharConfirmSound();
+
         //Set random Seed to Name & Close all UI + reset Time Scale
         string seedString = "";
 
@@ -116,16 +145,15 @@ public class NameInput : MonoBehaviour
         }
 
         Debug.Log($"Random seed will be generated from string: {seedString}");
-        GameManager.SetCurrentPlayerName(seedString);
-
+        GameManager.SetCurrentUserName(seedString);
         UnityEngine.Random.InitState(ScriptUtils.GetNumberFromString(seedString));
+        GameManager.SetCurrentUserColor(ScriptUtils.GetRandomColorFromSeed());
+
         Time.timeScale = 1.0f;
 
         GameObject.Destroy(this.gameObject);
 
         SceneManager.LoadScene("Space Scene");
-
-        
     }
 
     IEnumerator UIHandlingStuff()

@@ -116,6 +116,31 @@ public static class ScriptUtils
         }
     }
     
+    public static float AddWithMax(float floatToAddTo, float floatToAdd, float maxValue)
+    {
+        if ((floatToAddTo + floatToAdd) < maxValue)
+        {
+            return floatToAdd;
+        }
+        else 
+        {
+            return 0;
+        }
+    }
+
+    public static float SubtractWithMin(float floatToSubtractFrom, float floatToSubtract, float minValue)
+    {
+        if ((floatToSubtractFrom - floatToSubtract) > minValue)
+        {
+            return floatToSubtract;
+        }
+        else 
+        {
+            return 0;
+        }
+    }
+
+
     public static void RegeneratePolygonCollider2DPoints(PolygonCollider2D polygonCollider, Sprite sprite)
     {
         for (int i = 0; i < polygonCollider.pathCount; i++) 

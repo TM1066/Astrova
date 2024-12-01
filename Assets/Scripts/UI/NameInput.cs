@@ -18,6 +18,8 @@ public class NameInput : MonoBehaviour
     [SerializeField] AudioClip charChangeAudio;
     [SerializeField] AudioClip charConfirmAudio;
 
+    private float charScrollSpeed = 0.2f;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -99,7 +101,7 @@ public class NameInput : MonoBehaviour
                     PlayCharChangeSound();
 
                     charInputField.GetComponentInChildren<TextMeshProUGUI>().text = charInputValueDictionary[charInputField].ToString();
-                    yield return new WaitForSecondsRealtime(0.1f);
+                    yield return new WaitForSecondsRealtime(charScrollSpeed);
                 }
                 else if (Input.GetKey(KeyCode.DownArrow) && charInputValueDictionary[charInputField] >= 49)
                 {
@@ -124,7 +126,7 @@ public class NameInput : MonoBehaviour
                     PlayCharChangeSound();
 
                     charInputField.GetComponentInChildren<TextMeshProUGUI>().text = charInputValueDictionary[charInputField].ToString();
-                    yield return new WaitForSecondsRealtime(0.1f);
+                    yield return new WaitForSecondsRealtime(charScrollSpeed);
                 }
             }
             yield return null;

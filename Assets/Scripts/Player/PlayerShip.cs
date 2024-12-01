@@ -97,25 +97,25 @@ public class PlayerShip : MonoBehaviour
         // Handling movement
         if (Input.anyKey)
         {
-            if (Input.GetKey(KeyCode.UpArrow))
+            if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.F))
             {
                 rig.AddRelativeForceY(movementSpeed * shipHealth); //AAAAAAAAAAAAAA THIS WAS SO EASY IM SO DUMB
             }
-            if (Input.GetKey(KeyCode.DownArrow))
+            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.J))
             {
                 rig.AddRelativeForceY(-(movementSpeed * shipHealth)); 
             }
-            if (Input.GetKey(KeyCode.LeftArrow)) // I could cap these but I'm leaving them for now because they're funny
+            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) // I could cap these but I'm leaving them for now because they're funny
             {
                 rig.AddRelativeForceY((movementSpeed / 3) * shipHealth); // small amount of movement forwards
                 rig.angularVelocity += movementSpeed * shipHealth;
             }
-            if (Input.GetKey(KeyCode.RightArrow)) // I could cap these but I'm leaving them for now because they're funny
+            if (Input.GetKey(KeyCode.RightArrow)|| Input.GetKey(KeyCode.D)) // I could cap these but I'm leaving them for now because they're funny
             {
                  rig.AddRelativeForceY((movementSpeed /  3) * shipHealth); // small amount of movement forwards
                 rig.angularVelocity -= movementSpeed * shipHealth;
             }
-            if (Input.GetKey(KeyCode.Space)) // Slow down that sheep
+            if (Input.GetKey(KeyCode.N)|| Input.GetKey(KeyCode.L))// Slow down that sheep
             {
                 if (rig.linearVelocity.magnitude > 0.01f)
                 {
@@ -177,18 +177,6 @@ public class PlayerShip : MonoBehaviour
         return new Color (Color.Lerp(endColor, startColor, shipHealth).r, Color.Lerp(endColor, startColor, shipHealth).g, Color.Lerp(endColor, startColor, shipHealth).b, startColor.a); // weird but works & retains start alpha
     }
 
-    private float AddWithMax(float floatToAddTo, float floatToAdd, float maxValue)
-    {
-        if ((floatToAddTo + floatToAdd) < maxValue)
-        {
-            return floatToAdd;
-        }
-        else 
-        {
-            return 0;
-        }
-    }
-
     private IEnumerator HandleLightingIntensity()
     {
             
@@ -230,7 +218,7 @@ public class PlayerShip : MonoBehaviour
 
             if (Input.GetKey(KeyCode.LeftArrow)) // Right Engine for Moving Left
             {
-                engineRightTempColor.a += AddWithMax(engineRightTempColor.a, 0.01f, 1.5f);
+                engineRightTempColor.a += ScriptUtils.AddWithMax(engineRightTempColor.a, 0.01f, 1.5f);
             }
             else 
             {
@@ -246,7 +234,7 @@ public class PlayerShip : MonoBehaviour
 
             if (Input.GetKey(KeyCode.RightArrow)) // Right Engine for Moving Left
             {
-                engineLeftTempColor.a += AddWithMax(engineLeftTempColor.a, 0.01f, 1.5f);
+                engineLeftTempColor.a += ScriptUtils.AddWithMax(engineLeftTempColor.a, 0.01f, 1.5f);
             }
             else 
             {
@@ -260,9 +248,9 @@ public class PlayerShip : MonoBehaviour
                 }
             }
 
-            if (Input.GetKey(KeyCode.UpArrow)) // Right Engine for Moving Left
+            if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.F))// Right Engine for Moving Left
             {
-                engineMainTempColor.a += AddWithMax(engineMainTempColor.a, 0.01f, 1.5f);
+                engineMainTempColor.a += ScriptUtils.AddWithMax(engineMainTempColor.a, 0.01f, 1.5f);
             }
             else 
             {
@@ -278,7 +266,7 @@ public class PlayerShip : MonoBehaviour
 
             if (Input.GetKey(KeyCode.DownArrow)) // Right Engine for Moving Left
             {
-                engineBackTempColor.a += AddWithMax(engineBackTempColor.a, 0.01f, 1.5f);
+                engineBackTempColor.a += ScriptUtils.AddWithMax(engineBackTempColor.a, 0.01f, 1.5f);
             }
             else 
             {
@@ -294,10 +282,10 @@ public class PlayerShip : MonoBehaviour
 
             if (Input.GetKey(KeyCode.Space)) // Fire all Engines to slow down
             {
-                engineMainTempColor.a += AddWithMax(engineMainTempColor.a, 0.01f, UnityEngine.Random.Range(1.0f, 1.5f));
-                engineRightTempColor.a += AddWithMax(engineRightTempColor.a, 0.01f, UnityEngine.Random.Range(1.0f, 1.5f));
-                engineLeftTempColor.a += AddWithMax(engineLeftTempColor.a, 0.01f, UnityEngine.Random.Range(1.0f, 1.5f));
-                engineBackTempColor.a += AddWithMax(engineBackTempColor.a, 0.01f, UnityEngine.Random.Range(1.0f, 1.5f));
+                engineMainTempColor.a += ScriptUtils.AddWithMax(engineMainTempColor.a, 0.01f, UnityEngine.Random.Range(1.0f, 1.5f));
+                engineRightTempColor.a += ScriptUtils.AddWithMax(engineRightTempColor.a, 0.01f, UnityEngine.Random.Range(1.0f, 1.5f));
+                engineLeftTempColor.a += ScriptUtils.AddWithMax(engineLeftTempColor.a, 0.01f, UnityEngine.Random.Range(1.0f, 1.5f));
+                engineBackTempColor.a += ScriptUtils.AddWithMax(engineBackTempColor.a, 0.01f, UnityEngine.Random.Range(1.0f, 1.5f));
             }
             else 
             {

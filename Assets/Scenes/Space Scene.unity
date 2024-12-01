@@ -1268,6 +1268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   angleOffset: 90
   projectilePrefab: {fileID: 8950819391558252215, guid: 51c526445a6f70343ba749b6afcfbf0b, type: 3}
+  health: 1
   projectileDamage: 0.22
 --- !u!1 &1667888395
 GameObject:

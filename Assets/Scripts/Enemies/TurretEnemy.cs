@@ -12,6 +12,8 @@ public class TurretEnemy : MonoBehaviour
 
     [SerializeField] GameObject projectilePrefab;
 
+    [SerializeField] float health = 1f;
+
     [SerializeField] float projectileDamage = 0.22f;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -34,6 +36,11 @@ public class TurretEnemy : MonoBehaviour
         angle += this.angleOffset;
 
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+        if (health < 0.1f)
+        {
+            Die();
+        }
     }
 
     private IEnumerator ShootHandler()
@@ -59,4 +66,21 @@ public class TurretEnemy : MonoBehaviour
             yield return new WaitForSeconds(1.5f); // Cooldown
         }   
     }
+
+    private void Die()
+    {
+        GameManager.AddToScore(5);
+        Destroy(gameObject);
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Projectile"))
+        {   
+            health -= ScriptUtils.SubtractWithMin(health, other.GetComponent<Projectile>().GetDamage(), 0.07f);
+            Destroy(other);
+            Debug.Log("Hit Enemy");
+        }
+    }
+
 }

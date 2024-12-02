@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.AI;
 using TMPro;
@@ -38,7 +37,9 @@ public class GameTracker : MonoBehaviour
 
         //UnityEngine.Random.InitState(ScriptUtils.GetNumberFromString("Taylor"));
 
+          var mouse = Mouse.current;
 
+          mouse.WarpCursorPosition (new Vector2 (0, 0)); //MOVE THE STUPID MOUSE OUT OF **THEEE WAYYYYY**
     }
 
     // Update is called once per frame
@@ -71,7 +72,5 @@ public class GameTracker : MonoBehaviour
                 Application.Quit();
             }
         }
-    }
-
-    
+    } 
 }

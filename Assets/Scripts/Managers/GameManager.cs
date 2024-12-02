@@ -4,6 +4,8 @@ using System.IO;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using PlayFab.ProgressionModels;
+using System;
 
 public static class GameManager
 {
@@ -16,6 +18,7 @@ public static class GameManager
     // LEADERBOARD LOADING NONSENSE
     private static string leaderboardFilePath = Path.Combine(Application.persistentDataPath, "leaderboard.json");
     public static List<User> leaderboard = new List<User>();
+    public static bool[] leaderBoardChanged = new bool[10] {false,false,false,false,false,false,false,false,false,false}; // Remember to change all back to false upon replay in end scene
 
     public static void LoadLeaderboard()
     {
@@ -44,18 +47,25 @@ public static class GameManager
     {
         // check if the Player's score is higher than the lowest score on leaderboard / the lowest entry is empty
 
+        User userToAdd = new User(userName, score, userColor);
+
         if (leaderboard.Count == 10 && score > leaderboard[9].score)
         {
             leaderboard.RemoveAt(9);
-            leaderboard.Add(new User(userName, score, userColor));
+            leaderboard.Add(userToAdd);
         }
         else if (leaderboard.Count < 10)
         {
-            leaderboard.Add(new User(userName, score, userColor));
+            leaderboard.Add(userToAdd);
         }
 
         // Sort leaderboard by score (descending)
         leaderboard.Sort((a, b) => b.score.CompareTo(a.score));
+
+        if (leaderboard.IndexOf(userToAdd) >= 0) // will return -1 if the user hasn't been added
+        {
+            leaderBoardChanged[leaderboard.IndexOf(userToAdd)] = true;
+        }
 
         SaveLeaderboard();
     }
@@ -112,19 +122,19 @@ public static class GameManager
 
         GameObject.Destroy(GameObject.Find("Main Camera").GetComponent<CameraFollow>()); // Hopefully doesn't just delete the camera
 
-        for (int i = 0; i < GameObject.Find("SpaceShip").transform.childCount; i++)
-        {
-            var shipPart = GameObject.Find("SpaceShip").transform.GetChild(i);
-            shipPart.AddComponent<Rigidbody2D>();
-            shipPart.GetComponent<Rigidbody2D>().AddForce(GameObject.Find("SpaceShip").GetComponent<Rigidbody2D>().linearVelocity); // preserve parent speed
+        // for (int i = 0; i < GameObject.Find("SpaceShip").transform.childCount - 1; i++)
+        // {
+        //     var shipPart = GameObject.Find("SpaceShip").transform.GetChild(i);
+        //     shipPart.AddComponent<Rigidbody2D>();
+        //     shipPart.GetComponent<Rigidbody2D>().AddForce(GameObject.Find("SpaceShip").GetComponent<Rigidbody2D>().linearVelocity); // preserve parent speed
 
-            shipPart.GetComponent<Rigidbody2D>().AddForce(new Vector2(UnityEngine.Random.Range(-5, 5), UnityEngine.Random.Range(-5, 5))); // sprice it up a lil
+        //     shipPart.GetComponent<Rigidbody2D>().AddForce(new Vector2(UnityEngine.Random.Range(-5, 5), UnityEngine.Random.Range(-5, 5))); // sprice it up a lil
 
-            shipPart.GetComponent<Rigidbody2D>().angularVelocity = UnityEngine.Random.Range(0, 60);
+        //     shipPart.GetComponent<Rigidbody2D>().angularVelocity = UnityEngine.Random.Range(0, 60);
 
-        }
+        // }
 
-        GameObject.Find("SpaceShip").transform.DetachChildren(); // make the ship break up
+        // GameObject.Find("SpaceShip").transform.DetachChildren(); // make the ship break up
 
         Debug.Log(Time.timeScale);
 

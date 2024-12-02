@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -122,6 +123,47 @@ public static class ScriptUtils
         }
     }
     
+    public static IEnumerator ColorLerpOverTime(Image image, Color startColor, Color finalColor, float duration)
+    {
+        if (image == null)
+        {
+            Debug.LogError("Image is null! Check your references.");
+            yield break;
+        }
+
+        float timeElapsed = 0;
+
+        Debug.Log($"Starting color change from {startColor} to {finalColor} on {image.gameObject.name}");
+
+        while (timeElapsed < duration)
+        {
+            image.color = Color.Lerp(startColor, finalColor, timeElapsed / duration);
+            Debug.Log($"[{image.gameObject.name}] Current color: {image.color}");
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        image.color = finalColor; // Ensure final color is set
+        Debug.Log($"[{image.gameObject.name}] Final color set: {image.color}");
+    }
+
+
+    public static IEnumerator ColorLerpOverTime(SpriteRenderer image, Color startColor, Color finalColor, float duration)
+    {
+        float timeElapsed = 0;
+
+        while (timeElapsed < duration)
+        {
+            image.color = Color.Lerp(startColor, finalColor, timeElapsed / duration);
+            timeElapsed += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        // Ensure the final color is set, in case the loop doesn't hit it exactly.
+        image.color = finalColor;
+    }
+
+
     public static IEnumerator DestroyGameObjectAfterTime(GameObject gameObjectToDestroy, float seconds)
     {
         yield return new WaitForSecondsRealtime(seconds);

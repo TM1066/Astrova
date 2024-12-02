@@ -82,6 +82,8 @@ public class Asteroid : MonoBehaviour
 
         this.GetComponent<AudioSource>().Play();
 
+        Destroy(this.GetComponent<PolygonCollider2D>());
+
         StartCoroutine(ScriptUtils.DestroyGameObjectAfterTime(this.gameObject,3f));
 
         yield return null;

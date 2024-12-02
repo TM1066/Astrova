@@ -1,15 +1,18 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
+using System.Collections;
 using System.IO;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 // using PlayFab; - SHELVED FOR NOW! - focusing on Arcane machine first and foremost
 // using PlayFab.ClientModels;
 
 public class LeaderboardManager : MonoBehaviour
 {
-    [SerializeField] List<TextMeshProUGUI> scoreTexts = new List<TextMeshProUGUI>();
-    [SerializeField] List<TextMeshProUGUI> nameTexts = new List<TextMeshProUGUI>();
+    [SerializeField] TextMeshProUGUI[] scoreTexts = new TextMeshProUGUI[10];
+    [SerializeField] TextMeshProUGUI[] highScoreTexts = new TextMeshProUGUI[10];
+    [SerializeField] TextMeshProUGUI[] nameTexts = new TextMeshProUGUI[10];
     [SerializeField] List<Image> colorDisplays = new List<Image>();
 
 
@@ -29,6 +32,10 @@ public class LeaderboardManager : MonoBehaviour
         {
             image.color = Color.clear;
         }
+        foreach (TextMeshProUGUI text in highScoreTexts)
+        {
+            text.enabled = false;
+        }
 
         // Sequence VERY important here
 
@@ -46,10 +53,53 @@ public class LeaderboardManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void SetHighScoreMessages()
     {
-        
+        for (int i = 0; i < GameManager.leaderBoardChanged.Length - 1; i++)
+        {
+            if (GameManager.leaderBoardChanged[i])
+            {
+                highScoreTexts[i].enabled = true; // re-enable high score texts for the places on the board that it should be shown
+            }
+        }
+    }
+
+    public void SetAllColours()
+    {
+
+        Animator animator = GameObject.Find("LeaderBoard").GetComponent<Animator>();
+            if (animator != null)
+            {
+                animator.enabled = false; // Disable animation for the object
+            }
+
+        // for (int i = 0; i < colorDisplays.Count; i++)
+        // {
+
+        //     Debug.Log("Changing ColorDisplay " + i);
+        //     Debug.Log("current color: " + colorDisplays[i].color);
+
+        //     //colorDisplays[i].color = GameManager.leaderboard[i].color;
+        //     colorDisplays[i].color = Color.red;
+
+        //     Debug.Log("changed color: " + colorDisplays[i].color);
+        // }
+
+        StartCoroutine(ChangeAllColorsProperly());
+    }
+    
+    private IEnumerator ChangeAllColorsProperly()
+    {
+        for (int i = 0; i < colorDisplays.Count - 1; i++)
+        {
+            Image currentColorImage = colorDisplays[i];
+
+            Color colorToChangeTo = GameManager.leaderboard[i].color;
+            colorToChangeTo.a = 1f;
+
+            StartCoroutine(ScriptUtils.ColorLerpOverTime(currentColorImage, currentColorImage.color, colorToChangeTo, 0.5f));
+            yield return new WaitForSeconds(0.2f);
+        }
     }
 }
 

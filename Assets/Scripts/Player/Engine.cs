@@ -7,4 +7,5 @@ public class Engine : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public Light2D lightSource;
     public ParticleSystem particleEmitter;
+    public AudioSource audioSource;
 }

@@ -43,7 +43,7 @@ public static class UiUtils
         }
     }
 
-        // public static void ShowMessage(string title,string messageContents, Vector2 position, bool? backGroundPanel, bool destroyAfterSeconds, float secondsToExist)
+        // public static void ShowMessage(string title,string messageContents, Vector2 position, bool? backGroundPanel, float secondsToExist)
         // {
         //     GameObject textGO = new GameObject("UI Message");
         //     textGO.transform.SetParent(GameObject.Find("Canvas").transform); // Set parent to Canvas so it'll render

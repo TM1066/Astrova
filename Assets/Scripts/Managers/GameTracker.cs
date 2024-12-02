@@ -17,7 +17,7 @@ public class GameTracker : MonoBehaviour
 
     //public AnimatorController uiMessageAnimator;
 
-    //public static User user; - Trying to keep this in GameManager
+    public AudioClip menuInteractSound;
 
     void Awake()
     {
@@ -72,4 +72,6 @@ public class GameTracker : MonoBehaviour
             }
         }
     }
+
+    
 }

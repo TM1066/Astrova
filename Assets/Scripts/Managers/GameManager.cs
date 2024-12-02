@@ -3,6 +3,7 @@ using System.Collections;
 using System.IO;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public static class GameManager
 {
@@ -100,7 +101,7 @@ public static class GameManager
 
     public static void SetCurrentUserColor(Color color)
     {
-        currentUser.hexColorString = ColorUtility.ToHtmlStringRGB(color);
+        currentUser.hexColorString = UnityEngine.ColorUtility.ToHtmlStringRGB(color);
         currentUser.color = color;
     }
 
@@ -109,6 +110,24 @@ public static class GameManager
     {
         UiUtils.ShowMessage("GAME OVER","You Died!",UiUtils.GetCentreOfCamera(),true);
 
+        GameObject.Destroy(GameObject.Find("Main Camera").GetComponent<CameraFollow>()); // Hopefully doesn't just delete the camera
+
+        for (int i = 0; i < GameObject.Find("SpaceShip").transform.childCount; i++)
+        {
+            var shipPart = GameObject.Find("SpaceShip").transform.GetChild(i);
+            shipPart.AddComponent<Rigidbody2D>();
+            shipPart.GetComponent<Rigidbody2D>().AddForce(GameObject.Find("SpaceShip").GetComponent<Rigidbody2D>().linearVelocity); // preserve parent speed
+
+            shipPart.GetComponent<Rigidbody2D>().AddForce(new Vector2(UnityEngine.Random.Range(-5, 5), UnityEngine.Random.Range(-5, 5))); // sprice it up a lil
+
+            shipPart.GetComponent<Rigidbody2D>().angularVelocity = UnityEngine.Random.Range(0, 60);
+
+        }
+
+        GameObject.Find("SpaceShip").transform.DetachChildren(); // make the ship break up
+
+        Debug.Log(Time.timeScale);
+
         //SAVING PLAYER TO LEADERBOARD
         AddUserToLeaderboard(currentUser.userName, currentUser.score, currentUser.color);
 
@@ -116,7 +135,14 @@ public static class GameManager
         currentUser.score = 0;
         currentUser.color = Color.clear;
 
-        yield return new WaitForSecondsRealtime(5f);
+        yield return new WaitForSecondsRealtime(2f);
+
+        GameObject.Find("Music Player").GetComponent<AudioSource>().loop = false;
+
+        while (GameObject.Find("Music Player").GetComponent<AudioSource>().isPlaying) // Line us up for the last scene to play the outro to the song
+        {
+            yield return null;
+        }
 
         SceneManager.LoadScene("End Scene"); // Reload Scene
         Time.timeScale = 1f;

@@ -22,7 +22,7 @@ public class NameInput : MonoBehaviour
 
     private float charScrollSpeed = 0.2f;
 
-    private string[] illegalNames = new string[1] { "fag"};
+    private string[] illegalNames = new string[2] { "fag","kkk"};
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -202,6 +202,11 @@ public class NameInput : MonoBehaviour
         GameManager.SetCurrentUserName(seedString);
         UnityEngine.Random.InitState(ScriptUtils.GetNumberFromString(seedString));
         GameManager.SetCurrentUserColor(ScriptUtils.GetRandomColorFromSeed());
+
+        if (seedString.ToLower() == "tm")
+        {
+            GameManager.SetCurrentUserColor(new Color (112,128,144));
+        }
 
         Time.timeScale = 1.0f;
 

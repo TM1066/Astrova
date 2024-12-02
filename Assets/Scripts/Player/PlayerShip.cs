@@ -332,12 +332,31 @@ public class PlayerShip : MonoBehaviour
                 }
             }
 
-            lightsRendererSprite.color = CalculateColorBasedOnHealth(lightsTempColor, new Color(lightsRendererSprite.color.r, lightsRendererSprite.color.g, lightsRendererSprite.color.b,0f));
-            if (lightsRendererSprite.color.a <= 0.25f)
+            if (Input.GetKey(KeyCode.X)|| Input.GetKey(KeyCode.G)) // Fire all Engines to slow down
             {
-                canShoot = true;
+                lightsTempColor.a += ScriptUtils.AddWithMax(lightsTempColor.a, 0.1f, 1.5f);
             }
-            bodyLight.color = CalculateColorBasedOnHealth(lightsTempColor, Color.clear);
+            else 
+            {
+                if (lightsTempColor.a - 0.01f >= 0)
+                {
+                    lightsTempColor.a -= (0.05f) / 15f ;
+                }
+                else 
+                {
+                    lightsTempColor.a = 0;
+                }
+            }
+
+            // lightsRendererSprite.color = CalculateColorBasedOnHealth(lightsTempColor, new Color(lightsRendererSprite.color.r, lightsRendererSprite.color.g, lightsRendererSprite.color.b,0f));
+            // if (lightsRendererSprite.color.a <= 0.25f)
+            // {
+            //     canShoot = true;
+            // }
+            // bodyLight.color = CalculateColorBasedOnHealth(lightsTempColor, Color.clear);
+
+            lightsRendererSprite.color = lightsTempColor;
+            bodyLight.color = lightsTempColor;
 
 
             foreach (var engine in leftFireEngines)
@@ -418,7 +437,7 @@ public class PlayerShip : MonoBehaviour
         {
             shipHealth = 0f;
 
-            StartCoroutine(ScriptUtils.SlowTime(0f,10f));
+            //StartCoroutine(ScriptUtils.SlowTime(0f,10f));
 
             StartCoroutine(GameManager.GameOver());
         }

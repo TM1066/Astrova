@@ -80,6 +80,8 @@ public class Asteroid : MonoBehaviour
     {
         this.GetComponent<SpriteRenderer>().color = Color.clear;
 
+        this.GetComponent<AudioSource>().Play();
+
         StartCoroutine(ScriptUtils.DestroyGameObjectAfterTime(this.gameObject,3f));
 
         yield return null;

@@ -33,6 +33,7 @@ public class LeaderboardManager : MonoBehaviour
         // Sequence VERY important here
 
         int leaderboardAccessIndex = 0;
+        
         foreach (User user in GameManager.leaderboard)
         {
             Debug.Log($"Name: {user.userName}, Score: {user.score}, Color: {user.color}");

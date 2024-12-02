@@ -57,7 +57,7 @@ public class TurretEnemy : MonoBehaviour
         while (gameObject && player.GetComponent<PlayerShip>().GetHealth() > player.GetComponent<PlayerShip>().GetMinHealth())
         {
             //Shootings
-            if (Random.Range(0, 2) == 1)
+            if (Random.Range(0, 2) == 1 && Vector2.Distance(transform.position, player.transform.position) <= 12)
             {
                 Vector2 offset = this.transform.up * 1.5f; // 'up' is relative to the ship's rotation
 
@@ -70,13 +70,39 @@ public class TurretEnemy : MonoBehaviour
 
                 StartCoroutine(ScriptUtils.PositionLerp(projectile.transform, projectile.transform.position, this.transform.up * 1000,  25.5f));
             }
-            yield return new WaitForSeconds(1.5f); // Cooldown
+            yield return new WaitForSeconds(UnityEngine.Random.Range(1f,3f)); // Cooldown
         }   
     }
 
     private void Die()
     {
         GameManager.AddToCurrentScore(5);
-        Destroy(gameObject);
+        Destroy(this.gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Projectile"))
+        {
+            Projectile projectile = other.GetComponent<Projectile>();
+            if (projectile != null)
+            {
+                float damage = projectile.GetDamage();
+                Debug.Log($"Projectile hit! Damage: {damage}");
+
+                health -= damage;
+                Debug.Log($"Enemy health: {health}");
+
+                Destroy(other.gameObject);
+            }
+            else
+            {
+                Debug.LogWarning("Projectile script not found on object!");
+            }
+        }
+        else
+        {
+            Debug.Log($"Collision ignored with: {other.gameObject.name}");
+        }
     }
 }

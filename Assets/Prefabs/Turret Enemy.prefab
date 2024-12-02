@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 5381620601448527491}
   - component: {fileID: 1188747098168413394}
   - component: {fileID: 5930772331854605331}
+  - component: {fileID: -7095063939377647583}
   m_Layer: 0
   m_Name: Turret Enemy
   m_TagString: Enemy
@@ -158,6 +159,33 @@ PolygonCollider2D:
       - {x: 0.15512104, y: -0.19618435}
       - {x: 0.11293058, y: -0.16308354}
   m_UseDelaunayMesh: 1
+--- !u!50 &-7095063939377647583
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894068651939861731}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &4125751200329987707
 GameObject:
   m_ObjectHideFlags: 0

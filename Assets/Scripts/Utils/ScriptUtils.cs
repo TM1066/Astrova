@@ -59,6 +59,12 @@ public static class ScriptUtils
 
     public static void PlaySound(AudioSource audioSource, AudioClip sound)
     {
+
+        if (audioSource == null)
+        {
+            audioSource = GameObject.Find("Game Tracker").GetComponent<AudioSource>();
+        }
+
         audioSource.resource = sound;
         audioSource.Play();
     }
@@ -116,6 +122,13 @@ public static class ScriptUtils
         }
     }
     
+    public static IEnumerator DestroyGameObjectAfterTime(GameObject gameObjectToDestroy, float seconds)
+    {
+        yield return new WaitForSecondsRealtime(seconds);
+
+        GameObject.Destroy(gameObjectToDestroy);
+    }
+
     public static float AddWithMax(float floatToAddTo, float floatToAdd, float maxValue)
     {
         if ((floatToAddTo + floatToAdd) < maxValue)
@@ -139,7 +152,6 @@ public static class ScriptUtils
             return 0;
         }
     }
-
 
     public static void RegeneratePolygonCollider2DPoints(PolygonCollider2D polygonCollider, Sprite sprite)
     {

@@ -6,11 +6,15 @@ using System.Collections.Generic;
 
 public static class GameManager
 {
-    private static User currentUser = new User(" ", 0, Color.cyan);
+
+    public enum Difficulties {easy, moderate, hard};
+    static public Difficulties currentDifficulty = Difficulties.easy;
+
+    private static User currentUser = new User("", 0, Color.cyan);
 
     // LEADERBOARD LOADING NONSENSE
     private static string leaderboardFilePath = Path.Combine(Application.persistentDataPath, "leaderboard.json");
-    public static List<User> leaderboard = new List<User>( new User[10] );
+    public static List<User> leaderboard = new List<User>();
 
     public static void LoadLeaderboard()
     {
@@ -48,6 +52,11 @@ public static class GameManager
         {
             leaderboard.Add(new User(userName, score, userColor));
         }
+
+        // Sort leaderboard by score (descending)
+        leaderboard.Sort((a, b) => b.score.CompareTo(a.score));
+
+        SaveLeaderboard();
     }
     // END OF LEADERBOARD NONSENSE
 
@@ -102,6 +111,10 @@ public static class GameManager
 
         //SAVING PLAYER TO LEADERBOARD
         AddUserToLeaderboard(currentUser.userName, currentUser.score, currentUser.color);
+
+        currentUser.userName = "";
+        currentUser.score = 0;
+        currentUser.color = Color.clear;
 
         yield return new WaitForSecondsRealtime(5f);
 

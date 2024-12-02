@@ -3,9 +3,9 @@ using UnityEngine;
 [System.Serializable]
 public class User
 {
-    public string userName;
-    public Color color;
-    public int score;
+    public string userName = "N/A";
+    public Color color = Color.clear;
+    public int score = -1;
     public string hexColorString;
 
     public User(string name, int score, Color color)

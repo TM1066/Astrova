@@ -36,6 +36,10 @@ public class PlayerShip : MonoBehaviour
     [SerializeField] float minHealth = 0.15f;
     [SerializeField] float projectileDamage = 0.33f;
 
+    //Audio Stuff
+    private AudioSource thisAudioPlayer; 
+    [SerializeField] AudioClip fireAudio;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -84,6 +88,8 @@ public class PlayerShip : MonoBehaviour
                 allEngines.Add(engine);
             }
         }
+
+        thisAudioPlayer = GetComponent<AudioSource>();
 
         //Starting Coroutines
         StartCoroutine(ShootHandler());
@@ -216,7 +222,7 @@ public class PlayerShip : MonoBehaviour
             Color engineBackTempColor = ScriptUtils.GetAverageColor(backFireEnginesColors);
             Color engineBackHealthColor = CalculateColorBasedOnHealth(engineBackTempColor, Color.red);
 
-            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) // Right Engine for Moving Left
+            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) // Right Engines for Moving Left
             {
                 engineRightTempColor.a += ScriptUtils.AddWithMax(engineRightTempColor.a, 0.01f, 1.5f);
             }
@@ -232,7 +238,7 @@ public class PlayerShip : MonoBehaviour
                 }
             }
 
-            if (Input.GetKey(KeyCode.RightArrow)|| Input.GetKey(KeyCode.D)) // Right Engine for Moving Left
+            if (Input.GetKey(KeyCode.RightArrow)|| Input.GetKey(KeyCode.D)) // LeftEngines for Moving Right
             {
                 engineLeftTempColor.a += ScriptUtils.AddWithMax(engineLeftTempColor.a, 0.01f, 1.5f);
             }
@@ -248,7 +254,7 @@ public class PlayerShip : MonoBehaviour
                 }
             }
 
-            if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.F))// Right Engine for Moving Left
+            if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.F))// Back engines for moving forwards
             {
                 engineMainTempColor.a += ScriptUtils.AddWithMax(engineMainTempColor.a, 0.01f, 1.5f);
             }
@@ -264,7 +270,7 @@ public class PlayerShip : MonoBehaviour
                 }
             }
 
-            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.J)) // Right Engine for Moving Left
+            if (Input.GetKey(KeyCode.V) || Input.GetKey(KeyCode.J)) // Front Engines for moving Back
             {
                 engineBackTempColor.a += ScriptUtils.AddWithMax(engineBackTempColor.a, 0.01f, 1.5f);
             }
@@ -364,7 +370,7 @@ public class PlayerShip : MonoBehaviour
         while (gameObject)
         {
             //Shootings
-            if (Input.GetKey(KeyCode.Z) && canShoot)
+            if (Input.GetKey(KeyCode.X) || Input.GetKey(KeyCode.G) && canShoot)
             {
                 Vector2 offset = this.transform.up * 2; // 'up' is relative to the ship's rotation
 
@@ -377,12 +383,16 @@ public class PlayerShip : MonoBehaviour
                 projectile.GetComponent<Light2D>().color = new Color (lightsRendererSprite.color.r, lightsRendererSprite.color.g, lightsRendererSprite.color.b, 1f);
 
                 StartCoroutine(ScriptUtils.PositionLerp(projectile.transform, projectile.transform.position, this.transform.up * 1000,  20.5f - (rig.linearVelocityX / 10) - (rig.linearVelocityY / 10)));
+
+                ScriptUtils.PlaySound(null, fireAudio);
             }
-            else if (Input.GetKey(KeyCode.Z) && !canShoot)
+            else if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.G) && !canShoot)
             {
                 UiUtils.ShowMessage("Can't Shoot","Your Weapons are offline!",new Vector2(200,200),false);
             }
-            yield return new WaitForSeconds(0.5f); // Cooldown
+            canShoot = false;
+            yield return new WaitForSeconds(0.7f); // Cooldown
+            canShoot = true;
         }   
     }
 
@@ -413,6 +423,20 @@ public class PlayerShip : MonoBehaviour
             StartCoroutine(GameManager.GameOver());
         }
         Debug.Log("Player Damaged for : " + amount + " Damage");   
+    }
+
+    public void IncreaseHealth(float amount)
+    {
+        amount = Mathf.Abs(amount);
+
+        if ((shipHealth + amount) <= 1f)
+        {
+            shipHealth += amount;
+        }
+        else
+        {
+            shipHealth = 1f;
+        }
     }
 
     public float GetHealth()

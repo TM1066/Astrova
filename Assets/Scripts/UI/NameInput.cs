@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Linq;
+using UnityEngine.Analytics;
 
 public class NameInput : MonoBehaviour
 {
@@ -20,6 +22,8 @@ public class NameInput : MonoBehaviour
 
     private float charScrollSpeed = 0.2f;
 
+    private string[] illegalNames = new string[1] { "fag"};
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,7 +32,7 @@ public class NameInput : MonoBehaviour
 
         foreach (GameObject gameObjectcharInputField in charInputFields)
         {
-            gameObjectcharInputField.GetComponent<Button>().onClick.AddListener(MoveToNextInputField); // Should hopefully work with
+            //gameObjectcharInputField.GetComponent<Button>().onClick.AddListener(MoveToNextInputField); // Only works with enter for some reasonsss
 
             // Population Dictionary with ' '
             charInputValueDictionary.Add(gameObjectcharInputField, ' ');
@@ -37,28 +41,58 @@ public class NameInput : MonoBehaviour
 
             StartCoroutine(CharSelectorListener(gameObjectcharInputField)); // Handling Char changing
         }
-        StartCoroutine(UIHandlingStuff());
+        // StartCoroutine(UIHandlingStuff());
+    }
+
+    void MoveToPreviousInputField()
+    {
+        var currentlySelectedField = EventSystem.current.currentSelectedGameObject;
+
+        if (currentlySelectedField != null)
+        {
+            var button = currentlySelectedField.GetComponent<Button>();
+            if (button != null && button.navigation.selectOnLeft != null)
+            {
+                EventSystem.current.SetSelectedGameObject(button.navigation.selectOnLeft.gameObject);
+                PlayCharChangeSound();
+            }
+            else
+            {
+                Debug.LogWarning("No valid navigation target to the left.");
+            }
+        }
+        else
+        {
+            Debug.LogError("No currently selected field.");
+        }
+        Debug.Log($"Currently selected: {EventSystem.current.currentSelectedGameObject?.name}");
     }
 
     void MoveToNextInputField()
     {
         var currentlySelectedField = EventSystem.current.currentSelectedGameObject;
 
-        if (Array.IndexOf(charInputFields, currentlySelectedField) < 6) // check it's not the last input field
+        if (currentlySelectedField != null)
         {
-            currentlySelectedField = charInputFields[Array.IndexOf(charInputFields, currentlySelectedField) + 1]; // grab next input field
-
-            EventSystem.current.SetSelectedGameObject(currentlySelectedField);
-
-            PlayCharConfirmSound();
+            var button = currentlySelectedField.GetComponent<Button>();
+            if (button != null && button.navigation.selectOnRight != null)
+            {
+                EventSystem.current.SetSelectedGameObject(button.navigation.selectOnRight.gameObject);
+                PlayCharConfirmSound();
+            }
+            else
+            {
+                Debug.LogWarning("No valid navigation target to the right.");
+            }
         }
-
-        else 
-        { // Selection on last char input field
-            EventSystem.current.SetSelectedGameObject(this.gameObject.transform.GetChild(0).transform.GetChild(2).gameObject); // Honestly not sure if this will work and even if it does, it'll break the second we change the amount of children!!! <- gross
-            PlayCharConfirmSound();
+        else
+        {
+            Debug.LogError("No currently selected field.");
         }
+        Debug.Log($"Currently selected: {EventSystem.current.currentSelectedGameObject?.name}");
     }
+
+
 
     void PlayCharChangeSound()
     {
@@ -128,6 +162,17 @@ public class NameInput : MonoBehaviour
                     charInputField.GetComponentInChildren<TextMeshProUGUI>().text = charInputValueDictionary[charInputField].ToString();
                     yield return new WaitForSecondsRealtime(charScrollSpeed);
                 }
+                
+                if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.G))
+                {
+                    yield return new WaitForEndOfFrame(); // Ensure no conflicts with internal navigation
+                    MoveToPreviousInputField();
+                }
+                else if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.F))
+                {
+                    yield return new WaitForEndOfFrame(); // Ensure no conflicts with internal navigation
+                    MoveToNextInputField();
+                }
             }
             yield return null;
         }
@@ -148,9 +193,9 @@ public class NameInput : MonoBehaviour
 
         seedString = seedString.Trim(' ');
 
-        if (seedString == "")
+        if (seedString == "" || seedString == "   " || seedString == " " || seedString == "  " || illegalNames.Contains(seedString.ToLower()))
         {
-            seedString = "Anonymous";
+            seedString = "N/A";
         }
 
         Debug.Log($"Random seed will be generated from string: {seedString}");
@@ -165,18 +210,11 @@ public class NameInput : MonoBehaviour
         SceneManager.LoadScene("Space Scene");
     }
 
-    IEnumerator UIHandlingStuff()
-    {
-        while (this.gameObject) // Will be deleted by final button along with everything else
-        {
-            
-
-            yield return new WaitForSecondsRealtime(2); // Time Scale will be set to 0 while setting up name
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
+    // IEnumerator UIHandlingStuff()
+    // {
+    //     while (this.gameObject) // Will be deleted by final button along with everything else
+    //     {
+    //         yield return new WaitForSecondsRealtime(2); // Time Scale will be set to 0 while setting up name
+    //     }
+    // }
 }

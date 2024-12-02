@@ -7,10 +7,14 @@ public class StarSpawner : MonoBehaviour
     //[SerializeField] int starDensity = 15; Maybe keep in a 'System' Script if ya know what I mean
     public List<GameObject> stars = new List<GameObject>();
 
+    private BoxCollider2D starSpawnArea;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        starSpawnArea = GetComponent<BoxCollider2D>();
+
         SetStarBG();
     }
 
@@ -23,8 +27,8 @@ public class StarSpawner : MonoBehaviour
         {
             GameObject starInstance = Instantiate(starPrefab);
 
-            float maxWidth = GameObject.Find("GameArea").GetComponent<BoxCollider2D>().size.x;
-            float maxHeight = GameObject.Find("GameArea").GetComponent<BoxCollider2D>().size.y;
+            float maxWidth = starSpawnArea.size.x / 2;
+            float maxHeight = starSpawnArea.size.y / 2;
 
             starInstance.transform.position = new Vector3(UnityEngine.Random.Range(-maxWidth + 10, maxWidth - 10), UnityEngine.Random.Range(-maxHeight, maxHeight), 100);
 
@@ -46,6 +50,10 @@ public class StarSpawner : MonoBehaviour
 
             stars.Add(starInstance);
         } 
+    }
+
+    private void OnTriggerExit2D(Collider2D other) {
+        
     }
 
 }

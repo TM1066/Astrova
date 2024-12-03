@@ -136,7 +136,7 @@ public static class GameManager
 
         // GameObject.Find("SpaceShip").transform.DetachChildren(); // make the ship break up
 
-        Debug.Log(Time.timeScale);
+        //Debug.Log(Time.timeScale);
 
         //SAVING PLAYER TO LEADERBOARD
         AddUserToLeaderboard(currentUser.userName, currentUser.score, currentUser.color);

@@ -1259,7 +1259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultFontAsset: {fileID: 11400000, guid: ae081242c37e2d7448e01208e984eb62, type: 2}
-  menuInteractSound: {fileID: 8300000, guid: b9cdda7a90e6ccc46a3abc055e330ab9, type: 3}
+  menuInteractSound: {fileID: 8300000, guid: 68d94b85927d70549ad247ca362378f4, type: 3}
 --- !u!4 &2053929771
 Transform:
   m_ObjectHideFlags: 0

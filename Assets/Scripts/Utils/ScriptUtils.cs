@@ -133,18 +133,18 @@ public static class ScriptUtils
 
         float timeElapsed = 0;
 
-        Debug.Log($"Starting color change from {startColor} to {finalColor} on {image.gameObject.name}");
+        //Debug.Log($"Starting color change from {startColor} to {finalColor} on {image.gameObject.name}");
 
         while (timeElapsed < duration)
         {
             image.color = Color.Lerp(startColor, finalColor, timeElapsed / duration);
-            Debug.Log($"[{image.gameObject.name}] Current color: {image.color}");
+            //Debug.Log($"[{image.gameObject.name}] Current color: {image.color}");
             timeElapsed += Time.deltaTime;
             yield return null;
         }
 
         image.color = finalColor; // Ensure final color is set
-        Debug.Log($"[{image.gameObject.name}] Final color set: {image.color}");
+        //Debug.Log($"[{image.gameObject.name}] Final color set: {image.color}");
     }
 
 

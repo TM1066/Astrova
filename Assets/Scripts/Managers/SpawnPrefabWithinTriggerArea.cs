@@ -1,41 +1,46 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class StarSpawner : MonoBehaviour
+public class SpawnPrefabWithinTriggerArea : MonoBehaviour
 {
-    [SerializeField] GameObject starPrefab;
-    [SerializeField] int starAmount = 15; //Maybe keep in a 'System' Script if ya know what I mean
-    public List<GameObject> stars = new List<GameObject>();
+    [SerializeField] GameObject objectPrefab;
+    [SerializeField] int amountInArea = 15; //Maybe keep in a 'System' Script if ya know what I mean
+    public List<GameObject> spawnedObjects = new List<GameObject>();
 
-    List<Vector3> starPositions = new List<Vector3>();
+    [SerializeField] float minSize;
+    [SerializeField] float maxSize;
 
-    private BoxCollider2D starSpawnArea;
+    List<Vector3> objectPositions = new List<Vector3>();
+
+    private BoxCollider2D objectSpawnArea;
     private float maxSpawnHeight;
     private float maxSpawnWidth;
 
     [SerializeField] Transform playerTransform;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // objectt is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        starSpawnArea = GetComponent<BoxCollider2D>();
+        objectSpawnArea = GetComponent<BoxCollider2D>();
+
+        maxSpawnHeight = objectSpawnArea.size.y / 2;
+        maxSpawnWidth = objectSpawnArea.size.x / 2;
 
         this.transform.position = GameObject.Find("SpaceShip").transform.position;
 
-        maxSpawnHeight = starSpawnArea.size.y / 2;
-        maxSpawnWidth = starSpawnArea.size.x / 2;
+        SetObjects();
 
-        SetStarBG();
+        Debug.Log($"Max Spawn Width: {maxSpawnWidth}, Max Spawn Height: {maxSpawnHeight}");
+
     }
 
     private void OnTriggerExit2D (Collider2D other) // reset stars when the Player leaves the starred area
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            
             this.transform.position = other.transform.position;
 
-            SetStarBG(); // remake stars
+            SetObjects(); // remake objects
         }
     }
 
@@ -59,9 +64,9 @@ public class StarSpawner : MonoBehaviour
     //     }
     // }
 
-    private void SpawnStar(Vector2 spawnLocation)
+    private void SpawnObject(Vector2 spawnLocation)
     {
-        GameObject starInstance = Instantiate(starPrefab);
+        GameObject objectInstance = Instantiate(objectPrefab);
 
         // Get camera bounds to avoid spawning inside the camera's view
         float cameraHalfHeight = Camera.main.orthographicSize;
@@ -91,53 +96,52 @@ public class StarSpawner : MonoBehaviour
             attempts++;
             if (attempts >= maxAttempts)
             {
-                Debug.LogWarning("SpawnStar: Could not find a valid spawn position after multiple attempts.");
+                Debug.LogWarning("Spawnobject: Could not find a valid spawn position after multiple attempts.");
                 return; // Bail out to prevent crashing
             }
 
         } while (isInsideCamera);
 
-        // Set up the star properties
-        float randomScale = UnityEngine.Random.Range(0.1f, 1f);
-        starInstance.transform.localScale = new Vector3(randomScale, randomScale, 1);
-        starInstance.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, UnityEngine.Random.Range(0.1f, 0.8f));
-        starInstance.transform.position = new Vector3(spawnLocation.x, spawnLocation.y, 500);
+        // Set up the object properties
+        float randomScale = UnityEngine.Random.Range(minSize, maxSize);
+        objectInstance.transform.localScale = new Vector3(randomScale, randomScale, 1);
+        objectInstance.transform.position = new Vector3(spawnLocation.x, spawnLocation.y);
 
-        // Parent the star to this GameObject and add to list
-        starInstance.transform.SetParent(this.transform);
-        stars.Add(starInstance);
+        // Parent the object to this GameObject and add to list
+        objectInstance.transform.SetParent(this.transform);
+        spawnedObjects.Add(objectInstance);
     }
 
 
 
-    private void SetStarBG()
+    private void SetObjects()
     {
-        starPositions.Clear();
+        objectPositions.Clear();
 
-        foreach (GameObject star in stars)
+        foreach (GameObject gO in spawnedObjects)
         {
-            Destroy(star);
+            Destroy(gO);
         }
-        stars.Clear();
+        spawnedObjects.Clear();
 
-        for (int i = 0; i < starAmount; i++)
+        for (int i = 0; i < amountInArea; i++)
         {
-            // Generate a new random position for each star
+            // Generate a new random position for each object
             Vector2 randomSpawnLocation = new Vector2(
                 UnityEngine.Random.Range(this.transform.position.x - maxSpawnWidth + 50, this.transform.position.x + maxSpawnWidth - 50),
                 UnityEngine.Random.Range(this.transform.position.y - maxSpawnHeight + 50, this.transform.position.y + maxSpawnHeight - 50)
             );
 
-            SpawnStar(randomSpawnLocation);
+            SpawnObject(randomSpawnLocation);
         }
     }
 
 
     void OnLevelWasLoaded(int level)
     {
-        foreach (GameObject star in stars)
+        foreach (GameObject gO in spawnedObjects)
         {
-            GameObject.Destroy(star.gameObject);
+            GameObject.Destroy(gO.gameObject);
         }
     }
 }

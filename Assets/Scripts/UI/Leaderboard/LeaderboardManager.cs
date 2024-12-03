@@ -43,8 +43,6 @@ public class LeaderboardManager : MonoBehaviour
         
         foreach (User user in GameManager.leaderboard)
         {
-            Debug.Log($"Name: {user.userName}, Score: {user.score}, Color: {user.color}");
-
             nameTexts[leaderboardAccessIndex].text = user.userName;
             colorDisplays[leaderboardAccessIndex].color = new Color(user.color.r, user.color.g, user.color.b, 1f);
             scoreTexts[leaderboardAccessIndex].text = user.score.ToString();

@@ -8,6 +8,8 @@ TagManager:
   - Asteroid
   - Evil Projectile
   - Enemy
+  - Item
+  - Star
   layers:
   - Default
   - TransparentFX

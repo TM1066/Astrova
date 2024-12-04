@@ -124,8 +124,8 @@ public class StarSpawner : MonoBehaviour
         {
             // Generate a new random position for each star
             Vector2 randomSpawnLocation = new Vector2(
-                UnityEngine.Random.Range(this.transform.position.x - maxSpawnWidth + 50, this.transform.position.x + maxSpawnWidth - 50),
-                UnityEngine.Random.Range(this.transform.position.y - maxSpawnHeight + 50, this.transform.position.y + maxSpawnHeight - 50)
+                UnityEngine.Random.Range(this.transform.position.x - maxSpawnWidth - 50, this.transform.position.x + maxSpawnWidth + 50),
+                UnityEngine.Random.Range(this.transform.position.y - maxSpawnHeight - 50, this.transform.position.y + maxSpawnHeight + 50)
             );
 
             SpawnStar(randomSpawnLocation);

@@ -5,6 +5,7 @@ using UnityEngine.AI;
 using TMPro;
 using UnityEngine.Animations;
 using UnityEngine.InputSystem;
+using System.Linq;
 
 public class GameTracker : MonoBehaviour
 {
@@ -13,10 +14,17 @@ public class GameTracker : MonoBehaviour
     // Variables to be pulled from for other scripts
 
     public TMP_FontAsset defaultFontAsset;
+    public RuntimeAnimatorController genericButtonAnimatorController;
+
+    public Sprite cubeUISprite;
+
+    public AudioClip PlayerDeathSound;
 
     //public AnimatorController uiMessageAnimator;
 
     public AudioClip menuInteractSound;
+
+    private string[] noFloatiesSceneNames = new string[4] {"Main Menu", "Name Input Screen", "End Scene", "Controls"}; // add all scene that carry on objects from the spawners shouldn't appear in  
 
     void Awake()
     {
@@ -72,5 +80,33 @@ public class GameTracker : MonoBehaviour
                 Application.Quit();
             }
         }
-    } 
+    
+
+        // GET RID OF EVIL NO GOOD GAME OBJECTS THAT WON'T GET DELETED PROPERLY (baddddd way to do this)
+        
+        
+
+        if (noFloatiesSceneNames.Contains(SceneManager.GetActiveScene().name))
+        {
+            foreach (var asteroid in GameObject.FindGameObjectsWithTag("Asteroid"))
+            {
+                Destroy(asteroid);
+            }
+
+            foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+            {
+                Destroy(enemy);
+            }
+
+            foreach (var item in GameObject.FindGameObjectsWithTag("Item"))
+            {
+                Destroy(item);
+            }
+
+            foreach (var star in GameObject.FindGameObjectsWithTag("Star"))
+            {
+                Destroy(star);
+            }
+        }
+    }
 }

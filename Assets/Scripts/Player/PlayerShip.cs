@@ -27,6 +27,8 @@ public class PlayerShip : MonoBehaviour
 
     private List<Engine> allEngines = new List<Engine>();
 
+    [SerializeField] ParticleSystem deathParticles;
+
     // Shootings
     private bool canShoot = true;
     [SerializeField] GameObject projectilePrefab;
@@ -35,6 +37,7 @@ public class PlayerShip : MonoBehaviour
     [SerializeField] float shipHealth = 1f; // Keep between 1 and 0 and just either display * 100 or as a bar
     [SerializeField] float minHealth = 0.15f;
     [SerializeField] float projectileDamage = 0.33f;
+    private bool isDead = false;
 
     //Audio Stuff
     private AudioSource thisAudioPlayer; 
@@ -101,7 +104,7 @@ public class PlayerShip : MonoBehaviour
     void FixedUpdate()
     {   
         // Handling movement
-        if (Input.anyKey)
+        if (Input.anyKey && !isDead)
         {
             if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.F))
             {
@@ -178,6 +181,7 @@ public class PlayerShip : MonoBehaviour
     }
 
     //INTERNAL METHODS
+
     private Color CalculateColorBasedOnHealth(Color startColor, Color endColor)
     {
         return new Color (Color.Lerp(endColor, startColor, shipHealth).r, Color.Lerp(endColor, startColor, shipHealth).g, Color.Lerp(endColor, startColor, shipHealth).b, startColor.a); // weird but works & retains start alpha
@@ -186,7 +190,7 @@ public class PlayerShip : MonoBehaviour
     private IEnumerator HandleLightingIntensity()
     {
             
-        while (true)
+        while (true && !isDead)
         {
             List<Color> rightFireEnginesColors = new List<Color>();
             List<Color> leftFireEnginesColors = new List<Color>();
@@ -437,7 +441,11 @@ public class PlayerShip : MonoBehaviour
         {
             shipHealth = 0f;
 
-            //StartCoroutine(ScriptUtils.SlowTime(0f,10f));
+            isDead = true;
+            
+            var colorParticleThing = deathParticles.main;
+
+            colorParticleThing.startColor = Color.red; // enable and make em red
 
             StartCoroutine(GameManager.GameOver());
         }

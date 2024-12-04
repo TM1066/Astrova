@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using TMPro;
 
 public static class ScriptUtils
 {
@@ -161,6 +162,21 @@ public static class ScriptUtils
 
         // Ensure the final color is set, in case the loop doesn't hit it exactly.
         image.color = finalColor;
+    }
+
+    public static IEnumerator ColorLerpOverTime(TextMeshProUGUI text, Color startColor, Color finalColor, float duration)
+    {
+        float timeElapsed = 0;
+
+        while (timeElapsed < duration)
+        {
+            text.color = Color.Lerp(startColor, finalColor, timeElapsed / duration);
+            timeElapsed += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        // Ensure the final color is set, in case the loop doesn't hit it exactly.
+        text.color = finalColor;
     }
 
 

@@ -203,10 +203,10 @@ public class NameInput : MonoBehaviour
         UnityEngine.Random.InitState(ScriptUtils.GetNumberFromString(seedString));
         GameManager.SetCurrentUserColor(ScriptUtils.GetRandomColorFromSeed());
 
-        // if (seedString.ToLower() == "tm")
-        // {
-        //     GameManager.SetCurrentUserColor(new Color (112 / 255, 128 / 255, 144 / 255));
-        // }
+        if (seedString.ToLower() == "tm")
+        {
+            GameManager.SetCurrentUserColor(new Color (0.61f, 0.81f, 0.796f));
+        }
         if (seedString.ToLower() == "god")
         {
             GameManager.SetCurrentUserColor(new Color (112,128,144));

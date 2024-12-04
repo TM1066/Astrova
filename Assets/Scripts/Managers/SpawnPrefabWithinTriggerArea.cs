@@ -30,7 +30,7 @@ public class SpawnPrefabWithinTriggerArea : MonoBehaviour
 
         SetObjects();
 
-        Debug.Log($"Max Spawn Width: {maxSpawnWidth}, Max Spawn Height: {maxSpawnHeight}");
+        Debug.Log($" {objectPrefab.name} spawner Max Spawn Width: {maxSpawnWidth}, Max Spawn Height: {maxSpawnHeight}");
 
     }
 

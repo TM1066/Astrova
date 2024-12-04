@@ -16,7 +16,7 @@ public static class GameManager
     private static User currentUser = new User("", 0, Color.cyan);
 
     // LEADERBOARD LOADING NONSENSE
-    private static string leaderboardFilePath = Path.Combine(Application.persistentDataPath, "leaderboard.json");
+    private static string leaderboardFilePath = Path.Combine(Application.dataPath, "leaderboard.json");
     public static List<User> leaderboard = new List<User>();
     public static bool[] leaderBoardChanged = new bool[10] {false,false,false,false,false,false,false,false,false,false}; // Remember to change all back to false upon replay in end scene
 
@@ -145,7 +145,7 @@ public static class GameManager
         currentUser.score = 0;
         currentUser.color = Color.clear;
 
-        yield return new WaitForSecondsRealtime(2f);
+        ScriptUtils.PlaySound(null, GameObject.Find("Game Tracker").GetComponent<GameTracker>().PlayerDeathSound);
 
         GameObject.Find("Music Player").GetComponent<AudioSource>().loop = false;
 

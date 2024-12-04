@@ -110,7 +110,7 @@ public class PlayerShip : MonoBehaviour
             {
                 rig.AddRelativeForceY(movementSpeed * shipHealth); //AAAAAAAAAAAAAA THIS WAS SO EASY IM SO DUMB
             }
-            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.J))
+            if (Input.GetKey(KeyCode.V) || Input.GetKey(KeyCode.J))
             {
                 rig.AddRelativeForceY(-(movementSpeed * shipHealth)); 
             }

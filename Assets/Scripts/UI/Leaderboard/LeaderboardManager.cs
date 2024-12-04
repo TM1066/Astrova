@@ -44,7 +44,7 @@ public class LeaderboardManager : MonoBehaviour
         foreach (User user in GameManager.leaderboard)
         {
             nameTexts[leaderboardAccessIndex].text = user.userName;
-            colorDisplays[leaderboardAccessIndex].color = new Color(user.color.r, user.color.g, user.color.b, 1f);
+            colorDisplays[leaderboardAccessIndex].color = new Color(user.color.r, user.color.g, user.color.b, 0f);
             scoreTexts[leaderboardAccessIndex].text = user.score.ToString();
 
             leaderboardAccessIndex++;
@@ -59,44 +59,6 @@ public class LeaderboardManager : MonoBehaviour
             {
                 highScoreTexts[i].enabled = true; // re-enable high score texts for the places on the board that it should be shown
             }
-        }
-    }
-
-    public void SetAllColours()
-    {
-
-        Animator animator = GameObject.Find("LeaderBoard").GetComponent<Animator>();
-            if (animator != null)
-            {
-                animator.enabled = false; // Disable animation for the object
-            }
-
-        // for (int i = 0; i < colorDisplays.Count; i++)
-        // {
-
-        //     Debug.Log("Changing ColorDisplay " + i);
-        //     Debug.Log("current color: " + colorDisplays[i].color);
-
-        //     //colorDisplays[i].color = GameManager.leaderboard[i].color;
-        //     colorDisplays[i].color = Color.red;
-
-        //     Debug.Log("changed color: " + colorDisplays[i].color);
-        // }
-
-        StartCoroutine(ChangeAllColorsProperly());
-    }
-    
-    private IEnumerator ChangeAllColorsProperly()
-    {
-        for (int i = 0; i < colorDisplays.Count - 1; i++)
-        {
-            Image currentColorImage = colorDisplays[i];
-
-            Color colorToChangeTo = GameManager.leaderboard[i].color;
-            colorToChangeTo.a = 1f;
-
-            StartCoroutine(ScriptUtils.ColorLerpOverTime(currentColorImage, currentColorImage.color, colorToChangeTo, 0.5f));
-            yield return new WaitForSeconds(0.2f);
         }
     }
 }

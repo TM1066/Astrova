@@ -74,6 +74,7 @@ public class TurretEnemy : MonoBehaviour
 
                 StartCoroutine(ScriptUtils.PositionLerp(projectile.transform, projectile.transform.position, this.transform.up * 1000,  25.5f));
                 isFiring = true;
+                yield return new WaitForSeconds(Random.Range(0.5f,1f)); // Let Lights spool up
             }
             isFiring = false;
             yield return new WaitForSeconds(UnityEngine.Random.Range(1f,3f)); // Cooldown

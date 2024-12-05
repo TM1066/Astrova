@@ -13,14 +13,10 @@ public class StarSpawner : MonoBehaviour
     private float maxSpawnHeight;
     private float maxSpawnWidth;
 
-    [SerializeField] Transform playerTransform;
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         starSpawnArea = GetComponent<BoxCollider2D>();
-
-        this.transform.position = GameObject.Find("SpaceShip").transform.position;
 
         maxSpawnHeight = starSpawnArea.size.y / 2;
         maxSpawnWidth = starSpawnArea.size.x / 2;
@@ -67,35 +63,30 @@ public class StarSpawner : MonoBehaviour
         float cameraHalfHeight = Camera.main.orthographicSize;
         float cameraHalfWidth = cameraHalfHeight * Camera.main.aspect;
 
-        bool isInsideCamera;
-        float padding = 5f;
-        int attempts = 0; // Safety counter
-        int maxAttempts = 100; // Cap to prevent infinite loops
+        // do // Generate a valid spawn location
+        // {
+        //     isInsideCamera = spawnLocation.x > (playerTransform.position.x - cameraHalfWidth - padding) &&
+        //                     spawnLocation.x < (playerTransform.position.x + cameraHalfWidth + padding) &&
+        //                     spawnLocation.y > (playerTransform.position.y - cameraHalfHeight - padding) &&
+        //                     spawnLocation.y < (playerTransform.position.y + cameraHalfHeight + padding);
 
-        do // Generate a valid spawn location
-        {
-            isInsideCamera = spawnLocation.x > (playerTransform.position.x - cameraHalfWidth - padding) &&
-                            spawnLocation.x < (playerTransform.position.x + cameraHalfWidth + padding) &&
-                            spawnLocation.y > (playerTransform.position.y - cameraHalfHeight - padding) &&
-                            spawnLocation.y < (playerTransform.position.y + cameraHalfHeight + padding);
+        //     if (isInsideCamera)
+        //     {
+        //         // Re-generate spawn location
+        //         spawnLocation = new Vector2(
+        //             UnityEngine.Random.Range(this.transform.position.x - maxSpawnWidth + 5, this.transform.position.x + maxSpawnWidth - 5),
+        //             UnityEngine.Random.Range(this.transform.position.y - maxSpawnHeight + 5, this.transform.position.y + maxSpawnHeight - 5)
+        //         );
+        //     }
 
-            if (isInsideCamera)
-            {
-                // Re-generate spawn location
-                spawnLocation = new Vector2(
-                    UnityEngine.Random.Range(this.transform.position.x - maxSpawnWidth + 5, this.transform.position.x + maxSpawnWidth - 5),
-                    UnityEngine.Random.Range(this.transform.position.y - maxSpawnHeight + 5, this.transform.position.y + maxSpawnHeight - 5)
-                );
-            }
+        //     attempts++;
+        //     if (attempts >= maxAttempts)
+        //     {
+        //         Debug.LogWarning("SpawnStar: Could not find a valid spawn position after multiple attempts.");
+        //         return; // Bail out to prevent crashing
+        //     }
 
-            attempts++;
-            if (attempts >= maxAttempts)
-            {
-                Debug.LogWarning("SpawnStar: Could not find a valid spawn position after multiple attempts.");
-                return; // Bail out to prevent crashing
-            }
-
-        } while (isInsideCamera);
+        // } while (isInsideCamera);
 
         // Set up the star properties
         float randomScale = UnityEngine.Random.Range(0.1f, 1f);
@@ -124,8 +115,8 @@ public class StarSpawner : MonoBehaviour
         {
             // Generate a new random position for each star
             Vector2 randomSpawnLocation = new Vector2(
-                UnityEngine.Random.Range(this.transform.position.x - maxSpawnWidth - 50, this.transform.position.x + maxSpawnWidth + 50),
-                UnityEngine.Random.Range(this.transform.position.y - maxSpawnHeight - 50, this.transform.position.y + maxSpawnHeight + 50)
+                UnityEngine.Random.Range(this.transform.position.x - maxSpawnWidth, this.transform.position.x + maxSpawnWidth),
+                UnityEngine.Random.Range(this.transform.position.y - maxSpawnHeight, this.transform.position.y + maxSpawnHeight)
             );
 
             SpawnStar(randomSpawnLocation);

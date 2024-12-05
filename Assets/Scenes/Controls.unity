@@ -1365,6 +1365,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2056979667}
     m_Modifications:
     - target: {fileID: 1741420456399186212, guid: be854bb1342e1724b9a0091874526485, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1741420456399186212, guid: be854bb1342e1724b9a0091874526485, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 5
       objectReference: {fileID: 0}
@@ -1427,6 +1431,18 @@ PrefabInstance:
     - target: {fileID: 8037428450774625137, guid: be854bb1342e1724b9a0091874526485, type: 3}
       propertyPath: m_SizeDelta.y
       value: 103.0757
+      objectReference: {fileID: 0}
+    - target: {fileID: 8037428450774625137, guid: be854bb1342e1724b9a0091874526485, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.7071
+      objectReference: {fileID: 0}
+    - target: {fileID: 8037428450774625137, guid: be854bb1342e1724b9a0091874526485, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.7071
+      objectReference: {fileID: 0}
+    - target: {fileID: 8037428450774625137, guid: be854bb1342e1724b9a0091874526485, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.7071
       objectReference: {fileID: 0}
     - target: {fileID: 8037428450774625137, guid: be854bb1342e1724b9a0091874526485, type: 3}
       propertyPath: m_LocalPosition.x

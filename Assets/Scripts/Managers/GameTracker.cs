@@ -103,10 +103,10 @@ public class GameTracker : MonoBehaviour
                 Destroy(item);
             }
 
-            foreach (var star in GameObject.FindGameObjectsWithTag("Star"))
-            {
-                Destroy(star);
-            }
+            // foreach (var star in GameObject.FindGameObjectsWithTag("Star"))
+            // {
+            //     Destroy(star);
+            // }
         }
     }
 }

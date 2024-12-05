@@ -767,7 +767,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3050190755494735331, guid: 8d22b78d6b715f1418131a3f6c27bd3b, type: 3}
       propertyPath: amountInArea
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3050190755494735331, guid: 8d22b78d6b715f1418131a3f6c27bd3b, type: 3}
       propertyPath: objectPrefab
@@ -1389,9 +1389,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starPrefab: {fileID: 565355153638662768, guid: 607f3fe486380854ba1f79ef5ad2f0d6, type: 3}
-  starAmount: 4000
+  starAmount: 15000
   stars: []
-  playerTransform: {fileID: 1486012266}
 --- !u!61 &1610309134
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1436,7 +1435,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 500, y: 500}
+  m_Size: {x: 1000, y: 1000}
   m_EdgeRadius: 0
 --- !u!1 &1762904124
 GameObject:

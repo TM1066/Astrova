@@ -52,9 +52,9 @@ public static class ScriptUtils
 
     public static Color GetComplimentaryColor(Color baseColor)
     {
-        float r = 1f - baseColor.r + 0.2f; // Invert the red channel & make it looks slightly brighter for prettiness
-        float g = 1f - baseColor.g + 0.2f; // Invert the green channel & make it looks slightly brighter for prettiness
-        float b = 1f - baseColor.b + 0.2f; // Invert the blue channel & make it looks slightly brighter for prettiness
+        float r = 1f - baseColor.r + 0.3f; // Invert the red channel & make it looks slightly brighter for prettiness
+        float g = 1f - baseColor.g + 0.3f; // Invert the green channel & make it looks slightly brighter for prettiness
+        float b = 1f - baseColor.b + 0.3f; // Invert the blue channel & make it looks slightly brighter for prettiness
 
         return new Color(r, g, b, baseColor.a); // Preserve the alpha channel
     }

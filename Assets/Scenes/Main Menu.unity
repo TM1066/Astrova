@@ -322,12 +322,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 417935700}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.48654976, y: 4.090877, z: 18.319763}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1121664849}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &417935702
 BoxCollider2D:
@@ -388,7 +388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starPrefab: {fileID: 565355153638662768, guid: 607f3fe486380854ba1f79ef5ad2f0d6, type: 3}
-  starAmount: 100
+  starAmount: 50
   stars: []
 --- !u!1 &536943668
 GameObject:
@@ -1215,8 +1215,7 @@ Transform:
   m_LocalPosition: {x: 13.131251, y: -59.58185, z: -3869.085}
   m_LocalScale: {x: 26.988506, y: 26.988506, z: 53.977013}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 417935701}
+  m_Children: []
   m_Father: {fileID: 916206390}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1146063402
@@ -1684,4 +1683,5 @@ SceneRoots:
   - {fileID: 10210318}
   - {fileID: 2056979667}
   - {fileID: 1775233610}
+  - {fileID: 417935701}
   - {fileID: 2053929771}

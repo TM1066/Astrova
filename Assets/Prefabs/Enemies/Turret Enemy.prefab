@@ -80,6 +80,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9c95d47aa4546a4fb25fead5ad4906b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chassisSpriteRenderer: {fileID: 316622362637609965}
+  lightsSpriteRenderer: {fileID: 4048386432189765586}
   bodyLight: {fileID: 4560484209308422666}
   angleOffset: -90
   projectilePrefab: {fileID: 8950819391558252215, guid: 51c526445a6f70343ba749b6afcfbf0b, type: 3}

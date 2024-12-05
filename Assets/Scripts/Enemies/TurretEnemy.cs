@@ -6,8 +6,8 @@ public class TurretEnemy : MonoBehaviour
 {
     private GameObject player;
 
-    private SpriteRenderer chassisSpriteRenderer;
-    private SpriteRenderer lightsSpriteRenderer;
+    [SerializeField] SpriteRenderer chassisSpriteRenderer;
+    [SerializeField] SpriteRenderer lightsSpriteRenderer;
     [SerializeField] Light2D bodyLight;
     private Color thisColor;
 
@@ -26,7 +26,6 @@ public class TurretEnemy : MonoBehaviour
     {
         //Setting up Variables
         player = GameObject.Find("SpaceShip");
-        chassisSpriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
         chassisSpriteRenderer.color = ScriptUtils.GetComplimentaryColor(GameManager.GetCurrentUserColorFullAlpha());
         thisColor = chassisSpriteRenderer.color;
 
@@ -36,6 +35,7 @@ public class TurretEnemy : MonoBehaviour
 
         //Starting Coroutines
         StartCoroutine(ShootHandler());
+        StartCoroutine(HandleLightingIntensity());
     }
 
     // Update is called once per frame
@@ -63,7 +63,7 @@ public class TurretEnemy : MonoBehaviour
             //Shootings
             if (Random.Range(0, 2) == 1 && Vector2.Distance(transform.position, player.transform.position) <= 12)
             {
-                Vector2 offset = this.transform.up * 0.5f; // 'up' is relative to the ship's rotation
+                Vector2 offset = this.transform.up * 1f; // 'up' is relative to the ship's rotation
 
                 GameObject projectile = Instantiate(projectilePrefab, (Vector2) this.transform.position + offset, this.transform.localRotation); // Offset so it's not inside the enemy
                 projectile.GetComponent<Projectile>().SetDamage(projectileDamage);

@@ -39,6 +39,8 @@ public class LeaderboardManager : MonoBehaviour
 
         // Sequence VERY important here
 
+        SetHighScoreMessages();
+
         int leaderboardAccessIndex = 0;
         
         foreach (User user in GameManager.leaderboard)

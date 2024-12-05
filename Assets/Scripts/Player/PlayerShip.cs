@@ -476,6 +476,11 @@ public class PlayerShip : MonoBehaviour
         return minHealth;
     }
 
+    public bool GetIsDead()
+    {
+        return isDead;
+    }
+
     public void SetColor(Color color)
     {
         lightsRendererSprite.color = new Color (color.r, color.g, color.b,1.5f);

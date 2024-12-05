@@ -207,13 +207,17 @@ public class NameInput : MonoBehaviour
         {
             GameManager.SetCurrentUserColor(new Color (0.61f, 0.81f, 0.796f));
         }
-        if (seedString.ToLower() == "god")
+        else if (seedString.ToLower() == "god")
         {
             GameManager.SetCurrentUserColor(new Color (112,128,144));
         }
-        if (seedString.ToLower() == "666")
+        else if (seedString.ToLower() == "666")
         {
             GameManager.SetCurrentUserColor(new Color (0,0,0));
+        }
+        else if (seedString.ToLower() == "xiv")
+        {
+            GameManager.SetCurrentUserColor(new Color (1,0.504717f,0.8643153f));
         }
 
         Time.timeScale = 1.0f;

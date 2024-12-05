@@ -16,7 +16,7 @@ public static class GameManager
     private static User currentUser = new User("", 0, Color.cyan);
 
     // LEADERBOARD LOADING NONSENSE
-    private static string leaderboardFilePath = Path.Combine(Application.dataPath, "leaderboard.json");
+    private static string leaderboardFilePath = Path.Combine(Application.persistentDataPath, "leaderboard.json");
     public static List<User> leaderboard = new List<User>();
     public static bool[] leaderBoardChanged = new bool[10] {false,false,false,false,false,false,false,false,false,false}; // Remember to change all back to false upon replay in end scene
 
@@ -118,7 +118,7 @@ public static class GameManager
 
     public static IEnumerator GameOver()
     {
-        UiUtils.ShowMessage("GAME OVER","You Died!",UiUtils.GetCentreOfCamera(),true);
+        //UiUtils.ShowMessage("GAME OVER","You Died!",UiUtils.GetCentreOfCamera(),true);
 
         GameObject.Destroy(GameObject.Find("Main Camera").GetComponent<CameraFollow>()); // Hopefully doesn't just delete the camera
 

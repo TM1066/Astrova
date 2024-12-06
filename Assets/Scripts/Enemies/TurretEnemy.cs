@@ -17,7 +17,7 @@ public class TurretEnemy : MonoBehaviour
 
     [SerializeField] float health = 1f;
 
-    [SerializeField] float projectileDamage = 0.22f;
+    //[SerializeField] float projectileDamage = 0.22f;
 
     private bool isFiring;
     
@@ -61,23 +61,26 @@ public class TurretEnemy : MonoBehaviour
         while (gameObject && player.GetComponent<PlayerShip>().GetHealth() > player.GetComponent<PlayerShip>().GetMinHealth())
         {
             //Shootings
-            if (Random.Range(0, 2) == 1 && Vector2.Distance(transform.position, player.transform.position) <= 12)
+            if (Random.Range(1, 2) == 1 && Vector2.Distance(transform.position, player.transform.position) <= 12)
             {
+                isFiring = true;
+                yield return new WaitForSeconds(Random.Range(0.5f,1f)); // Let Lights spool up
+
                 Vector2 offset = this.transform.up * 1f; // 'up' is relative to the ship's rotation
 
                 GameObject projectile = Instantiate(projectilePrefab, (Vector2) this.transform.position + offset, this.transform.localRotation); // Offset so it's not inside the enemy
-                projectile.GetComponent<Projectile>().SetDamage(projectileDamage);
+                projectile.GetComponent<Projectile>().SetDamage(GetDamageFromDifficulty());
                 projectile.gameObject.transform.SetParent(transform);
 
                 //Change Projectile Color to match lights
                 projectile.GetComponent<SpriteRenderer>().color = new Color (thisColor.r, thisColor.g, thisColor.b, 1f);
 
                 StartCoroutine(ScriptUtils.PositionLerp(projectile.transform, projectile.transform.position, this.transform.up * 1000,  25.5f));
-                isFiring = true;
-                yield return new WaitForSeconds(Random.Range(0.5f,1f)); // Let Lights spool up
+                
+                
             }
             isFiring = false;
-            yield return new WaitForSeconds(UnityEngine.Random.Range(1f,3f)); // Cooldown
+            yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f,2f)); // Cooldown
         }   
     }
 
@@ -282,7 +285,23 @@ public class TurretEnemy : MonoBehaviour
         }
     }
 
+    private float GetDamageFromDifficulty()
+    {
+        switch (GameManager.currentDifficulty)
+        {
+            case GameManager.Difficulties.easy:
+                return 0.11f;
+                
+            case GameManager.Difficulties.moderate:
+                return 0.33f;
 
+            case GameManager.Difficulties.hard:
+                return 0.5f;
+
+            default:
+                return 0.2f;
+        }
+    }
 
     private void Die()
     {

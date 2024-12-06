@@ -114,6 +114,7 @@ GameObject:
   - component: {fileID: 8031889201923094904}
   - component: {fileID: 4423251816929929201}
   - component: {fileID: 4369712530137420440}
+  - component: {fileID: 2240659598039813603}
   m_Layer: 0
   m_Name: Repair Kit
   m_TagString: Item
@@ -244,6 +245,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healAmount: 0.1
   pickUpSound: {fileID: 8300000, guid: 14f8955e12b0e914aabfb673cdcd7e03, type: 3}
+--- !u!114 &2240659598039813603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3220009589161220272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f35b128daf1c1ee4fa31b01a92d95929, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsVisible: 1
 --- !u!1 &4868575621997704840
 GameObject:
   m_ObjectHideFlags: 0

@@ -112,8 +112,12 @@ public class NameInput : MonoBehaviour
         {
             if (EventSystem.current.currentSelectedGameObject == charInputField)
             {
-                if (Input.GetKey(KeyCode.UpArrow) && charInputValueDictionary[charInputField] <= 122)
+                if (Input.GetKey(KeyCode.UpArrow) && charInputValueDictionary[charInputField] <= 121)
                 {
+                    if (charScrollSpeed > 0.08f)
+                    {
+                        charScrollSpeed -= 0.01f;
+                    }
                     //SKIPPING ANNOYING CHARS
                     if (charInputValueDictionary[charInputField] < (char)49) // A to 9
                     {
@@ -139,6 +143,10 @@ public class NameInput : MonoBehaviour
                 }
                 else if (Input.GetKey(KeyCode.DownArrow) && charInputValueDictionary[charInputField] >= 49)
                 {
+                    if (charScrollSpeed > 0.05f)
+                    {
+                        charScrollSpeed -= 0.01f;
+                    }
                     //SKIPPING ANNOYING CHARS
                     if (charInputValueDictionary[charInputField] == (char)65) // A to 9
                     {
@@ -161,6 +169,10 @@ public class NameInput : MonoBehaviour
 
                     charInputField.GetComponentInChildren<TextMeshProUGUI>().text = charInputValueDictionary[charInputField].ToString();
                     yield return new WaitForSecondsRealtime(charScrollSpeed);
+                }
+                else 
+                {
+                    charScrollSpeed = 0.2f;
                 }
                 
                 if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.G))
@@ -203,6 +215,8 @@ public class NameInput : MonoBehaviour
         UnityEngine.Random.InitState(ScriptUtils.GetNumberFromString(seedString));
         GameManager.SetCurrentUserColor(ScriptUtils.GetRandomColorFromSeed());
 
+
+        // SPECIAL NAMES
         if (seedString.ToLower() == "tm")
         {
             GameManager.SetCurrentUserColor(new Color (0.61f, 0.81f, 0.796f));
@@ -218,6 +232,22 @@ public class NameInput : MonoBehaviour
         else if (seedString.ToLower() == "xiv")
         {
             GameManager.SetCurrentUserColor(new Color (1,0.504717f,0.8643153f));
+        }
+        else if (seedString.ToLower() == "luk")
+        {
+            GameManager.SetCurrentUserColor(new Color (0.08627451f,0.1411765f,0.5019608f));
+        }
+        else if (seedString.ToLower() == "jam")
+        {
+            GameManager.SetCurrentUserColor(new Color (2560000f,0f,0f));
+        }
+        else if (seedString.ToLower() == "dor")
+        {
+            GameManager.SetCurrentUserColor(new Color (0f,1f,0f));
+        }
+        else if (seedString.ToLower() == "582")
+        {
+            GameManager.SetCurrentUserColor(new Color (0.01568628f,0.4470588f,0.7803922f));
         }
 
         Time.timeScale = 1.0f;

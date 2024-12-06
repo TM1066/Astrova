@@ -8,7 +8,7 @@ public class RepairKit : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && !other.GetComponent<PlayerShip>().GetIsDead())
         {
             other.gameObject.GetComponent<PlayerShip>().IncreaseHealth(healAmount);
             ScriptUtils.PlaySound(null,pickUpSound);

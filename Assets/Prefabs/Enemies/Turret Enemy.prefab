@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 1188747098168413394}
   - component: {fileID: -7095063939377647583}
   - component: {fileID: 3421179803601537909}
+  - component: {fileID: -2511737469843070714}
   m_Layer: 0
   m_Name: Turret Enemy
   m_TagString: Enemy
@@ -86,7 +87,6 @@ MonoBehaviour:
   angleOffset: -90
   projectilePrefab: {fileID: 8950819391558252215, guid: 51c526445a6f70343ba749b6afcfbf0b, type: 3}
   health: 1
-  projectileDamage: 0.11
 --- !u!50 &-7095063939377647583
 Rigidbody2D:
   serializedVersion: 5
@@ -199,6 +199,19 @@ PolygonCollider2D:
       - {x: 0.44137278, y: 0.16132474}
       - {x: 0.41245192, y: 0.20741756}
   m_UseDelaunayMesh: 0
+--- !u!114 &-2511737469843070714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894068651939861731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f35b128daf1c1ee4fa31b01a92d95929, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsVisible: 1
 --- !u!1 &4125751200329987707
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,7 +288,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 01f1eda71cf5f064989175e2227f99fb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

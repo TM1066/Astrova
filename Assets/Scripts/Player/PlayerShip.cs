@@ -393,7 +393,7 @@ public class PlayerShip : MonoBehaviour
         while (gameObject)
         {
             //Shootings
-            if (Input.GetKey(KeyCode.X) || Input.GetKey(KeyCode.G) && canShoot)
+            if ((Input.GetKey(KeyCode.X) || Input.GetKey(KeyCode.G)) && !isDead && canShoot)
             {
                 Vector2 offset = this.transform.up * 2; // 'up' is relative to the ship's rotation
 

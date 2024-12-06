@@ -4,14 +4,14 @@ using System.IO;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using PlayFab.ProgressionModels;
+//using PlayFab.ProgressionModels;
 using System;
 
 public static class GameManager
 {
 
     public enum Difficulties {easy, moderate, hard};
-    static public Difficulties currentDifficulty = Difficulties.easy;
+    static public Difficulties currentDifficulty = Difficulties.easy; // default to easy
 
     private static User currentUser = new User("", 0, Color.cyan);
 

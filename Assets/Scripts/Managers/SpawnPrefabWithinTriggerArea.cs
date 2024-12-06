@@ -74,41 +74,40 @@ public class SpawnPrefabWithinTriggerArea : MonoBehaviour
 
         bool isInsideCamera;
         float padding = 5f;
-        int attempts = 0; // Safety counter
-        int maxAttempts = 100; // Cap to prevent infinite loops
+        //int attempts = 0; // Safety counter
+        //int maxAttempts = 100; // Cap to prevent infinite loops
 
-        do // Generate a valid spawn location
+         isInsideCamera = spawnLocation.x > (playerTransform.position.x - cameraHalfWidth) &&
+                         spawnLocation.x < (playerTransform.position.x + cameraHalfWidth) &&
+                         spawnLocation.y > (playerTransform.position.y - cameraHalfHeight) &&
+                         spawnLocation.y < (playerTransform.position.y + cameraHalfHeight);
+
+        while (isInsideCamera)
         {
-            isInsideCamera = spawnLocation.x > (playerTransform.position.x - cameraHalfWidth - padding) &&
-                            spawnLocation.x < (playerTransform.position.x + cameraHalfWidth + padding) &&
-                            spawnLocation.y > (playerTransform.position.y - cameraHalfHeight - padding) &&
-                            spawnLocation.y < (playerTransform.position.y + cameraHalfHeight + padding);
 
-            if (isInsideCamera)
-            {
-                // Re-generate spawn location
-                spawnLocation = new Vector2(
-                    UnityEngine.Random.Range(this.transform.position.x - maxSpawnWidth + 5, this.transform.position.x + maxSpawnWidth - 5),
-                    UnityEngine.Random.Range(this.transform.position.y - maxSpawnHeight + 5, this.transform.position.y + maxSpawnHeight - 5)
-                );
-            }
+            spawnLocation = new UnityEngine.Vector2(UnityEngine.Random.Range(this.transform.position.x + -maxSpawnWidth + 5, this.transform.position.x + maxSpawnWidth - 5), 
+            UnityEngine.Random.Range(this.transform.position.y + -maxSpawnHeight + 5, this.transform.position.y + maxSpawnWidth - 5));
 
-            attempts++;
-            if (attempts >= maxAttempts)
-            {
-                Debug.LogWarning("Spawnobject: Could not find a valid spawn position after multiple attempts.");
-                return; // Bail out to prevent crashing
-            }
 
-        } while (isInsideCamera);
+                isInsideCamera = spawnLocation.x > (playerTransform.position.x - cameraHalfWidth - padding) &&
+                         spawnLocation.x < (playerTransform.position.x + cameraHalfWidth + padding) &&
+                         spawnLocation.y > (playerTransform.position.y - cameraHalfHeight - padding) &&
+                         spawnLocation.y < (playerTransform.position.y + cameraHalfHeight + padding);
+        }
 
+            // attempts++;
+            // if (attempts >= maxAttempts)
+            // {
+            //     Debug.LogWarning("Spawnobject: Could not find a valid spawn position after multiple attempts.");
+            //     return; // Bail out to prevent crashing
+            // }
         // Set up the object properties
         float randomScale = UnityEngine.Random.Range(minSize, maxSize);
         objectInstance.transform.localScale = new Vector3(randomScale, randomScale, 1);
         objectInstance.transform.position = new Vector3(spawnLocation.x, spawnLocation.y);
 
         // Parent the object to this GameObject and add to list
-        objectInstance.transform.SetParent(this.transform);
+        objectInstance.transform.SetParent(null); // WHY DOES ITAOGPJADOGKNM AAAAAAAAAA
         spawnedObjects.Add(objectInstance);
     }
 
@@ -118,11 +117,7 @@ public class SpawnPrefabWithinTriggerArea : MonoBehaviour
     {
         objectPositions.Clear();
 
-        foreach (GameObject gO in spawnedObjects)
-        {
-            Destroy(gO);
-        }
-        spawnedObjects.Clear();
+        GetRidOfNonVisibleObjects();
 
         for (int i = 0; i < amountInArea; i++)
         {
@@ -133,6 +128,26 @@ public class SpawnPrefabWithinTriggerArea : MonoBehaviour
             );
 
             SpawnObject(randomSpawnLocation);
+        }
+    }
+
+    private void GetRidOfNonVisibleObjects()
+    {
+        foreach (GameObject gameObject in spawnedObjects)
+        {
+            if (gameObject != null)
+            {
+                // Check if the asteroid is outside the screen bounds
+                if (gameObject.GetComponent<VisibleChecker>().IsVisible != true) // z < 0 means the object is behind the camera
+                {
+                    Destroy(gameObject); // Remove the asteroid if it's not visible
+                }
+                else
+                {
+                    // For debugging: Color the visible asteroids
+                    //asteroid.GetComponent<SpriteRenderer>().color = Color.blue;
+                }
+            }
         }
     }
 

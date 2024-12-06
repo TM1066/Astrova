@@ -148,7 +148,6 @@ public static class ScriptUtils
         //Debug.Log($"[{image.gameObject.name}] Final color set: {image.color}");
     }
 
-
     public static IEnumerator ColorLerpOverTime(SpriteRenderer image, Color startColor, Color finalColor, float duration)
     {
         float timeElapsed = 0;
@@ -178,7 +177,6 @@ public static class ScriptUtils
         // Ensure the final color is set, in case the loop doesn't hit it exactly.
         text.color = finalColor;
     }
-
 
     public static IEnumerator DestroyGameObjectAfterTime(GameObject gameObjectToDestroy, float seconds)
     {
@@ -215,7 +213,7 @@ public static class ScriptUtils
     {
         for (int i = 0; i < polygonCollider.pathCount; i++) 
         {
-            polygonCollider.SetPath(i, new List<Vector2>()); // Clear Paths
+            polygonCollider.SetPath(i, new List<Vector2>()); // Set all paths to blank
         }
         polygonCollider.pathCount = sprite.GetPhysicsShapeCount();
 

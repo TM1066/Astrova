@@ -61,6 +61,10 @@ public class GameTracker : MonoBehaviour
         {
             GameManager.currentDifficulty = GameManager.Difficulties.moderate;
         }
+        else 
+        {
+            GameManager.currentDifficulty = GameManager.Difficulties.easy;
+        }
 
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Q)) // Exit Checking
         {

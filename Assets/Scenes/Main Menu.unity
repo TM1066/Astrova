@@ -796,15 +796,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1741420456399186212, guid: be854bb1342e1724b9a0091874526485, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: Controls
+      value: Options
       objectReference: {fileID: 0}
     - target: {fileID: 1905359229930799877, guid: be854bb1342e1724b9a0091874526485, type: 3}
       propertyPath: m_text
-      value: Controls
+      value: Options
       objectReference: {fileID: 0}
     - target: {fileID: 1905359229930799877, guid: be854bb1342e1724b9a0091874526485, type: 3}
       propertyPath: m_fontSize
-      value: 36.85
+      value: 44.45
       objectReference: {fileID: 0}
     - target: {fileID: 1905359229930799877, guid: be854bb1342e1724b9a0091874526485, type: 3}
       propertyPath: m_margin.x
@@ -856,7 +856,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3731903073714987820, guid: be854bb1342e1724b9a0091874526485, type: 3}
       propertyPath: m_Name
-      value: Controls
+      value: Options
       objectReference: {fileID: 0}
     - target: {fileID: 7809700053417439791, guid: be854bb1342e1724b9a0091874526485, type: 3}
       propertyPath: m_LocalScale.x

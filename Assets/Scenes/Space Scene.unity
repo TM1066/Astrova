@@ -283,7 +283,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -909.6447, y: 327}
+  m_AnchoredPosition: {x: -849.6702, y: 267.02554}
   m_SizeDelta: {x: 176.79, y: 51.74}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &315882701
@@ -385,7 +385,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -891.9247, y: 492}
+  m_AnchoredPosition: {x: -831.9502, y: 432.02554}
   m_SizeDelta: {x: 147.09, y: 35.64}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &519417030
@@ -1791,7 +1791,7 @@ MonoBehaviour:
   m_ScrollWheelAction: {fileID: 6240969308177333660, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  m_DeselectOnBackgroundClick: 1
+  m_DeselectOnBackgroundClick: 0
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
   m_ScrollDeltaPerTick: 6
@@ -2157,7 +2157,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -891.9247, y: 372}
+  m_AnchoredPosition: {x: -831.9502, y: 312.02554}
   m_SizeDelta: {x: 250.08, y: 35.64}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1986133945
@@ -3076,15 +3076,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3520696091871635721, guid: 6ead4ee22b56f164992cac664cdbbf5d, type: 3}
       propertyPath: m_Color.b
-      value: 0.78039217
+      value: 0.9183913
       objectReference: {fileID: 0}
     - target: {fileID: 3520696091871635721, guid: 6ead4ee22b56f164992cac664cdbbf5d, type: 3}
       propertyPath: m_Color.g
-      value: 0.44705883
+      value: 0.5990566
       objectReference: {fileID: 0}
     - target: {fileID: 3520696091871635721, guid: 6ead4ee22b56f164992cac664cdbbf5d, type: 3}
       propertyPath: m_Color.r
-      value: 0.015686275
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5213141273598860937, guid: 6ead4ee22b56f164992cac664cdbbf5d, type: 3}
       propertyPath: m_RenderAlignment
@@ -3161,6 +3161,18 @@ PrefabInstance:
     - target: {fileID: 7203313901416559413, guid: 6ead4ee22b56f164992cac664cdbbf5d, type: 3}
       propertyPath: m_Name
       value: SpaceShip
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239832603043216891, guid: 6ead4ee22b56f164992cac664cdbbf5d, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239832603043216891, guid: 6ead4ee22b56f164992cac664cdbbf5d, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239832603043216891, guid: 6ead4ee22b56f164992cac664cdbbf5d, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8378748912456056367, guid: 6ead4ee22b56f164992cac664cdbbf5d, type: 3}
       propertyPath: cullingMode

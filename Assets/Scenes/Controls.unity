@@ -291,7 +291,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -250}
+  m_AnchoredPosition: {x: 0, y: -161.93105}
   m_SizeDelta: {x: 663.35, y: 151.52}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &183605961
@@ -427,7 +427,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 200}
+  m_AnchoredPosition: {x: 0, y: 63.068954}
   m_SizeDelta: {x: 566.8, y: 151.52}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &237672160
@@ -854,7 +854,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -100}
+  m_AnchoredPosition: {x: 0, y: -86.931046}
   m_SizeDelta: {x: 663.35, y: 151.52}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1101548568
@@ -1383,15 +1383,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1741420456399186212, guid: be854bb1342e1724b9a0091874526485, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: Main Menu
+      value: Options
       objectReference: {fileID: 0}
     - target: {fileID: 1905359229930799877, guid: be854bb1342e1724b9a0091874526485, type: 3}
       propertyPath: m_text
-      value: Main menu
+      value: Options
       objectReference: {fileID: 0}
     - target: {fileID: 1905359229930799877, guid: be854bb1342e1724b9a0091874526485, type: 3}
       propertyPath: m_fontSize
-      value: 37.75
+      value: 45.1
       objectReference: {fileID: 0}
     - target: {fileID: 1905359229930799877, guid: be854bb1342e1724b9a0091874526485, type: 3}
       propertyPath: m_margin.w
@@ -1399,7 +1399,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3731903073714987820, guid: be854bb1342e1724b9a0091874526485, type: 3}
       propertyPath: m_Name
-      value: Main Menu
+      value: Options
       objectReference: {fileID: 0}
     - target: {fileID: 8037428450774625137, guid: be854bb1342e1724b9a0091874526485, type: 3}
       propertyPath: m_Pivot.x
@@ -1525,7 +1525,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1627716706
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1542,8 +1542,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -643.67, y: 37}
-  m_SizeDelta: {x: 624, y: 283.91}
+  m_AnchoredPosition: {x: 0, y: 220.83908}
+  m_SizeDelta: {x: 1270.52, y: 283.91}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1627716707
 MonoBehaviour:
@@ -1565,7 +1565,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: JoyStick Turn Left And Right
+  m_text: 'JoyStick: Turn Left And Right'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ae081242c37e2d7448e01208e984eb62, type: 2}
   m_sharedMaterial: {fileID: -2980365314834916747, guid: ae081242c37e2d7448e01208e984eb62, type: 2}
@@ -1592,10 +1592,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 73.9
+  m_fontSize: 65
   m_fontSizeBase: 65
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 306.8
   m_fontStyle: 0
@@ -1860,7 +1860,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 50}
+  m_AnchoredPosition: {x: 0, y: -11.931046}
   m_SizeDelta: {x: 663.35, y: 151.52}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2101098766

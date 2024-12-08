@@ -9,6 +9,8 @@ public class TurretEnemy : MonoBehaviour
     [SerializeField] SpriteRenderer chassisSpriteRenderer;
     [SerializeField] SpriteRenderer lightsSpriteRenderer;
     [SerializeField] Light2D bodyLight;
+    [SerializeField] ParticleSystem deathParticles;
+    [SerializeField] AudioSource deathAudioSource;
     private Color thisColor;
 
     [SerializeField] float angleOffset;
@@ -16,10 +18,12 @@ public class TurretEnemy : MonoBehaviour
     [SerializeField] GameObject projectilePrefab;
 
     [SerializeField] float health = 1f;
+    [SerializeField] float minHealth = 0.1f;
 
     //[SerializeField] float projectileDamage = 0.22f;
 
     private bool isFiring;
+    private bool isDead;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -41,16 +45,14 @@ public class TurretEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 direction = player.transform.position - transform.position;
-
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        angle += this.angleOffset;
-
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-
-        if (health < 0.1f)
+        if (!isDead)
         {
-            Die();
+            Vector3 direction = player.transform.position - transform.position;
+
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            angle += this.angleOffset;
+
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         }
     }
 
@@ -66,18 +68,20 @@ public class TurretEnemy : MonoBehaviour
                 isFiring = true;
                 yield return new WaitForSeconds(Random.Range(0.5f,1f)); // Let Lights spool up
 
-                Vector2 offset = this.transform.up * 1f; // 'up' is relative to the ship's rotation
+                if (!isDead)
+                {
+                    Vector2 offset = this.transform.up * 1f; // 'up' is relative to the ship's rotation
 
-                GameObject projectile = Instantiate(projectilePrefab, (Vector2) this.transform.position + offset, this.transform.localRotation); // Offset so it's not inside the enemy
-                projectile.GetComponent<Projectile>().SetDamage(GetDamageFromDifficulty());
-                projectile.gameObject.transform.SetParent(transform);
+                    GameObject projectile = Instantiate(projectilePrefab, (Vector2) this.transform.position + offset, this.transform.localRotation); // Offset so it's not inside the enemy
+                    projectile.GetComponent<Projectile>().SetDamage(GetDamageFromDifficulty());
+                    projectile.gameObject.transform.SetParent(transform);
 
-                //Change Projectile Color to match lights
-                projectile.GetComponent<SpriteRenderer>().color = new Color (thisColor.r, thisColor.g, thisColor.b, 1f);
+                    //Change Projectile Color to match lights
+                    projectile.GetComponent<SpriteRenderer>().color = new Color (thisColor.r, thisColor.g, thisColor.b, 1f);
+                    projectile.GetComponent<Light2D>().color = new Color (thisColor.r, thisColor.g, thisColor.b, 50f);
 
-                StartCoroutine(ScriptUtils.PositionLerp(projectile.transform, projectile.transform.position, this.transform.up * 1000,  25.5f));
-                
-                
+                    StartCoroutine(ScriptUtils.PositionLerp(projectile.transform, projectile.transform.position, this.transform.up * 1000,  25.5f));
+                }
             }
             isFiring = false;
             yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f,2f)); // Cooldown
@@ -303,10 +307,50 @@ public class TurretEnemy : MonoBehaviour
         }
     }
 
-    private void Die()
+    private IEnumerator Die()
     {
+        var deathParticleMain = deathParticles.main;
+
+        deathParticleMain.startColor = Color.red;
+
+        Destroy(this.GetComponent<PolygonCollider2D>());
+        Destroy(this.GetComponent<Rigidbody2D>());
+
+        chassisSpriteRenderer.color = Color.clear;
+        lightsSpriteRenderer.color = Color.clear;
+        bodyLight.color = Color.clear;
+        
+        deathAudioSource.Play();
+
+        deathParticles.Emit(50);
+
         GameManager.AddToCurrentScore(5);
+
+
+        yield return new WaitForSecondsRealtime(2);
         Destroy(this.gameObject);
+    }
+
+
+    private void DecreaseHealth(float damage)
+    {
+        float amount = Mathf.Abs(damage);
+
+        if ((health - amount) > minHealth)
+        {
+            health -= amount;
+        }
+        else if (isDead) // don't kill if already dead
+        {
+        }
+        else 
+        {
+            health = 0f;
+
+            isDead = true;
+            
+            StartCoroutine(Die());
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -319,7 +363,7 @@ public class TurretEnemy : MonoBehaviour
                 float damage = projectile.GetDamage();
                 Debug.Log($"Projectile hit! Damage: {damage}");
 
-                health -= damage;
+                DecreaseHealth(damage);
                 Debug.Log($"Enemy health: {health}");
 
                 Destroy(other.gameObject);

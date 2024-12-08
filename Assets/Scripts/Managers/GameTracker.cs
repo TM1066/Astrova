@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class GameTracker : MonoBehaviour
 {
@@ -78,7 +79,7 @@ public class GameTracker : MonoBehaviour
             {
                 SceneManager.LoadScene("Main Menu");
             }
-            else if (SceneManager.GetActiveScene().name == "Main Menu" || SceneManager.GetActiveScene().name == "End Scene")
+            else if (SceneManager.GetActiveScene().name == "Main Menu" || SceneManager.GetActiveScene().name == "End Scene" || SceneManager.GetActiveScene().name == "Space Scene")
             {
                 GameManager.SaveLeaderboard();
                 Application.Quit();
@@ -86,6 +87,19 @@ public class GameTracker : MonoBehaviour
         }
     
 
+        if (GameManager.gameMuted) // mute scene if game is muted -- definitely a better way of doing this
+        {
+            var audioSourcesInScene = FindObjectsByType(typeof(AudioSource), FindObjectsSortMode.None);
+
+            foreach (AudioSource audioSource in audioSourcesInScene)
+            {
+                audioSource.volume = 0;
+            }
+        }
+        else 
+        {
+            this.GetComponent<AudioSource>().volume = 0.683f;
+        }
         // GET RID OF EVIL NO GOOD GAME OBJECTS THAT WON'T GET DELETED PROPERLY (baddddd way to do this)
         
         

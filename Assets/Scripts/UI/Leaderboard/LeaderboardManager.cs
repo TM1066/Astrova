@@ -53,6 +53,18 @@ public class LeaderboardManager : MonoBehaviour
         }
     }
 
+    // void Update()
+    // {
+    //     for (int i = 0; i < colorDisplays.Count; i++) // make sure unset colors stay clear
+    //     {
+    //         //Debug.Log(" Accessing Leaderboard " + i);
+    //         if (GameManager.leaderboard[i] == null)
+    //         {
+    //             colorDisplays[i].color = Color.clear;
+    //         }
+    //     }
+    // }
+
     private void SetHighScoreMessages()
     {
         for (int i = 0; i < GameManager.leaderBoardChanged.Length - 1; i++)
@@ -64,6 +76,8 @@ public class LeaderboardManager : MonoBehaviour
         }
     }
 }
+
+
 
     // Fetch the leaderboard from PlayFab, ordered by score
     // public void GetLeaderboard()

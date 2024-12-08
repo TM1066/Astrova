@@ -112,7 +112,7 @@ public class NameInput : MonoBehaviour
         {
             if (EventSystem.current.currentSelectedGameObject == charInputField)
             {
-                if (Input.GetKey(KeyCode.UpArrow) && charInputValueDictionary[charInputField] <= 121)
+                if (Input.GetKey(KeyCode.UpArrow) && charInputValueDictionary[charInputField] <= 89)
                 {
                     if (charScrollSpeed > 0.08f)
                     {
@@ -127,10 +127,10 @@ public class NameInput : MonoBehaviour
                     {
                         charInputValueDictionary[charInputField] = (char)65;
                     }
-                    else if (charInputValueDictionary[charInputField] == (char)90) // Z to a
-                    {
-                        charInputValueDictionary[charInputField] = (char)97;
-                    }
+                    // else if (charInputValueDictionary[charInputField] == (char)90) // Z to a
+                    // {
+                    //     charInputValueDictionary[charInputField] = (char)97;
+                    // }
                     else 
                     {
                         charInputValueDictionary[charInputField]++; // shoullddd take the ascii integer of the char, increment it and then spit another char back out
@@ -219,7 +219,7 @@ public class NameInput : MonoBehaviour
         // SPECIAL NAMES
         if (seedString.ToLower() == "tm")
         {
-            GameManager.SetCurrentUserColor(new Color (0.61f, 0.81f, 0.796f));
+            GameManager.SetCurrentUserColor(new Color (0.56769f, 0.709538f, 0.745f));
         }
         else if (seedString.ToLower() == "god")
         {
@@ -248,6 +248,36 @@ public class NameInput : MonoBehaviour
         else if (seedString.ToLower() == "582")
         {
             GameManager.SetCurrentUserColor(new Color (0.01568628f,0.4470588f,0.7803922f));
+        }
+        else if (seedString.ToLower() == "nhm")
+        {
+            GameManager.SetCurrentUserColor(new Color (0.6196079f,0.05490196f,0.06666667f));
+        }
+        else if (seedString.ToLower() == "amy")
+        {
+            GameManager.SetCurrentUserColor(new Color (1,0.5990566f,0.9183913f));
+        }
+        else if (seedString.ToLower() == "ele")
+        {
+            GameManager.SetCurrentUserColor(new Color (1,0.5990566f,0.9183913f));
+        }
+        else if (seedString.ToLower() == "ek")
+        {
+            GameManager.SetCurrentUserColor(new Color (1,0.5990566f,0.9183913f));
+        }
+        else if (seedString.ToLower() == "spk")
+        {
+            GameManager.SetCurrentUserColor(new Color (0f,0f,0f));
+            GameManager.shipColorTags.Add("spk");
+        }
+        else if (seedString.ToLower() == "elf")
+        {
+            GameManager.SetCurrentUserColor(new Color (0f,0f,0f));
+            GameManager.shipColorTags.Add("elf");
+        }
+        else if (seedString.ToLower() == "css")
+        {
+            GameManager.SetCurrentUserColor(new Color (0.2941177f,0.2078431f,0.5411765f));
         }
 
         Time.timeScale = 1.0f;

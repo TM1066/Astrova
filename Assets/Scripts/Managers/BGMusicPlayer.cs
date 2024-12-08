@@ -22,7 +22,7 @@ public class BGMusicPlayer : MonoBehaviour
 
     void Update()
     {
-        if (audioSource.volume < targetVolume)
+        if (audioSource.volume < targetVolume && !GameManager.gameMuted)
         {
             if (timeElapsed < startUpTime) 
             {

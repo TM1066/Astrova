@@ -15,6 +15,11 @@ public static class GameManager
 
     private static User currentUser = new User("", 0, Color.cyan);
 
+    private static bool colorfulShipsEnabled = false;
+    public static List<string> shipColorTags = new List<string>(); // Special color handling
+
+    public static bool gameMuted = false;
+
     // LEADERBOARD LOADING NONSENSE
     private static string leaderboardFilePath = Path.Combine(Application.persistentDataPath, "leaderboard.json");
     public static List<User> leaderboard = new List<User>();
@@ -115,6 +120,16 @@ public static class GameManager
         currentUser.color = color;
     }
 
+
+    public static bool GetColorfulShipsEnabled()
+    {
+        return colorfulShipsEnabled;
+    }
+
+    public static void SetColorfulShipsEnabled(bool value)
+    {
+        colorfulShipsEnabled = value;
+    }
 
     public static IEnumerator GameOver()
     {

@@ -403,13 +403,16 @@ public class PlayerShip : MonoBehaviour
 
                 //Change Projectile Color to match lights
                 projectile.GetComponent<SpriteRenderer>().color = new Color (lightsRendererSprite.color.r, lightsRendererSprite.color.g, lightsRendererSprite.color.b, 1f);
-                projectile.GetComponent<Light2D>().color = new Color (lightsRendererSprite.color.r, lightsRendererSprite.color.g, lightsRendererSprite.color.b, 1f);
+                projectile.GetComponent<Light2D>().color = new Color (lightsRendererSprite.color.r, lightsRendererSprite.color.g, lightsRendererSprite.color.b, 50f);
 
-                StartCoroutine(ScriptUtils.PositionLerp(projectile.transform, projectile.transform.position, this.transform.up * 1000,  20.5f - (rig.linearVelocityX / 10) - (rig.linearVelocityY / 10)));
+                float velocityMagnitude = Mathf.Sqrt(rig.linearVelocityX * rig.linearVelocityX + rig.linearVelocityY * rig.linearVelocityY);
+                float adjustedDuration = Mathf.Clamp(20.5f - (velocityMagnitude / 10), 10f, 20.5f);
+
+                StartCoroutine(ScriptUtils.PositionLerp(projectile.transform, projectile.transform.position, this.transform.up.normalized * 1000,  adjustedDuration));
 
                 ScriptUtils.PlaySound(null, fireAudio);
             }
-            else if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.G) && !canShoot)
+            else if (Input.GetKey(KeyCode.X) || Input.GetKey(KeyCode.G) && !canShoot)
             {
                 UiUtils.ShowMessage("Can't Shoot","Your Weapons are offline!",new Vector2(200,200),false);
             }
@@ -424,7 +427,7 @@ public class PlayerShip : MonoBehaviour
         if (other.CompareTag("Evil Projectile"))
         {
             DecreaseHealth(Mathf.Abs(other.GetComponent<Projectile>().GetDamage()));
-            Destroy(other);
+            Destroy(other.gameObject);
         }
     }
 
@@ -437,7 +440,10 @@ public class PlayerShip : MonoBehaviour
         {
             shipHealth -= amount;
         }
-        else
+        else if (isDead) // don't kill if already dead
+        {
+        }
+        else 
         {
             shipHealth = 0f;
 
@@ -483,12 +489,53 @@ public class PlayerShip : MonoBehaviour
 
     public void SetColor(Color color)
     {
-        lightsRendererSprite.color = new Color (color.r, color.g, color.b,1.5f);
-        bodyLight.color = color;
 
-        foreach (var engine in allEngines)
+        if (GameManager.shipColorTags.Count >= 1) // Special color handling
         {
-            engine.spriteRenderer.color = color;
+            switch (GameManager.shipColorTags[0])
+            {
+                case "spk":
+                    lightsRendererSprite.color = Color.black;
+                    bodyLight.color = Color.black;
+                    chassisRendererSprite.color = Color.black;
+                    foreach (var engine in allEngines)
+                    {
+                        engine.spriteRenderer.color = Color.black;
+                    }
+                    break;
+                case "elf":
+                    Color lightRed = new Color(1,0.191f,0.262f);
+                    Color lightGreen = new Color(0.6265259f,1,0.56f);
+
+
+                    lightsRendererSprite.color = lightRed;
+                    bodyLight.color = lightRed;
+                    chassisRendererSprite.color = lightGreen;
+                    foreach (var engine in allEngines)
+                    {
+                        engine.spriteRenderer.color = lightGreen;
+                    }
+                    break;
+            }
         }
+
+        else 
+        {
+            lightsRendererSprite.color = new Color (color.r, color.g, color.b,1.5f);
+            bodyLight.color = color;
+
+            if (GameManager.GetColorfulShipsEnabled())
+            {
+                bodyLight.color = new Color (ScriptUtils.GetComplimentaryColor(color).r, ScriptUtils.GetComplimentaryColor(color).g, ScriptUtils.GetComplimentaryColor(color).b, 1f);
+                chassisRendererSprite.color = new Color (ScriptUtils.GetComplimentaryColor(color).r, ScriptUtils.GetComplimentaryColor(color).g, ScriptUtils.GetComplimentaryColor(color).b, 1f);
+
+            }
+
+            foreach (var engine in allEngines)
+            {
+                engine.spriteRenderer.color = color;
+            }
+        }
+        GameManager.shipColorTags.Clear();
     }
 }

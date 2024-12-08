@@ -29,9 +29,9 @@ public class StarSpawner : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             
-            this.transform.position = other.transform.position;
+            other.transform.position = new Vector3(0,0,0); // recentre player instead of reset all the stars because that's costly and the physics engine is panicking when the player gets too far away
 
-            SetStarBG(); // remake stars
+            //SetStarBG(); // remake stars
         }
     }
 

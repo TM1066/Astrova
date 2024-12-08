@@ -173,7 +173,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ASTROVA big_0: 8198785182594734304
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

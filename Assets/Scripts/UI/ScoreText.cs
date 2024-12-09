@@ -15,6 +15,10 @@ public class ScoreText : MonoBehaviour
 
     void Update()
     {
-        scoreText.text = "Score:" + GameManager.GetCurrentScore().ToString();
+        if (!GameObject.Find("SpaceShip").GetComponent<PlayerShip>().GetIsDead())
+        {
+            scoreText.text = "Score:" + GameManager.GetCurrentScore().ToString();
+        }
+        
     }
 }

@@ -42,6 +42,7 @@ public class PlayerShip : MonoBehaviour
     //Audio Stuff
     private AudioSource thisAudioPlayer; 
     [SerializeField] AudioClip fireAudio;
+    //[SerializeField] float maxEngineVolume = 1f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -96,7 +97,7 @@ public class PlayerShip : MonoBehaviour
 
         //Starting Coroutines
         StartCoroutine(ShootHandler());
-        StartCoroutine(HandleLightingIntensity());
+        StartCoroutine(HandleLightingAndSoundIntensity());
 
         SetColor(GameManager.GetCurrentUserColor());
     }
@@ -171,12 +172,29 @@ public class PlayerShip : MonoBehaviour
 
         foreach (var engine in allEngines)
         {
+            // HANDLING EMISSIONS
             var EngineParticlesMain = engine.particleEmitter.main;
 
             Color particleColor = Color.Lerp(CalculateColorBasedOnHealth(engine.spriteRenderer.color, Color.red),GameManager.GetCurrentUserColorFullAlpha(), UnityEngine.Random.Range(0f,1f));
             particleColor.a = engine.spriteRenderer.color.a;
 
             EngineParticlesMain.startColor = engine.spriteRenderer.color; // have Engines shoot out more red Color as ship gets damaged
+
+
+            //HANDLING VOLUME
+            engine.audioSource.volume = engine.spriteRenderer.color.a *  engine.audioVolumeModifier * 0.05f;
+        }
+
+        if (isDead)
+        {
+            foreach (var engine in allEngines) // clears all engine acivity if player is dead
+            {
+                engine.audioSource.volume = 0f;
+                engine.spriteRenderer.color = Color.clear;
+
+                var EngineParticlesMain = engine.particleEmitter.main;
+                EngineParticlesMain.startColor = Color.clear;
+            }
         }
     }
 
@@ -187,7 +205,7 @@ public class PlayerShip : MonoBehaviour
         return new Color (Color.Lerp(endColor, startColor, shipHealth).r, Color.Lerp(endColor, startColor, shipHealth).g, Color.Lerp(endColor, startColor, shipHealth).b, startColor.a); // weird but works & retains start alpha
     }
 
-    private IEnumerator HandleLightingIntensity()
+    private IEnumerator HandleLightingAndSoundIntensity()
     {
             
         while (true && !isDead)

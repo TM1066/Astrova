@@ -155,10 +155,7 @@ public static class GameManager
 
         //SAVING PLAYER TO LEADERBOARD
         AddUserToLeaderboard(currentUser.userName, currentUser.score, currentUser.color);
-
-        currentUser.userName = "";
         currentUser.score = 0;
-        currentUser.color = Color.clear;
 
         ScriptUtils.PlaySound(null, GameObject.Find("Game Tracker").GetComponent<GameTracker>().PlayerDeathSound);
 

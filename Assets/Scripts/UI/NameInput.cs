@@ -112,7 +112,7 @@ public class NameInput : MonoBehaviour
         {
             if (EventSystem.current.currentSelectedGameObject == charInputField)
             {
-                if (Input.GetKey(KeyCode.UpArrow) && charInputValueDictionary[charInputField] <= 89)
+                if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)  && charInputValueDictionary[charInputField] <= 89)
                 {
                     if (charScrollSpeed > 0.08f)
                     {
@@ -141,7 +141,7 @@ public class NameInput : MonoBehaviour
                     charInputField.GetComponentInChildren<TextMeshProUGUI>().text = charInputValueDictionary[charInputField].ToString();
                     yield return new WaitForSecondsRealtime(charScrollSpeed);
                 }
-                else if (Input.GetKey(KeyCode.DownArrow) && charInputValueDictionary[charInputField] >= 49)
+                else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S) && charInputValueDictionary[charInputField] >= 49)
                 {
                     if (charScrollSpeed > 0.05f)
                     {

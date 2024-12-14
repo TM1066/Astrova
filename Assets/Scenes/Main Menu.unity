@@ -994,6 +994,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Options
       objectReference: {fileID: 0}
+    - target: {fileID: 4306016340397366751, guid: be854bb1342e1724b9a0091874526485, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 40.597
+      objectReference: {fileID: 0}
+    - target: {fileID: 4306016340397366751, guid: be854bb1342e1724b9a0091874526485, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 46.158
+      objectReference: {fileID: 0}
+    - target: {fileID: 4306016340397366751, guid: be854bb1342e1724b9a0091874526485, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -139.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4306016340397366751, guid: be854bb1342e1724b9a0091874526485, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6700508318288905717, guid: be854bb1342e1724b9a0091874526485, type: 3}
+      propertyPath: m_fontSize
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6700508318288905717, guid: be854bb1342e1724b9a0091874526485, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 7809700053417439791, guid: be854bb1342e1724b9a0091874526485, type: 3}
       propertyPath: m_LocalScale.x
       value: 1

@@ -21,8 +21,6 @@ public class GameTracker : MonoBehaviour
 
     public AudioClip PlayerDeathSound;
 
-    //public AnimatorController uiMessageAnimator;
-
     public AudioClip menuInteractSound;
 
     private string[] noFloatiesSceneNames = new string[4] {"Main Menu", "Name Input Screen", "End Scene", "Controls"}; // add all scene that carry on objects from the spawners shouldn't appear in  
@@ -46,9 +44,9 @@ public class GameTracker : MonoBehaviour
 
         //UnityEngine.Random.InitState(ScriptUtils.GetNumberFromString("Taylor"));
 
-          var mouse = Mouse.current;
+        var mouse = Mouse.current;
 
-          mouse.WarpCursorPosition (new Vector2 (0, 0)); //MOVE THE STUPID MOUSE OUT OF **THEEE WAYYYYY**
+        mouse.WarpCursorPosition (new Vector2 (0, 0)); //MOVE THE STUPID MOUSE OUT OF **THEEE WAYYYYY**
     }
 
     // Update is called once per frame
@@ -67,19 +65,21 @@ public class GameTracker : MonoBehaviour
             GameManager.currentDifficulty = GameManager.Difficulties.easy;
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Q)) // Exit Checking
+        if (Input.GetKeyDown(KeyCode.Escape)|| Input.GetKeyDown(KeyCode.Q)) // Exit Checking
         {
-            if (SceneManager.GetActiveScene().name == "Space Scene")
+            string currentSceneName = SceneManager.GetActiveScene().name;
+
+            if (currentSceneName == "Space Scene")
             {
                 //Time.timeScale = 0f;
 
                 //Enable Pause Menu
             }
-            else if (SceneManager.GetActiveScene().name == "Name Input Screen") 
+            else if (currentSceneName == "Name Input Screen") 
             {
                 SceneManager.LoadScene("Main Menu");
             }
-            else if (SceneManager.GetActiveScene().name == "Main Menu" || SceneManager.GetActiveScene().name == "End Scene" || SceneManager.GetActiveScene().name == "Space Scene")
+            else if (currentSceneName == "Main Menu" || currentSceneName == "End Scene" || currentSceneName == "Space Scene")
             {
                 GameManager.SaveLeaderboard();
                 Application.Quit();

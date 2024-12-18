@@ -110,7 +110,7 @@ public class NameInput : MonoBehaviour
         {
             if (EventSystem.current.currentSelectedGameObject == charInputField)
             {
-                if (Joystick.current.stick.up.isPressed && charInputValueDictionary[charInputField] <= 89)
+                if ((Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) && charInputValueDictionary[charInputField] <= 89)
                 {
                     if (charScrollSpeed > 0.08f)
                     {
@@ -139,7 +139,7 @@ public class NameInput : MonoBehaviour
                     charInputField.GetComponentInChildren<TextMeshProUGUI>().text = charInputValueDictionary[charInputField].ToString();
                     yield return new WaitForSecondsRealtime(charScrollSpeed);
                 }
-                else if (Joystick.current.stick.down.isPressed && charInputValueDictionary[charInputField] >= 49)
+                else if ((Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) && charInputValueDictionary[charInputField] >= 49)
                 {
                     if (charScrollSpeed > 0.05f)
                     {
@@ -173,15 +173,15 @@ public class NameInput : MonoBehaviour
                     charScrollSpeed = 0.2f;
                 }
                 
-                if (Input.GetKeyDown(KeyCode.JoystickButton2))
-                {
-                    yield return new WaitForEndOfFrame(); // Ensure no conflicts with internal navigation
-                    MoveToPreviousInputField();
-                }
-                else if (Input.GetKeyDown(KeyCode.JoystickButton7))
+                if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.F))
                 {
                     yield return new WaitForEndOfFrame(); // Ensure no conflicts with internal navigation
                     MoveToNextInputField();
+                }
+                else if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.G))
+                {
+                    yield return new WaitForEndOfFrame(); // Ensure no conflicts with internal navigation
+                    MoveToPreviousInputField();
                 }
             }
             yield return null;

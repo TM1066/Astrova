@@ -107,25 +107,25 @@ public class PlayerShip : MonoBehaviour
         // Handling movement
         if (Input.anyKey && !isDead)
         {
-            if (Input.GetKey(KeyCode.JoystickButton3))
+            if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.F))
             {
                 rig.AddRelativeForceY(movementSpeed * shipHealth); //AAAAAAAAAAAAAA THIS WAS SO EASY IM SO DUMB
             }
-            if (Input.GetKey(KeyCode.JoystickButton6))
+            if (Input.GetKey(KeyCode.V) || Input.GetKey(KeyCode.J))
             {
                 rig.AddRelativeForceY(-(movementSpeed * shipHealth)); 
             }
-            if (Joystick.current.stick.left.isPressed) // I could cap these but I'm leaving them for now because they're funny
+            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) // I could cap these but I'm leaving them for now because they're funny
             {
                 rig.AddRelativeForceY((movementSpeed / 3) * shipHealth); // small amount of movement forwards
                 rig.angularVelocity += movementSpeed * shipHealth;
             }
-            if (Joystick.current.stick.right.isPressed)
+            if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
             {
                  rig.AddRelativeForceY((movementSpeed /  3) * shipHealth); // small amount of movement forwards
                 rig.angularVelocity -= movementSpeed * shipHealth;
             }
-            if (Input.GetKey(KeyCode.JoystickButton7))// Slow down that sheep
+            if (Input.GetKey(KeyCode.N))// Slow down that sheep
             {
                 if (rig.linearVelocity.magnitude > 0.01f)
                 {
@@ -227,7 +227,7 @@ public class PlayerShip : MonoBehaviour
             Color engineBackTempColor = ScriptUtils.GetAverageColor(backFireEnginesColors);
             Color engineBackHealthColor = CalculateColorBasedOnHealth(engineBackTempColor, Color.red);
 
-            if (Joystick.current.stick.left.isPressed) // Right Engines for Moving Left
+            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) // Right Engines for Moving Left
             {
                 engineRightTempColor.a += ScriptUtils.AddWithMax(engineRightTempColor.a, 0.01f, 1.5f);
             }
@@ -243,7 +243,7 @@ public class PlayerShip : MonoBehaviour
                 }
             }
 
-            if (Joystick.current.stick.right.isPressed) // LeftEngines for Moving Right
+            if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) // LeftEngines for Moving Right
             {
                 engineLeftTempColor.a += ScriptUtils.AddWithMax(engineLeftTempColor.a, 0.01f, 1.5f);
             }
@@ -259,7 +259,7 @@ public class PlayerShip : MonoBehaviour
                 }
             }
 
-            if (Input.GetKey(KeyCode.JoystickButton3))// Back engines for moving forwards
+            if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.F))// Back engines for moving forwards
             {
                 engineMainTempColor.a += ScriptUtils.AddWithMax(engineMainTempColor.a, 0.01f, 1.5f);
             }
@@ -275,7 +275,7 @@ public class PlayerShip : MonoBehaviour
                 }
             }
 
-            if (Input.GetKey(KeyCode.JoystickButton6)) // Front Engines for moving Back
+            if (Input.GetKey(KeyCode.V) || Input.GetKey(KeyCode.J)) // Front Engines for moving Back
             {
                 engineBackTempColor.a += ScriptUtils.AddWithMax(engineBackTempColor.a, 0.01f, 1.5f);
             }
@@ -291,7 +291,7 @@ public class PlayerShip : MonoBehaviour
                 }
             }
 
-            if (Input.GetKey(KeyCode.JoystickButton7)) // Fire all Engines to slow down
+            if (Input.GetKey(KeyCode.N)) // Fire all Engines to slow down
             {
                 engineMainTempColor.a += ScriptUtils.AddWithMax(engineMainTempColor.a, 0.01f, UnityEngine.Random.Range(1.0f, 1.5f));
                 engineRightTempColor.a += ScriptUtils.AddWithMax(engineRightTempColor.a, 0.01f, UnityEngine.Random.Range(1.0f, 1.5f));
@@ -337,7 +337,7 @@ public class PlayerShip : MonoBehaviour
                 }
             }
 
-            if (Input.GetKey(KeyCode.JoystickButton4)) // light up when firing
+            if (Input.GetKey(KeyCode.X) || Input.GetKey(KeyCode.G)) // light up when firing
             {
                 lightsTempColor.a += ScriptUtils.AddWithMax(lightsTempColor.a, 0.1f, 1.5f);
             }
@@ -394,7 +394,7 @@ public class PlayerShip : MonoBehaviour
         while (gameObject)
         {
             //Shootings
-            if (Input.GetKey(KeyCode.JoystickButton4) && !isDead && canShoot)
+            if (Input.GetKey(KeyCode.X) || Input.GetKey(KeyCode.G) && !isDead && canShoot)
             {
                 Vector2 offset = this.transform.up * 2; // 'up' is relative to the ship's rotation
 
@@ -413,7 +413,7 @@ public class PlayerShip : MonoBehaviour
 
                 ScriptUtils.PlaySound(null, fireAudio);
             }
-            else if (Input.GetKey(KeyCode.JoystickButton4) && !canShoot)
+            else if (Input.GetKey(KeyCode.X) || Input.GetKey(KeyCode.G) && !canShoot)
             {
                 //UiUtils.ShowMessage("Can't Shoot","Your Weapons are offline!",new Vector2(200,200),false);
             }

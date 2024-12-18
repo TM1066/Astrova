@@ -54,7 +54,7 @@
             "bindings": [
                 {
                     "name": "2D Vector",
-                    "id": "8b7c3441-1642-497f-a568-918599edd66c",
+                    "id": "21fbb821-af60-4b4f-83af-7971294b62e6",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -65,177 +65,115 @@
                 },
                 {
                     "name": "up",
-                    "id": "a1649df3-0a62-4d27-b58f-117959ae144f",
-                    "path": "<Keyboard>/w",
+                    "id": "8b777964-1386-4b8f-9659-ea4678783b07",
+                    "path": "<Joystick>/stick/up",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Arcade",
                     "action": "Navigate",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "down",
-                    "id": "342599c2-b6fe-43b7-85dc-12a711104e08",
-                    "path": "<Keyboard>/s",
+                    "id": "5fb52318-b11c-4851-bc1a-38291d7db074",
+                    "path": "<Joystick>/stick/down",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Arcade",
                     "action": "Navigate",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "left",
-                    "id": "a6fd589e-f46a-4adb-8281-cfded7619c2b",
-                    "path": "<Keyboard>/a",
+                    "id": "656588bd-bd41-4e23-8ef0-db495853d356",
+                    "path": "<Joystick>/stick/left",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Arcade",
                     "action": "Navigate",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "right",
-                    "id": "f1e7b723-e40e-4063-b540-ab3b5213cdae",
-                    "path": "<Keyboard>/d",
+                    "id": "dd1ee7b3-25ad-4281-9590-a1cfaabbae94",
+                    "path": "<Joystick>/stick/right",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "Navigate",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "2D Vector",
-                    "id": "ef1a9f60-4e7e-4abc-b467-e086f67d4b20",
-                    "path": "2DVector",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Navigate",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "87a6b61a-309d-4f8f-8d02-44255cd10949",
-                    "path": "<Keyboard>/upArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Navigate",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "7d0cd00e-238f-4b73-85f9-752bc5ff1e47",
-                    "path": "<Keyboard>/downArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Navigate",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "c6597d0a-ba62-4993-92fc-1744232cf454",
-                    "path": "<Keyboard>/leftArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Navigate",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "67911290-71af-4a95-902d-15d369363e3a",
-                    "path": "<Keyboard>/rightArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
+                    "groups": ";Arcade",
                     "action": "Navigate",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "",
-                    "id": "c4e11ea4-e898-486e-9000-1bd7390d9ca5",
-                    "path": "<Keyboard>/z",
+                    "id": "cfad9152-b2f2-4be3-b573-683618ed5952",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Joystick???",
+                    "groups": ";Arcade",
                     "action": "Submit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "1378b532-d36e-4136-af56-6df8f29ddc1c",
-                    "path": "<Keyboard>/f",
+                    "id": "860015a3-cd6e-43bd-8f16-222be78a2aff",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Joystick???",
-                    "action": "Submit",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "74952618-7e5a-42b4-a04c-ac152058c1bd",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse;Joystick???",
+                    "groups": ";Arcade",
                     "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Ship",
+            "id": "b50471a8-da72-4603-93ec-6babdd0f26b1",
+            "actions": [
+                {
+                    "name": "Movement",
+                    "type": "Button",
+                    "id": "20e5bbc0-daa5-4b99-8e5d-184928fb8167",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
+                    "name": "Fowards",
+                    "type": "Button",
+                    "id": "3261c0f5-80b0-4dc1-9339-13f904bdaa64",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
                     "name": "",
-                    "id": "6eb9eb71-8843-4890-a7cd-dcd8251273fd",
-                    "path": "<Keyboard>/q",
+                    "id": "32222244-0222-4f09-b298-440ada77255e",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse;Joystick???",
-                    "action": "Cancel",
+                    "groups": ";Arcade",
+                    "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "31fe8a4a-2ce9-4a73-9b31-af6a7fc1f349",
+                    "id": "4ac1dff8-21fb-43fd-8ffe-91b917b0ded7",
                     "path": "",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Point",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "496f37c1-c35e-489a-bb21-92780ca06642",
-                    "path": "<Keyboard>/z",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Click",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2ab47c8c-0671-40cd-9bdf-8f083f16604d",
-                    "path": "<Keyboard>/f",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Click",
+                    "action": "Fowards",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -244,12 +182,17 @@
     ],
     "controlSchemes": [
         {
-            "name": "Keyboard",
-            "bindingGroup": "Keyboard",
+            "name": "Arcade",
+            "bindingGroup": "Arcade",
             "devices": [
                 {
-                    "devicePath": "<Keyboard>",
-                    "isOptional": false,
+                    "devicePath": "<Joystick>",
+                    "isOptional": true,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": true,
                     "isOR": false
                 }
             ]

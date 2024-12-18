@@ -8,6 +8,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using System.Linq;
 using UnityEngine.Analytics;
+using UnityEngine.InputSystem;
 
 public class NameInput : MonoBehaviour
 {
@@ -23,7 +24,6 @@ public class NameInput : MonoBehaviour
     private float charScrollSpeed = 0.2f;
 
     private string[] illegalNames = new string[2] { "fag","kkk"};
-
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -92,8 +92,6 @@ public class NameInput : MonoBehaviour
         Debug.Log($"Currently selected: {EventSystem.current.currentSelectedGameObject?.name}");
     }
 
-
-
     void PlayCharChangeSound()
     {
         ScriptUtils.PlaySound(audioSource, charChangeAudio);
@@ -112,7 +110,7 @@ public class NameInput : MonoBehaviour
         {
             if (EventSystem.current.currentSelectedGameObject == charInputField)
             {
-                if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)  && charInputValueDictionary[charInputField] <= 89)
+                if (Joystick.current.stick.up.isPressed && charInputValueDictionary[charInputField] <= 89)
                 {
                     if (charScrollSpeed > 0.08f)
                     {
@@ -141,7 +139,7 @@ public class NameInput : MonoBehaviour
                     charInputField.GetComponentInChildren<TextMeshProUGUI>().text = charInputValueDictionary[charInputField].ToString();
                     yield return new WaitForSecondsRealtime(charScrollSpeed);
                 }
-                else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S) && charInputValueDictionary[charInputField] >= 49)
+                else if (Joystick.current.stick.down.isPressed && charInputValueDictionary[charInputField] >= 49)
                 {
                     if (charScrollSpeed > 0.05f)
                     {
@@ -175,12 +173,12 @@ public class NameInput : MonoBehaviour
                     charScrollSpeed = 0.2f;
                 }
                 
-                if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.G))
+                if (Input.GetKeyDown(KeyCode.JoystickButton2))
                 {
                     yield return new WaitForEndOfFrame(); // Ensure no conflicts with internal navigation
                     MoveToPreviousInputField();
                 }
-                else if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.F))
+                else if (Input.GetKeyDown(KeyCode.JoystickButton7))
                 {
                     yield return new WaitForEndOfFrame(); // Ensure no conflicts with internal navigation
                     MoveToNextInputField();
@@ -192,7 +190,6 @@ public class NameInput : MonoBehaviour
 
     public void DoneButton()
     {
-
         PlayCharConfirmSound();
 
         //Set random Seed to Name & Close all UI + reset Time Scale
@@ -286,12 +283,4 @@ public class NameInput : MonoBehaviour
 
         SceneManager.LoadScene("Space Scene");
     }
-
-    // IEnumerator UIHandlingStuff()
-    // {
-    //     while (this.gameObject) // Will be deleted by final button along with everything else
-    //     {
-    //         yield return new WaitForSecondsRealtime(2); // Time Scale will be set to 0 while setting up name
-    //     }
-    // }
 }

@@ -7,6 +7,7 @@ using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEngine.InputSystem.Controls;
 
 public class GameTracker : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class GameTracker : MonoBehaviour
 
     private string[] noFloatiesSceneNames = new string[4] {"Main Menu", "Name Input Screen", "End Scene", "Controls"}; // add all scene that carry on objects from the spawners shouldn't appear in  
 
+    public InputActionReference exitAction;
+
     void Awake()
     {
         // Deals with duplicates
@@ -34,6 +37,9 @@ public class GameTracker : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject); // Keep this object across scenes
             GameManager.LoadLeaderboard();
+
+            exitAction.action.performed += ExitCheck;
+            exitAction.action.Enable();
         }
         else
         {
@@ -45,13 +51,12 @@ public class GameTracker : MonoBehaviour
         //UnityEngine.Random.InitState(ScriptUtils.GetNumberFromString("Taylor"));
 
         var mouse = Mouse.current;
-
-        mouse.WarpCursorPosition (new Vector2 (0, 0)); //MOVE THE STUPID MOUSE OUT OF **THEEE WAYYYYY**
+        mouse?.WarpCursorPosition (new Vector2 (0, 0)); //MOVE THE STUPID MOUSE OUT OF **THEEE WAYYYYY**
     }
-
     // Update is called once per frame
     void Update()
     {
+
         if (GameManager.GetCurrentScore() >= 100)
         {
             GameManager.currentDifficulty = GameManager.Difficulties.hard;
@@ -64,29 +69,7 @@ public class GameTracker : MonoBehaviour
         {
             GameManager.currentDifficulty = GameManager.Difficulties.easy;
         }
-
-        if (Input.GetKeyDown(KeyCode.Escape)|| Input.GetKeyDown(KeyCode.Q)) // Exit Checking
-        {
-            string currentSceneName = SceneManager.GetActiveScene().name;
-
-            if (currentSceneName == "Space Scene")
-            {
-                //Time.timeScale = 0f;
-
-                //Enable Pause Menu
-            }
-            else if (currentSceneName == "Name Input Screen") 
-            {
-                SceneManager.LoadScene("Main Menu");
-            }
-            else if (currentSceneName == "Main Menu" || currentSceneName == "End Scene" || currentSceneName == "Space Scene")
-            {
-                GameManager.SaveLeaderboard();
-                Application.Quit();
-            }
-        }
     
-
         if (GameManager.gameMuted) // mute scene if game is muted -- definitely a better way of doing this
         {
             var audioSourcesInScene = FindObjectsByType(typeof(AudioSource), FindObjectsSortMode.None);
@@ -101,8 +84,6 @@ public class GameTracker : MonoBehaviour
             this.GetComponent<AudioSource>().volume = 0.683f;
         }
         // GET RID OF EVIL NO GOOD GAME OBJECTS THAT WON'T GET DELETED PROPERLY (baddddd way to do this)
-        
-        
 
         if (noFloatiesSceneNames.Contains(SceneManager.GetActiveScene().name))
         {
@@ -125,6 +106,27 @@ public class GameTracker : MonoBehaviour
             // {
             //     Destroy(star);
             // }
+        }
+    }
+
+    void ExitCheck(InputAction.CallbackContext context)
+    {
+        string currentSceneName = SceneManager.GetActiveScene().name;
+
+        if (currentSceneName == "Space Scene")
+        {
+            //Time.timeScale = 0f;
+
+            //Enable Pause Menu
+        }
+        else if (currentSceneName == "Name Input Screen") 
+        {
+            SceneManager.LoadScene("Main Menu");
+        }
+        else if (currentSceneName == "Main Menu" || currentSceneName == "End Scene" || currentSceneName == "Space Scene")
+        {
+            GameManager.SaveLeaderboard();
+            Application.Quit();
         }
     }
 }

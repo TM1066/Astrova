@@ -13,6 +13,7 @@ public class PlayerShip : MonoBehaviour
     [SerializeField] Rigidbody2D rig;
     private float movementSpeed = 10f;
     [SerializeField] Vector2 maxMovementSpeed;
+    
 
 
     // Visual Stuff 

@@ -30510,6 +30510,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rig: {fileID: 8908514954734992380}
   maxMovementSpeed: {x: 20, y: 20}
+  goForwardsAction: {fileID: -2561107323220670037, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  goBackAction: {fileID: -2738929844503707227, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  goLeftKey: {fileID: 2147562167292782218, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  goRightKey: {fileID: 3417969375991779459, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  stopKey: {fileID: -2019827321027696160, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  fireKey: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   chassisRendererSprite: {fileID: 8921055400798458279}
   lightsRendererSprite: {fileID: 3520696091871635721}
   bodyLight: {fileID: 7239832603043216891}

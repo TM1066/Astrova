@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b4d77b05d5c16414fa2d3e9da3762595
+guid: fd4cb1a0fbf841142a05111d33c51c34
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3307511997012030455
-    second: Asteroid I-export_0
+      213: -1294784110791395691
+    second: Repair-Kit-Wrench_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Asteroid I-export_0
+      name: Repair-Kit-Wrench_0
       rect:
         serializedVersion: 2
-        x: 16
-        y: 22
-        width: 115
-        height: 116
+        x: 11
+        y: 5
+        width: 42
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7f3be3823a4a6ed20800000000000000
-      internalID: 3307511997012030455
+      spriteID: 596757716b0080ee0800000000000000
+      internalID: -1294784110791395691
       vertices: []
       indices: 
       edges: []
@@ -164,7 +164,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Asteroid I-export_0: 3307511997012030455
+      Repair-Kit-Wrench_0: -1294784110791395691
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

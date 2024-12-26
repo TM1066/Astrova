@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class SpawnPrefabWithinTriggerArea : MonoBehaviour
 {
@@ -95,12 +96,20 @@ public class SpawnPrefabWithinTriggerArea : MonoBehaviour
                          spawnLocation.y < (playerTransform.position.y + cameraHalfHeight + padding);
         }
 
-            // attempts++;
-            // if (attempts >= maxAttempts)
-            // {
-            //     Debug.LogWarning("Spawnobject: Could not find a valid spawn position after multiple attempts.");
-            //     return; // Bail out to prevent crashing
-            // }
+
+        // try 
+        // {
+        //     if (objectInstance.GetComponent<VisibleChecker>().IsVisible)
+        //     {
+        //         Destroy(objectInstance);
+        //         return;
+        //     }
+        // }
+        // catch 
+        // {
+            
+        // }
+
         // Set up the object properties
         float randomScale = UnityEngine.Random.Range(minSize, maxSize);
         objectInstance.transform.localScale = new Vector3(randomScale, randomScale, 1);

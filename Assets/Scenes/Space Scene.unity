@@ -607,7 +607,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 9
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -846,11 +846,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3050190755494735331, guid: 8d22b78d6b715f1418131a3f6c27bd3b, type: 3}
       propertyPath: maxSize
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3050190755494735331, guid: 8d22b78d6b715f1418131a3f6c27bd3b, type: 3}
       propertyPath: minSize
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3050190755494735331, guid: 8d22b78d6b715f1418131a3f6c27bd3b, type: 3}
       propertyPath: amountInArea
@@ -989,7 +989,7 @@ Transform:
   m_GameObject: {fileID: 840689130}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -818.6516, z: -74.96809}
+  m_LocalPosition: {x: 0, y: -935, z: -74.96809}
   m_LocalScale: {x: 59.97447, y: 59.97447, z: 59.97447}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2479,11 +2479,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3050190755494735331, guid: 8d22b78d6b715f1418131a3f6c27bd3b, type: 3}
       propertyPath: maxSize
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3050190755494735331, guid: 8d22b78d6b715f1418131a3f6c27bd3b, type: 3}
       propertyPath: minSize
-      value: 1.5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3050190755494735331, guid: 8d22b78d6b715f1418131a3f6c27bd3b, type: 3}
       propertyPath: amountInArea

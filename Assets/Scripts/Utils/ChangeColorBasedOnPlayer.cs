@@ -6,6 +6,7 @@ public class ChangeColorBasedOnPlayer : MonoBehaviour
 
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] UnityEngine.UI.Image image;
+    [SerializeField] ParticleSystem particleSystem;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -17,6 +18,12 @@ public class ChangeColorBasedOnPlayer : MonoBehaviour
         if (image != null)
         {
             image.color = GameManager.GetCurrentUserColorFullAlpha();
+        }
+        if (particleSystem != null)
+        {
+            var particleSystemMain = particleSystem.main;
+
+            particleSystemMain.startColor = ScriptUtils.GetComplimentaryColor(GameManager.GetCurrentUserColorFullAlpha());
         }
     }
 }

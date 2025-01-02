@@ -96,20 +96,6 @@ public class SpawnPrefabWithinTriggerArea : MonoBehaviour
                          spawnLocation.y < (playerTransform.position.y + cameraHalfHeight + padding);
         }
 
-
-        // try 
-        // {
-        //     if (objectInstance.GetComponent<VisibleChecker>().IsVisible)
-        //     {
-        //         Destroy(objectInstance);
-        //         return;
-        //     }
-        // }
-        // catch 
-        // {
-            
-        // }
-
         // Set up the object properties
         float randomScale = UnityEngine.Random.Range(minSize, maxSize);
         objectInstance.transform.localScale = new Vector3(randomScale, randomScale, 1);
@@ -146,14 +132,14 @@ public class SpawnPrefabWithinTriggerArea : MonoBehaviour
         {
             if (gameObject != null)
             {
-                // Check if the asteroid is outside the screen bounds
+                // Check if the object is outside the screen bounds
                 if (gameObject.GetComponent<VisibleChecker>().IsVisible != true) // z < 0 means the object is behind the camera
                 {
-                    Destroy(gameObject); // Remove the asteroid if it's not visible
+                    Destroy(gameObject); // Remove the object if it's not visible
                 }
                 else
                 {
-                    // For debugging: Color the visible asteroids
+                    // For debugging: Color the visible objects
                     //asteroid.GetComponent<SpriteRenderer>().color = Color.blue;
                 }
             }

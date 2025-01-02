@@ -11,7 +11,6 @@ using UnityEngine.Analytics;
 
 public class NameInput : MonoBehaviour
 {
-
     public GameObject[] charInputFields; // should be gameobjects that 
 
     public Dictionary<GameObject,char> charInputValueDictionary = new Dictionary<GameObject,char>();
@@ -59,6 +58,7 @@ public class NameInput : MonoBehaviour
             else
             {
                 Debug.LogWarning("No valid navigation target to the left.");
+                SceneManager.LoadScene("Main Menu");
             }
         }
         else
@@ -91,8 +91,6 @@ public class NameInput : MonoBehaviour
         }
         Debug.Log($"Currently selected: {EventSystem.current.currentSelectedGameObject?.name}");
     }
-
-
 
     void PlayCharChangeSound()
     {

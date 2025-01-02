@@ -15,6 +15,16 @@ public static class GameManager
 
     private static User currentUser = new User("", 0, Color.cyan);
 
+    [Header ("Keys")]
+    public static KeyCode playerForwards = KeyCode.W; 
+    public static KeyCode playerBackwards = KeyCode.S;
+    public static KeyCode playerLeft = KeyCode.A;
+    public static KeyCode playerRight = KeyCode.D;
+    public static KeyCode playerStop = KeyCode.Space;
+    public static KeyCode playerFire = KeyCode.F;
+    public static KeyCode playerShield = KeyCode.Q;
+
+
     private static bool colorfulShipsEnabled = false;
     public static List<string> shipColorTags = new List<string>(); // Special color handling
 

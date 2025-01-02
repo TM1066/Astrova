@@ -3,6 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.ParticleSystemJobs;
+using UnityEditor;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
@@ -14,9 +15,17 @@ public class PlayerShip : MonoBehaviour
     private float movementSpeed = 10f;
     [SerializeField] Vector2 maxMovementSpeed;
     
-
+    [Header("Keys")]
+    private KeyCode forwardsKey = GameManager.playerForwards;
+    private KeyCode backwardsKey = GameManager.playerBackwards;
+    private KeyCode leftKey = GameManager.playerLeft;
+    private KeyCode rightKey = GameManager.playerRight;
+    private KeyCode stopKey = GameManager.playerStop;
+    private KeyCode fireKey = GameManager.playerFire;
+    private KeyCode shieldKey = GameManager.playerShield;
 
     // Visual Stuff 
+    [Header("Visuals")]
     [SerializeField] SpriteRenderer chassisRendererSprite;
     [SerializeField] SpriteRenderer lightsRendererSprite;
     [SerializeField] Light2D bodyLight;
@@ -35,6 +44,7 @@ public class PlayerShip : MonoBehaviour
     [SerializeField] GameObject projectilePrefab;
 
     // GAME VARIABLES
+    [Header("Game Variables")]
     [SerializeField] float shipHealth = 1f; // Keep between 1 and 0 and just either display * 100 or as a bar
     [SerializeField] float minHealth = 0.15f;
     [SerializeField] float projectileDamage = 0.33f;
@@ -43,6 +53,7 @@ public class PlayerShip : MonoBehaviour
     //Audio Stuff
     private AudioSource thisAudioPlayer; 
     [SerializeField] AudioClip fireAudio;
+    [SerializeField] AudioClip hurtAudio;
     //[SerializeField] float maxEngineVolume = 1f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -108,25 +119,25 @@ public class PlayerShip : MonoBehaviour
         // Handling movement
         if (Input.anyKey && !isDead)
         {
-            if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.UpArrow))
+            if (Input.GetKey(forwardsKey))
             {
                 rig.AddRelativeForceY(movementSpeed * shipHealth); //AAAAAAAAAAAAAA THIS WAS SO EASY IM SO DUMB
             }
-            if (Input.GetKey(KeyCode.DownArrow))
+            if (Input.GetKey(backwardsKey))
             {
                 rig.AddRelativeForceY(-(movementSpeed * shipHealth)); 
             }
-            if (Input.GetKey(KeyCode.LeftArrow)) // I could cap these but I'm leaving them for now because they're funny
+            if (Input.GetKey(leftKey)) // I could cap these but I'm leaving them for now because they're funny
             {
                 rig.AddRelativeForceY((movementSpeed / 3) * shipHealth); // small amount of movement forwards
                 rig.angularVelocity += movementSpeed * shipHealth;
             }
-            if (Input.GetKey(KeyCode.RightArrow)) // I could cap these but I'm leaving them for now because they're funny
+            if (Input.GetKey(rightKey)) // I could cap these but I'm leaving them for now because they're funny
             {
                  rig.AddRelativeForceY((movementSpeed /  3) * shipHealth); // small amount of movement forwards
                 rig.angularVelocity -= movementSpeed * shipHealth;
             }
-            if (Input.GetKey(KeyCode.Space))// Slow down that sheep
+            if (Input.GetKey(stopKey))// Slow down that sheep
             {
                 if (rig.linearVelocity.magnitude > 0.01f)
                 {
@@ -184,6 +195,7 @@ public class PlayerShip : MonoBehaviour
 
             //HANDLING VOLUME
             engine.audioSource.volume = engine.spriteRenderer.color.a *  engine.audioVolumeModifier * 0.05f;
+            
         }
 
         if (isDead)
@@ -245,7 +257,7 @@ public class PlayerShip : MonoBehaviour
             Color engineBackTempColor = ScriptUtils.GetAverageColor(backFireEnginesColors);
             Color engineBackHealthColor = CalculateColorBasedOnHealth(engineBackTempColor, Color.red);
 
-            if (Input.GetKey(KeyCode.LeftArrow)) // Right Engines for Moving Left
+            if (Input.GetKey(leftKey)) // Right Engines for Moving Left
             {
                 engineRightTempColor.a += ScriptUtils.AddWithMax(engineRightTempColor.a, 0.01f, 1.5f);
             }
@@ -261,7 +273,7 @@ public class PlayerShip : MonoBehaviour
                 }
             }
 
-            if (Input.GetKey(KeyCode.RightArrow)) // LeftEngines for Moving Right
+            if (Input.GetKey(rightKey)) // LeftEngines for Moving Right
             {
                 engineLeftTempColor.a += ScriptUtils.AddWithMax(engineLeftTempColor.a, 0.01f, 1.5f);
             }
@@ -277,7 +289,7 @@ public class PlayerShip : MonoBehaviour
                 }
             }
 
-            if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.UpArrow))// Back engines for moving forwards
+            if (Input.GetKey(forwardsKey))// Back engines for moving forwards
             {
                 engineMainTempColor.a += ScriptUtils.AddWithMax(engineMainTempColor.a, 0.01f, 1.5f);
             }
@@ -293,7 +305,7 @@ public class PlayerShip : MonoBehaviour
                 }
             }
 
-            if (Input.GetKey(KeyCode.DownArrow)) // Front Engines for moving Back
+            if (Input.GetKey(backwardsKey)) // Front Engines for moving Back
             {
                 engineBackTempColor.a += ScriptUtils.AddWithMax(engineBackTempColor.a, 0.01f, 1.5f);
             }
@@ -309,7 +321,7 @@ public class PlayerShip : MonoBehaviour
                 }
             }
 
-            if (Input.GetKey(KeyCode.Space)) // Fire all Engines to slow down
+            if (Input.GetKey(stopKey)) // Fire all Engines to slow down
             {
                 engineMainTempColor.a += ScriptUtils.AddWithMax(engineMainTempColor.a, 0.01f, UnityEngine.Random.Range(1.0f, 1.5f));
                 engineRightTempColor.a += ScriptUtils.AddWithMax(engineRightTempColor.a, 0.01f, UnityEngine.Random.Range(1.0f, 1.5f));
@@ -355,7 +367,7 @@ public class PlayerShip : MonoBehaviour
                 }
             }
 
-            if (Input.GetKey(KeyCode.X)) // bring up lights while firiing
+            if (Input.GetKey(fireKey)) // bring up lights while firiing
             {
                 lightsTempColor.a += ScriptUtils.AddWithMax(lightsTempColor.a, 0.1f, 1.5f);
             }
@@ -412,7 +424,7 @@ public class PlayerShip : MonoBehaviour
         while (gameObject)
         {
             //Shootings
-            if ((Input.GetKey(KeyCode.X)) && !isDead && canShoot)
+            if (Input.GetKey(fireKey) && !isDead && canShoot)
             {
                 Vector2 offset = this.transform.up * 2; // 'up' is relative to the ship's rotation
 
@@ -431,7 +443,7 @@ public class PlayerShip : MonoBehaviour
 
                 ScriptUtils.PlaySound(null, fireAudio);
             }
-            else if (Input.GetKey(KeyCode.X) || Input.GetKey(KeyCode.G) && !canShoot)
+            else if (Input.GetKey(fireKey) && !canShoot)
             {
                 UiUtils.ShowMessage("Can't Shoot","Your Weapons are offline!",new Vector2(200,200),false);
             }
@@ -458,6 +470,7 @@ public class PlayerShip : MonoBehaviour
         if ((shipHealth - amount) > minHealth)
         {
             shipHealth -= amount;
+            ScriptUtils.PlaySound(thisAudioPlayer, hurtAudio);
         }
         else if (isDead) // don't kill if already dead
         {

@@ -14,6 +14,10 @@ public class RepairKit : MonoBehaviour
             ScriptUtils.PlaySound(null,pickUpSound);
             Destroy(this.gameObject);
         }
+        else if (other.gameObject.CompareTag("Shield"))
+        {
+            //Restore Shield Condition
+        }
 
         
     }

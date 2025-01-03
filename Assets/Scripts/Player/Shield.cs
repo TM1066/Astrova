@@ -27,6 +27,13 @@ public class Shield : MonoBehaviour
     {
         oldColor = spriteRenderer.color;
         originColor = spriteRenderer.color;
+
+        spriteRenderer.color = ScriptUtils.GetColorButNoAlpha(spriteRenderer.color);
+        foreach (Image image in healthBarImages)
+        {
+            image.color = ScriptUtils.GetColorButNoAlpha(image.color);
+        }
+
     }
 
     // Update is called once per frame
@@ -80,7 +87,7 @@ public class Shield : MonoBehaviour
         }
     }
 
-    void DecreaseHealth(float damage)
+    public void DecreaseHealth(float damage)
     {
         damage = Mathf.Abs(damage);
 

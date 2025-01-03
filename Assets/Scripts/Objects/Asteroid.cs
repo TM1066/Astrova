@@ -48,7 +48,18 @@ public class Asteroid : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other) 
     {
-        if (other.gameObject.CompareTag("Player") && !canDamagePlayer)
+        TriggerCooldown(5f);
+
+        if (other.gameObject.CompareTag("Shield") && !canDamagePlayer)
+        {
+            var player = GameObject.Find("SpaceShip");
+            float damage = Mathf.Abs((0.1f * this.transform.localScale.x) * (player.GetComponent<Rigidbody2D>().linearVelocityX + player.GetComponent<Rigidbody2D>().linearVelocityY)) / 40; 
+            damage = float.Parse(damage.ToString("n2"));
+
+            other.gameObject.GetComponent<Shield>().DecreaseHealth(damage);
+        }
+
+        else if (other.gameObject.CompareTag("Player") && !canDamagePlayer)
         {
             TriggerCooldown(5f);
 
@@ -62,8 +73,8 @@ public class Asteroid : MonoBehaviour
     }
 
     void TriggerCooldown(float cooldownDuration)
-    {
-        StartCoroutine(ScriptUtils.BooleanDelay(
+    {   // I genuinely can't remember writing this 🐳
+        StartCoroutine(ScriptUtils.BooleanDelay( 
             () => canDamagePlayer,         // Getter: how to read the bool
             value => canDamagePlayer = value, // Setter: how to modify the bool
             cooldownDuration));      // Duration of the cooldown

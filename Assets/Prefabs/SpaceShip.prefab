@@ -112,7 +112,7 @@ MonoBehaviour:
   audioSource: {fileID: 4473528764858516490}
   hurtParticles: {fileID: 8792736731055261218}
   idleParticles: {fileID: 8792736731055261218}
-  shieldActive: 0
+  shieldActive: 1
 --- !u!114 &548688573878767171
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ using Unity.VisualScripting;
 public class PlayerShip : MonoBehaviour
 {
     // Movement
+    [Header("Movement")]
     [SerializeField] Rigidbody2D rig;
     private float movementSpeed = 10f;
     [SerializeField] Vector2 maxMovementSpeed;
@@ -40,6 +41,7 @@ public class PlayerShip : MonoBehaviour
     [SerializeField] ParticleSystem deathParticles;
 
     // Shootings
+    [Header("Shooting")]
     private bool canShoot = true;
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] List<Transform> projectileSpawnLocations = new List<Transform>();
@@ -58,6 +60,7 @@ public class PlayerShip : MonoBehaviour
     private Dictionary<string, bool> powerUpDict = new Dictionary<string, bool>() { {"Triple Shot", false}, {"Invincible", false}};
 
     //Audio Stuff
+    [Header ("Audio Stuff")]
     private AudioSource thisAudioPlayer; 
     [SerializeField] AudioClip fireAudio;
     [SerializeField] AudioClip hurtAudio;
@@ -167,10 +170,6 @@ public class PlayerShip : MonoBehaviour
                     rig.angularVelocity = 0;
                 }
             }
-            if (Input.GetKeyDown(shieldKey))
-            {
-                shield.ActiDevate();
-            }
         }
 
         // Locking Movement Speeds - try to put this into the speed addition code later
@@ -218,6 +217,17 @@ public class PlayerShip : MonoBehaviour
 
                 var EngineParticlesMain = engine.particleEmitter.main;
                 EngineParticlesMain.startColor = Color.clear;
+            }
+        }
+    }
+
+    void Update()
+    {
+        if (Input.anyKey && !isDead)
+        {
+            if (Input.GetKeyDown(shieldKey))
+            {
+                shield.ActiDevate();
             }
         }
     }
@@ -493,6 +503,7 @@ public class PlayerShip : MonoBehaviour
     {
         if (other.CompareTag("Evil Projectile"))
         {
+            Debug.Log("Player Shot!!!");
             DecreaseHealth(Mathf.Abs(other.GetComponent<Projectile>().GetDamage()));
             Destroy(other.gameObject);
         }
@@ -609,8 +620,10 @@ public class PlayerShip : MonoBehaviour
 
     public IEnumerator ActivatePowerUp(string powerUpKey)
     {
-        powerUpDict[powerUpKey] = true;
-        yield return new WaitForSeconds(3f); // power up duration
+        powerUpDict[powerUpKey] = true; 
+        Debug.Log("Power up: " + powerUpKey + " enabled");
+        yield return new WaitForSeconds(3); // power up duration
         powerUpDict[powerUpKey] = false;
+        Debug.Log("Power up: " + powerUpKey + " disabled");
     }
 }

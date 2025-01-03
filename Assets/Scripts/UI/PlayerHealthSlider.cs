@@ -36,8 +36,8 @@ public class PlayerHealthSlider : MonoBehaviour
             {
                 if (playerHealth < player.GetHealth())
                 {
-                    var rotationQuat = damageParticleSystem.transform.rotation;
-                    damageParticleSystem.transform.rotation = new Quaternion(rotationQuat.x, rotationQuat.y, 180, rotationQuat.w); // flip it around
+                    // var rotationQuat = damageParticleSystem.transform.rotation;
+                    // damageParticleSystem.transform.rotation = new Quaternion(rotationQuat.x, rotationQuat.y, 180, rotationQuat.w); // flip it around
                 }
                 else 
                 {

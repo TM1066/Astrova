@@ -11,6 +11,8 @@ public class HealthSlider : MonoBehaviour
 
     [SerializeField] UnityEngine.UI.Slider healthSlider;
     [SerializeField] ParticleSystem damageParticleSystem;
+    [SerializeField] RectTransform particleRect;
+    [SerializeField] RectTransform sliderRect;
 
     private float fillBarRightValue;
 
@@ -66,6 +68,12 @@ public class HealthSlider : MonoBehaviour
 
     void Update()
     {
-        
+        float normalizedValue = healthSlider.value / healthSlider.maxValue; // Normalize between 0 and 1
+        float sliderWidth = sliderRect.rect.width;
+
+        // Calculate particle position along the slider
+        Vector3 newPosition = sliderRect.position + Vector3.right * (normalizedValue * sliderWidth);
+        particleRect.position = new Vector3(newPosition.x, particleRect.position.y, particleRect.position.z);
+
     }
 }

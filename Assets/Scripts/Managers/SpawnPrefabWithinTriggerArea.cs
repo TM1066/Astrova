@@ -31,8 +31,7 @@ public class SpawnPrefabWithinTriggerArea : MonoBehaviour
 
         SetObjects();
 
-        Debug.Log($" {objectPrefab.name} spawner Max Spawn Width: {maxSpawnWidth}, Max Spawn Height: {maxSpawnHeight}");
-
+        //Debug.Log($" {objectPrefab.name} spawner Max Spawn Width: {maxSpawnWidth}, Max Spawn Height: {maxSpawnHeight}");
     }
 
     private void OnTriggerExit2D (Collider2D other) // reset stars when the Player leaves the starred area
@@ -106,13 +105,12 @@ public class SpawnPrefabWithinTriggerArea : MonoBehaviour
         spawnedObjects.Add(objectInstance);
     }
 
-
-
     private void SetObjects()
     {
         objectPositions.Clear();
 
         GetRidOfNonVisibleObjects();
+        
 
         for (int i = 0; i < amountInArea; i++)
         {
@@ -133,7 +131,7 @@ public class SpawnPrefabWithinTriggerArea : MonoBehaviour
             if (gameObject != null)
             {
                 // Check if the object is outside the screen bounds
-                if (gameObject.GetComponent<VisibleChecker>().IsVisible != true) // z < 0 means the object is behind the camera
+                if (gameObject.GetComponent<VisibleChecker>().IsVisible != true) 
                 {
                     Destroy(gameObject); // Remove the object if it's not visible
                 }
@@ -144,8 +142,8 @@ public class SpawnPrefabWithinTriggerArea : MonoBehaviour
                 }
             }
         }
+        spawnedObjects.RemoveAll(delegate (GameObject o) { return o == null; }); // taking care of destroyed objects
     }
-
 
     void OnLevelWasLoaded(int level)
     {

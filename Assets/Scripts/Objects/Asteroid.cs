@@ -106,7 +106,7 @@ public class Asteroid : MonoBehaviour
         }
     }
 
-    private void CreateSegment(int xIndex, int yIndex, float segmentWidth, float segmentHeight)
+    private void CreateSegment(int xIndex, int yIndex, float segmentWidth, float segmentHeight) // unused right now due to it not working
     {
         // Calculate segment position
         float x = xIndex * segmentWidth;
@@ -144,11 +144,6 @@ public class Asteroid : MonoBehaviour
 
         this.transform.localScale = new Vector3(this.transform.localScale.x - scaleRandomChange, this.transform.localScale.y - scaleRandomChange);
         asteroidHealth -= scaleRandomChange; // also scale health with asteroid size
-    }
-
-    private void OnApplicationQuit()
-    {
-        Destroy(gameObject);
     }
     void OnLevelWasLoaded(int level)
     {

@@ -1,10 +1,8 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.AI;
 using TMPro;
-using UnityEngine.Animations;
 using UnityEngine.InputSystem;
+using System.IO;
 using System.Linq;
 using Unity.VisualScripting;
 
@@ -35,6 +33,7 @@ public class GameTracker : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject); // Keep this object across scenes
+            GameManager.SetLeaderboardFilePath(Path.Combine(Application.persistentDataPath, "leaderboard.json")); // I hate having this here it's so spaghetti 😔
             GameManager.LoadLeaderboard();
         }
         else

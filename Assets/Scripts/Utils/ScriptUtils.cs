@@ -29,6 +29,15 @@ public static class ScriptUtils
         return new Color(r / count, g / count, b / count, a / count);
     }
 
+    public static Color GetRandomShiftedColor(Color baseColor, float shiftValue)
+    {
+        float shiftedR = UnityEngine.Random.Range(baseColor.r - shiftValue, baseColor.r + shiftValue);
+        float shiftedG = UnityEngine.Random.Range(baseColor.g - shiftValue, baseColor.g + shiftValue);
+        float shiftedB = UnityEngine.Random.Range(baseColor.b - shiftValue, baseColor.b + shiftValue);
+
+        return new Color(shiftedR, shiftedG, shiftedB, baseColor.a);
+    }
+
     public static Color GetColorButNoAlpha(Color color)
     {
         return new Color (color.r, color.g, color.b, 0f);

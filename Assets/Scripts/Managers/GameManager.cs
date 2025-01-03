@@ -13,7 +13,7 @@ public static class GameManager
     public enum Difficulties {easy, moderate, hard};
     static public Difficulties currentDifficulty = Difficulties.easy; // default to easy
 
-    private static User currentUser = new User("", 0, Color.cyan);
+    private static User currentUser = new User("", 0, Color.cyan); // default user
 
     [Header ("Keys")]
     public static KeyCode playerForwards = KeyCode.W; 
@@ -31,7 +31,8 @@ public static class GameManager
     public static bool gameMuted = false;
 
     // LEADERBOARD LOADING NONSENSE
-    private static string leaderboardFilePath = Path.Combine(Application.persistentDataPath, "leaderboard.json");
+    //private static string leaderboardFilePath = Path.Combine(Application.persistentDataPath, "leaderboard.json");
+    private static string leaderboardFilePath; // this is defined by the gameTracker on start up, this is very dumb and i hate it, blame Unity
     public static List<User> leaderboard = new List<User>();
     public static bool[] leaderBoardChanged = new bool[10] {false,false,false,false,false,false,false,false,false,false}; // Remember to change all back to false upon replay in end scene
 
@@ -117,6 +118,11 @@ public static class GameManager
     {
         
         return currentUser.color;
+    }
+
+    public static void SetLeaderboardFilePath(string filePath)
+    {
+        leaderboardFilePath = filePath;
     }
 
     public static Color GetCurrentUserColorFullAlpha()

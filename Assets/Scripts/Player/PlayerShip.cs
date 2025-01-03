@@ -43,6 +43,9 @@ public class PlayerShip : MonoBehaviour
     private bool canShoot = true;
     [SerializeField] GameObject projectilePrefab;
 
+    // Shieldings
+    [SerializeField] Shield shield;
+
     // GAME VARIABLES
     [Header("Game Variables")]
     [SerializeField] float shipHealth = 1f; // Keep between 1 and 0 and just either display * 100 or as a bar
@@ -159,6 +162,10 @@ public class PlayerShip : MonoBehaviour
                 {
                     rig.angularVelocity = 0;
                 }
+            }
+            if (Input.GetKeyDown(shieldKey))
+            {
+                shield.ActiDevate();
             }
         }
 

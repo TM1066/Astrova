@@ -102,6 +102,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 1270764434387361488}
   image: {fileID: 0}
+  particleSystem: {fileID: 0}
+  complimentaryColor: 0
+  dependOnColorfulShipsOption: 0
 --- !u!1 &3220009589161220272
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,7 +288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f35b128daf1c1ee4fa31b01a92d95929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsVisible: 1
+  IsVisible: 0
 --- !u!1 &4868575621997704840
 GameObject:
   m_ObjectHideFlags: 0

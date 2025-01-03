@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthSlider : MonoBehaviour
+public class PlayerHealthSlider : MonoBehaviour
 {
     private PlayerShip player;
     private float playerHealth;
@@ -34,6 +34,18 @@ public class HealthSlider : MonoBehaviour
         {
             if (playerHealth != player.GetHealth())
             {
+                if (playerHealth < player.GetHealth())
+                {
+                    var rotationQuat = damageParticleSystem.transform.rotation;
+                    damageParticleSystem.transform.rotation = new Quaternion(rotationQuat.x, rotationQuat.y, 180, rotationQuat.w); // flip it around
+                }
+                else 
+                {
+                    var rotationQuat = damageParticleSystem.transform.rotation;
+                    damageParticleSystem.transform.rotation = new Quaternion(rotationQuat.x, rotationQuat.y, 0, rotationQuat.w); // flip it back around
+                }
+
+
                 float startHealth = playerHealth;
                 float targetHealth = player.GetHealth();
                 float timeElapsed = 0f;

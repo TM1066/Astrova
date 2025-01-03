@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +9,7 @@ public class Shield : MonoBehaviour
     public float minHealth = 0.1f;
 
     public Collider2D collider;
-    public Slider healthBar;
+    public List<Image> healthBarImages; 
     public SpriteRenderer spriteRenderer;
     public AudioSource audioSource;
     public ParticleSystem hurtParticles;
@@ -19,11 +20,13 @@ public class Shield : MonoBehaviour
     private bool shieldPoweringUp;
 
     private Color oldColor;
+    private Color originColor;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         oldColor = spriteRenderer.color;
+        originColor = spriteRenderer.color;
     }
 
     // Update is called once per frame
@@ -61,6 +64,20 @@ public class Shield : MonoBehaviour
 
         ParticleSystem.MainModule idleParticleMain = idleParticles.main;
         idleParticleMain.startColor = spriteRenderer.color;
+
+        foreach (var image in healthBarImages)
+        {
+            image.color = new Color(image.color.r, image.color.g, image.color.b, spriteRenderer.color.a);
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Evil Projectile"))
+        {
+            DecreaseHealth(Mathf.Abs(other.GetComponent<Projectile>().GetDamage()));
+            Destroy(other.gameObject);
+        }
     }
 
     void DecreaseHealth(float damage)
@@ -90,20 +107,29 @@ public class Shield : MonoBehaviour
 
     }
 
+    public float GetShieldHealth()
+    {
+        return health;
+    }
+
     IEnumerator DamageFlicker(float damageTaken)
     {  
         Color newColor;
         for (int i = 0; i < damageTaken * 10; i++) // should do thresholds instead of this, just for testing
         {
             newColor = ScriptUtils.GetRandomShiftedColor(spriteRenderer.color, 0.02f);
-            newColor.a = Random.Range(newColor.a - 0.05f, newColor.a + 0.05f);
+            newColor.a = Random.Range(newColor.a - 0.05f, newColor.a - 0.1f);
             StartCoroutine(ScriptUtils.ColorLerpOverTime(spriteRenderer, spriteRenderer.color, newColor, 0.1f));
+            yield return new WaitForSeconds(0.1f);
+            StartCoroutine(ScriptUtils.ColorLerpOverTime(spriteRenderer, spriteRenderer.color, Color.clear, 0.1f));
+            yield return new WaitForSeconds(0.1f);
+            StartCoroutine(ScriptUtils.ColorLerpOverTime(spriteRenderer, spriteRenderer.color, originColor, 0.3f));
             yield return new WaitForSeconds(0.1f);
         }
 
         if (health >= minHealth) //bring shield back up to full alpha
         {
-            StartCoroutine(ScriptUtils.ColorLerpOverTime(spriteRenderer, spriteRenderer.color, GameManager.GetCurrentUserColorFullAlpha(), 0.2f));
+            StartCoroutine(ScriptUtils.ColorLerpOverTime(spriteRenderer, spriteRenderer.color, originColor, 0.2f));
         }
 
         else //bring it down

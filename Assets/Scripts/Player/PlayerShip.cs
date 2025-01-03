@@ -42,9 +42,10 @@ public class PlayerShip : MonoBehaviour
     // Shootings
     private bool canShoot = true;
     [SerializeField] GameObject projectilePrefab;
+    [SerializeField] List<Transform> projectileSpawnLocations = new List<Transform>();
 
     // Shieldings
-    [SerializeField] Shield shield;
+    public Shield shield;
 
     // GAME VARIABLES
     [Header("Game Variables")]
@@ -52,6 +53,9 @@ public class PlayerShip : MonoBehaviour
     [SerializeField] float minHealth = 0.15f;
     [SerializeField] float projectileDamage = 0.33f;
     private bool isDead = false;
+
+    //POWERUPS
+    private Dictionary<string, bool> powerUpDict = new Dictionary<string, bool>() { {"Triple Shot", false}, {"Invincible", false}};
 
     //Audio Stuff
     private AudioSource thisAudioPlayer; 
@@ -433,23 +437,48 @@ public class PlayerShip : MonoBehaviour
             //Shootings
             if (Input.GetKey(fireKey) && !isDead && canShoot)
             {
-                Vector2 offset = this.transform.up * 2; // 'up' is relative to the ship's rotation
 
-                GameObject projectile = Instantiate(projectilePrefab, (Vector2) this.transform.position + offset,this.transform.localRotation); // Offset so it's not inside the ship
+                if (powerUpDict["Triple Shot"])
+                {
+                    foreach (Transform spawnTransform in projectileSpawnLocations)
+                    {
+                        GameObject projectile = Instantiate(projectilePrefab, spawnTransform.position, this.transform.localRotation); // Offset so it's not inside the ship
 
-                projectile.GetComponent<Projectile>().SetDamage(projectileDamage);
+                        projectile.GetComponent<Projectile>().SetDamage(projectileDamage);
 
-                //Change Projectile Color to match lights
-                projectile.GetComponent<SpriteRenderer>().color = new Color (lightsRendererSprite.color.r, lightsRendererSprite.color.g, lightsRendererSprite.color.b, 1f);
-                projectile.GetComponent<Light2D>().color = new Color (lightsRendererSprite.color.r, lightsRendererSprite.color.g, lightsRendererSprite.color.b, 50f);
+                        //Change Projectile Color to match lights
+                        projectile.GetComponent<SpriteRenderer>().color = new Color (lightsRendererSprite.color.r, lightsRendererSprite.color.g, lightsRendererSprite.color.b, 1f);
+                        projectile.GetComponent<Light2D>().color = new Color (lightsRendererSprite.color.r, lightsRendererSprite.color.g, lightsRendererSprite.color.b, 50f);
 
-                float velocityMagnitude = Mathf.Sqrt(rig.linearVelocityX * rig.linearVelocityX + rig.linearVelocityY * rig.linearVelocityY);
-                float adjustedDuration = Mathf.Clamp(20.5f - (velocityMagnitude / 10), 10f, 20.5f);
+                        float velocityMagnitude = Mathf.Sqrt(rig.linearVelocityX * rig.linearVelocityX + rig.linearVelocityY * rig.linearVelocityY);
+                        float adjustedDuration = Mathf.Clamp(20.5f - (velocityMagnitude / 10), 10f, 20.5f);
 
-                StartCoroutine(ScriptUtils.PositionLerp(projectile.transform, projectile.transform.position, this.transform.up.normalized * 1000,  adjustedDuration));
+                        StartCoroutine(ScriptUtils.PositionLerp(projectile.transform, projectile.transform.position, spawnTransform.up.normalized * 1000,  adjustedDuration));
+                        
+                    }
+                    ScriptUtils.PlaySound(null, fireAudio);
+                }
+                else 
+                {
+                    Vector2 offset = this.transform.up * 2; // 'up' is relative to the ship's rotation
 
-                ScriptUtils.PlaySound(null, fireAudio);
+                    GameObject projectile = Instantiate(projectilePrefab, (Vector2) this.transform.position + offset, this.transform.localRotation); // Offset so it's not inside the ship
+
+                    projectile.GetComponent<Projectile>().SetDamage(projectileDamage);
+
+                    //Change Projectile Color to match lights
+                    projectile.GetComponent<SpriteRenderer>().color = new Color (lightsRendererSprite.color.r, lightsRendererSprite.color.g, lightsRendererSprite.color.b, 1f);
+                    projectile.GetComponent<Light2D>().color = new Color (lightsRendererSprite.color.r, lightsRendererSprite.color.g, lightsRendererSprite.color.b, 50f);
+
+                    float velocityMagnitude = Mathf.Sqrt(rig.linearVelocityX * rig.linearVelocityX + rig.linearVelocityY * rig.linearVelocityY);
+                    float adjustedDuration = Mathf.Clamp(20.5f - (velocityMagnitude / 10), 10f, 20.5f);
+
+                    StartCoroutine(ScriptUtils.PositionLerp(projectile.transform, projectile.transform.position, this.transform.up.normalized * 1000,  adjustedDuration));
+
+                    ScriptUtils.PlaySound(null, fireAudio);
+                }
             }
+
             else if (Input.GetKey(fireKey) && !canShoot)
             {
                 UiUtils.ShowMessage("Can't Shoot","Your Weapons are offline!",new Vector2(200,200),false);
@@ -576,5 +605,12 @@ public class PlayerShip : MonoBehaviour
             }
         }
         GameManager.shipColorTags.Clear();
+    }
+
+    public IEnumerator ActivatePowerUp(string powerUpKey)
+    {
+        powerUpDict[powerUpKey] = true;
+        yield return new WaitForSeconds(3f); // power up duration
+        powerUpDict[powerUpKey] = false;
     }
 }

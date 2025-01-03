@@ -16,7 +16,9 @@ public class RepairKit : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Shield"))
         {
-            //Restore Shield Condition
+            other.GetComponent<Shield>().health += healAmount;
+            ScriptUtils.PlaySound(null,pickUpSound);
+            Destroy(this.gameObject);
         }
 
         

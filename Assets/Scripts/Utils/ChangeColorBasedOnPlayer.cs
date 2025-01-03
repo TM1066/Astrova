@@ -22,6 +22,10 @@ public class ChangeColorBasedOnPlayer : MonoBehaviour
                 {
                     spriteRenderer.color = ScriptUtils.GetComplimentaryColor(GameManager.GetCurrentUserColorFullAlpha());
                 }
+                else 
+                {
+                    spriteRenderer.color = GameManager.GetCurrentUserColorFullAlpha();
+                }
             }
             else 
             {
@@ -35,6 +39,10 @@ public class ChangeColorBasedOnPlayer : MonoBehaviour
                 if (GameManager.GetColorfulShipsEnabled() | complimentaryColor)
                 {
                     image.color = ScriptUtils.GetComplimentaryColor(GameManager.GetCurrentUserColorFullAlpha());
+                }
+                else 
+                {
+                    image.color = GameManager.GetCurrentUserColorFullAlpha();
                 }
             }
             else 
@@ -50,6 +58,10 @@ public class ChangeColorBasedOnPlayer : MonoBehaviour
                 if (GameManager.GetColorfulShipsEnabled() | complimentaryColor)
                 {
                     particleSystemMain.startColor = ScriptUtils.GetComplimentaryColor(GameManager.GetCurrentUserColorFullAlpha());
+                }
+                else 
+                {
+                    particleSystemMain.startColor = GameManager.GetCurrentUserColorFullAlpha();
                 }
             }
             else 

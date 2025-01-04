@@ -36,9 +36,29 @@ public class Shield : MonoBehaviour
 
     }
 
+    void FixedUpdate()
+    {
+        if (spriteRenderer.color.a > 0.5f | !ScriptUtils.FindPlayerScript().CheckPowerUp("Infinite Shield"))
+        {
+            health -= 0.001f;
+        }
+        else 
+        {
+            if (health + 0.001f < 1f | ScriptUtils.FindPlayerScript().CheckPowerUp("Infinite Shield"))
+            {
+                health += 0.001f;
+            }
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if (health <= 0.1f)
+        {
+            shieldActive = false;
+        }
+
         //stops collision if the shield isn't visible
         if (spriteRenderer.color.a <= 0.05f)
         {
@@ -84,6 +104,26 @@ public class Shield : MonoBehaviour
         {
             DecreaseHealth(Mathf.Abs(other.GetComponent<Projectile>().GetDamage()));
             Destroy(other.gameObject);
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        try //Push things away that touch it (Mainly to fix asteroid collision)
+        {
+            Rigidbody2D playerRig = GameObject.Find("SpaceShip").GetComponent<Rigidbody2D>();
+            float forceMagnitude = 5f;
+
+            // Calculate the direction
+            Vector2 direction = playerRig.position - collision.gameObject.GetComponent<Rigidbody2D>().position;
+            Vector2 oppositeDirection = -direction.normalized;
+
+            // Apply the force
+            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(oppositeDirection * forceMagnitude, ForceMode2D.Impulse);
+        }
+        catch 
+        {
+
         }
     }
 

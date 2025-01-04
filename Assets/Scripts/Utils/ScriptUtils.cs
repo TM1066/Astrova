@@ -241,7 +241,6 @@ public static class ScriptUtils
         mainParticleSystem.startColor = finalColor;
     }
 
-
     public static IEnumerator DestroyGameObjectAfterTime(GameObject gameObjectToDestroy, float seconds)
     {
         yield return new WaitForSecondsRealtime(seconds);
@@ -290,4 +289,15 @@ public static class ScriptUtils
         polygonCollider.SetPath(i, path.ToArray()); // Write Paths
         }
     }
+
+    public static GameObject FindPlayerObject()
+    {
+        return GameObject.Find("SpaceShip");
+    }
+
+    public static PlayerShip FindPlayerScript()
+    {
+        return GameObject.Find("SpaceShip").GetComponent<PlayerShip>();
+    }
+
 }

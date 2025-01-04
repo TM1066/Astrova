@@ -310,6 +310,7 @@ GameObject:
   - component: {fileID: 4590873287523343032}
   - component: {fileID: 4995235280207841505}
   - component: {fileID: 8144540817307533690}
+  - component: {fileID: 48983912390798674}
   m_Layer: 0
   m_Name: Triple Shot Kit
   m_TagString: Item
@@ -468,3 +469,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUpKey: Triple Shot
   pickUpSound: {fileID: 8300000, guid: 14f8955e12b0e914aabfb673cdcd7e03, type: 3}
+--- !u!114 &48983912390798674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6049925832154005507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f35b128daf1c1ee4fa31b01a92d95929, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsVisible: 0

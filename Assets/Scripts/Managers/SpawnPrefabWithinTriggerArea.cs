@@ -22,6 +22,11 @@ public class SpawnPrefabWithinTriggerArea : MonoBehaviour
     // objectt is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if (!objectPrefab.GetComponent<VisibleChecker>())
+        {
+            objectPrefab.AddComponent<VisibleChecker>();
+        }
+
         objectSpawnArea = GetComponent<BoxCollider2D>();
 
         maxSpawnHeight = objectSpawnArea.size.y / 2;

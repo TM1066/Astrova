@@ -97,7 +97,14 @@ public class GameTracker : MonoBehaviour
         }
         else 
         {
-            this.GetComponent<AudioSource>().volume = 0.683f;
+            this.GetComponent<AudioSource>().volume = 0.683f * GameManager.gameVolume;
+
+            var audioSourcesInScene = FindObjectsByType(typeof(AudioSource), FindObjectsSortMode.None);
+            foreach (AudioSource audioSource in audioSourcesInScene)
+            {
+                
+                audioSource.volume = 1 * GameManager.gameVolume;
+            }
         }
         // GET RID OF EVIL NO GOOD GAME OBJECTS THAT WON'T GET DELETED PROPERLY (baddddd way to do this)
         

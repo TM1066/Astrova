@@ -57,7 +57,11 @@ public class PlayerShip : MonoBehaviour
     private bool isDead = false;
 
     //POWERUPS
-    private Dictionary<string, bool> powerUpDict = new Dictionary<string, bool>() { {"Triple Shot", false}, {"Invincible", false}};
+    private Dictionary<string, bool> powerUpDict = new Dictionary<string, bool>() { 
+        {"Triple Shot", false}, 
+        {"Infinite Shield", false},
+        {"Invincible", false}
+        };
 
     //Audio Stuff
     [Header ("Audio Stuff")]
@@ -622,8 +626,13 @@ public class PlayerShip : MonoBehaviour
     {
         powerUpDict[powerUpKey] = true; 
         Debug.Log("Power up: " + powerUpKey + " enabled");
-        yield return new WaitForSeconds(3); // power up duration
+        yield return new WaitForSeconds(3); // power up duration no workinggg
         powerUpDict[powerUpKey] = false;
         Debug.Log("Power up: " + powerUpKey + " disabled");
+    }
+
+    public bool CheckPowerUp(string powerUpKey)
+    {
+        return powerUpDict[powerUpKey];
     }
 }

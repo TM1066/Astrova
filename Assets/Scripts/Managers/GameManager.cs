@@ -29,6 +29,7 @@ public static class GameManager
     public static List<string> shipColorTags = new List<string>(); // Special color handling
 
     public static bool gameMuted = false;
+    public static float gameVolume = 1f; 
 
     // LEADERBOARD LOADING NONSENSE
     //private static string leaderboardFilePath = Path.Combine(Application.persistentDataPath, "leaderboard.json");

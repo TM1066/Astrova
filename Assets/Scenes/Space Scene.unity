@@ -1167,6 +1167,7 @@ MonoBehaviour:
   hurtParticles: {fileID: 1688476419}
   idleParticles: {fileID: 1688476419}
   shieldActive: 0
+  maxAlpha: 0.8
 --- !u!212 &625768876
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7592,63 +7593,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d22b78d6b715f1418131a3f6c27bd3b, type: 3}
---- !u!1001 &4483886837413621698
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 6049925832154005507, guid: f0d513b086069694baf06225992753a3, type: 3}
-      propertyPath: m_Name
-      value: Triple Shot Kit
-      objectReference: {fileID: 0}
-    - target: {fileID: 9191061692182556005, guid: f0d513b086069694baf06225992753a3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.9206595
-      objectReference: {fileID: 0}
-    - target: {fileID: 9191061692182556005, guid: f0d513b086069694baf06225992753a3, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.8353581
-      objectReference: {fileID: 0}
-    - target: {fileID: 9191061692182556005, guid: f0d513b086069694baf06225992753a3, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 2.110876
-      objectReference: {fileID: 0}
-    - target: {fileID: 9191061692182556005, guid: f0d513b086069694baf06225992753a3, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9191061692182556005, guid: f0d513b086069694baf06225992753a3, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9191061692182556005, guid: f0d513b086069694baf06225992753a3, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9191061692182556005, guid: f0d513b086069694baf06225992753a3, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9191061692182556005, guid: f0d513b086069694baf06225992753a3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9191061692182556005, guid: f0d513b086069694baf06225992753a3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9191061692182556005, guid: f0d513b086069694baf06225992753a3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: f0d513b086069694baf06225992753a3, type: 3}
 --- !u!1001 &5033276600372159646
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8835,4 +8779,3 @@ SceneRoots:
   - {fileID: 625768877}
   - {fileID: 5033276600372159646}
   - {fileID: 1762904127}
-  - {fileID: 4483886837413621698}

@@ -103,7 +103,7 @@ public class GameTracker : MonoBehaviour
             foreach (AudioSource audioSource in audioSourcesInScene)
             {
                 
-                audioSource.volume = 1 * GameManager.gameVolume;
+                //audioSource.volume = 1 * GameManager.gameVolume;
             }
         }
         // GET RID OF EVIL NO GOOD GAME OBJECTS THAT WON'T GET DELETED PROPERLY (baddddd way to do this)

@@ -8,6 +8,7 @@ TagManager:
   - Asteroid
   - Evil Projectile
   - Enemy
+  - Shield
   - Item
   - Star
   layers:

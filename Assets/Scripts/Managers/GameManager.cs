@@ -13,15 +13,27 @@ public static class GameManager
     public enum Difficulties {easy, moderate, hard};
     static public Difficulties currentDifficulty = Difficulties.easy; // default to easy
 
-    private static User currentUser = new User("", 0, Color.cyan);
+    private static User currentUser = new User("", 0, Color.cyan); // default user
+
+    [Header ("Keys")]
+    public static KeyCode playerForwards = KeyCode.W; 
+    public static KeyCode playerBackwards = KeyCode.S;
+    public static KeyCode playerLeft = KeyCode.A;
+    public static KeyCode playerRight = KeyCode.D;
+    public static KeyCode playerStop = KeyCode.Space;
+    public static KeyCode playerFire = KeyCode.F;
+    public static KeyCode playerShield = KeyCode.Q;
+
 
     private static bool colorfulShipsEnabled = false;
     public static List<string> shipColorTags = new List<string>(); // Special color handling
 
     public static bool gameMuted = false;
+    public static float gameVolume = 1f; 
 
     // LEADERBOARD LOADING NONSENSE
-    private static string leaderboardFilePath = Path.Combine(Application.persistentDataPath, "leaderboard.json");
+    //private static string leaderboardFilePath = Path.Combine(Application.persistentDataPath, "leaderboard.json");
+    private static string leaderboardFilePath; // this is defined by the gameTracker on start up, this is very dumb and i hate it, blame Unity
     public static List<User> leaderboard = new List<User>();
     public static bool[] leaderBoardChanged = new bool[10] {false,false,false,false,false,false,false,false,false,false}; // Remember to change all back to false upon replay in end scene
 
@@ -109,6 +121,11 @@ public static class GameManager
         return currentUser.color;
     }
 
+    public static void SetLeaderboardFilePath(string filePath)
+    {
+        leaderboardFilePath = filePath;
+    }
+
     public static Color GetCurrentUserColorFullAlpha()
     {
         return new Color(currentUser.color.r, currentUser.color.g, currentUser.color.b, 1f);
@@ -155,10 +172,7 @@ public static class GameManager
 
         //SAVING PLAYER TO LEADERBOARD
         AddUserToLeaderboard(currentUser.userName, currentUser.score, currentUser.color);
-
-        currentUser.userName = "";
         currentUser.score = 0;
-        currentUser.color = Color.clear;
 
         ScriptUtils.PlaySound(null, GameObject.Find("Game Tracker").GetComponent<GameTracker>().PlayerDeathSound);
 

@@ -133,7 +133,7 @@ public class PlayerShip : MonoBehaviour
         // Handling movement
         if (Input.anyKey && !isDead)
         {
-            if (Input.GetKey(forwardsKey))
+            if (Input.GetKey(forwardsKey) | Input.GetKey(GameManager.altPlayerForwards))
             {
                 rig.AddRelativeForceY(movementSpeed * shipHealth); //AAAAAAAAAAAAAA THIS WAS SO EASY IM SO DUMB
             }
@@ -314,7 +314,7 @@ public class PlayerShip : MonoBehaviour
                 }
             }
 
-            if (Input.GetKey(forwardsKey))// Back engines for moving forwards
+            if (Input.GetKey(forwardsKey) | Input.GetKey(GameManager.altPlayerForwards))// Back engines for moving forwards
             {
                 engineMainTempColor.a += ScriptUtils.AddWithMax(engineMainTempColor.a, 0.01f, 1.5f);
             }

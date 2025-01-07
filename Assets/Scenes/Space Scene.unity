@@ -2016,7 +2016,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starPrefab: {fileID: 565355153638662768, guid: 607f3fe486380854ba1f79ef5ad2f0d6, type: 3}
-  starAmount: 15000
+  starAmount: 7500
   stars: []
 --- !u!61 &1610309134
 BoxCollider2D:
@@ -2062,7 +2062,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1000, y: 1000}
+  m_Size: {x: 500, y: 500}
   m_EdgeRadius: 0
 --- !u!1 &1688476418
 GameObject:

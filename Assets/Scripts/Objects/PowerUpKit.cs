@@ -10,8 +10,7 @@ public class PowerUpKit : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player") && !other.GetComponent<PlayerShip>().GetIsDead())
         {
-            //StartCoroutine(other.gameObject.GetComponent<PlayerShip>().ActivatePowerUp(powerUpKey)); //IT EXISTS HERE AND THEN IT GETS DESTROYED, call on Player script
-            ScriptUtils.FindPlayerScript().ActivatePowerUpHandler(powerUpKey);
+            StartCoroutine(other.gameObject.GetComponent<PlayerShip>().ActivatePowerUp(powerUpKey));
             ScriptUtils.PlaySound(null,pickUpSound);
             Destroy(this.gameObject);
         }

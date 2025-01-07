@@ -22,8 +22,6 @@ public class Shield : MonoBehaviour
     private Color oldColor;
     private Color originColor;
 
-    public float maxAlpha = 0.8f;
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -40,30 +38,22 @@ public class Shield : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (spriteRenderer.color.a > 0.5f && !ScriptUtils.FindPlayerScript().CheckPowerUp("Infinite Shield"))
+        if (spriteRenderer.color.a > 0.5f | !ScriptUtils.FindPlayerScript().CheckPowerUp("Infinite Shield"))
         {
             health -= 0.001f;
         }
         else 
         {
-            if (health + 0.001f < 1f)
+            if (health + 0.001f < 1f | ScriptUtils.FindPlayerScript().CheckPowerUp("Infinite Shield"))
             {
                 health += 0.001f;
             }
         }
-
-        if (ScriptUtils.FindPlayerScript().CheckPowerUp("Infinite Shield"))
-        {
-            health = 1f;
-        }
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("Shield Health: " + health);
-
         if (health <= 0.1f)
         {
             shieldActive = false;
@@ -77,12 +67,6 @@ public class Shield : MonoBehaviour
         else 
         {
             collider.enabled = true;
-        }
-
-        //applying max alpha
-        if (spriteRenderer.color.a >= maxAlpha)
-        {
-            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, maxAlpha);
         }
 
         // powering up and down

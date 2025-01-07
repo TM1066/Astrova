@@ -622,19 +622,13 @@ public class PlayerShip : MonoBehaviour
         GameManager.shipColorTags.Clear();
     }
 
-    private IEnumerator ActivatePowerUp(string powerUpKey)
+    public IEnumerator ActivatePowerUp(string powerUpKey)
     {
         powerUpDict[powerUpKey] = true; 
         Debug.Log("Power up: " + powerUpKey + " enabled");
-        yield return new WaitForSeconds(6); // power up duration no workinggg
+        yield return new WaitForSeconds(3); // power up duration no workinggg
         powerUpDict[powerUpKey] = false;
         Debug.Log("Power up: " + powerUpKey + " disabled");
-    }
-
-    public void ActivatePowerUpHandler(string powerUpKey)
-    {
-        StartCoroutine(ActivatePowerUp(powerUpKey));
-
     }
 
     public bool CheckPowerUp(string powerUpKey)

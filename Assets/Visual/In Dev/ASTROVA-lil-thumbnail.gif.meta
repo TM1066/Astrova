@@ -173,7 +173,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ASTROVA-lil-thumbnail_0: -5266893831832455823
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

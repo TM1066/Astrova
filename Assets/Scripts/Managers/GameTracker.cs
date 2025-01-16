@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine.InputSystem.Controls;
+using NUnit.Framework;
 
 public class GameTracker : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class GameTracker : MonoBehaviour
 
     public InputActionReference exitAction;
 
+    private float tempGameVolumeValue = GameManager.gameVolume;
+
     void Awake()
     {
         // Deals with duplicates
@@ -36,6 +39,7 @@ public class GameTracker : MonoBehaviour
             DontDestroyOnLoad(gameObject); // Keep this object across scenes
             GameManager.SetLeaderboardFilePath(Path.Combine(Application.persistentDataPath, "leaderboard.json")); // I hate having this here it's so spaghetti 😔
             GameManager.LoadLeaderboard();
+            SceneManager.sceneLoaded += SceneObjectVolumeScaling;
 
             exitAction.action.performed += ExitCheck;
             exitAction.action.Enable();
@@ -80,13 +84,16 @@ public class GameTracker : MonoBehaviour
         }
         else 
         {
-            this.GetComponent<AudioSource>().volume = 0.683f * GameManager.gameVolume;
-
-            var audioSourcesInScene = FindObjectsByType(typeof(AudioSource), FindObjectsSortMode.None);
-            foreach (AudioSource audioSource in audioSourcesInScene)
+            if (tempGameVolumeValue != GameManager.gameVolume) // allows for dynamic volume changing in scene
             {
-                
-                //audioSource.volume = 1 * GameManager.gameVolume;
+                this.GetComponent<AudioSource>().volume = 0.683f * GameManager.gameVolume;
+
+                var audioSourcesInScene = FindObjectsByType(typeof(AudioSource), FindObjectsSortMode.None);
+                foreach (AudioSource audioSource in audioSourcesInScene)
+                {
+                    audioSource.volume *= GameManager.gameVolume;
+                }
+                tempGameVolumeValue = GameManager.gameVolume;
             }
         }
         // GET RID OF EVIL NO GOOD GAME OBJECTS THAT WON'T GET DELETED PROPERLY (baddddd way to do this)
@@ -137,4 +144,28 @@ public class GameTracker : MonoBehaviour
             Application.Quit();
         }
     }
+
+    void SceneObjectVolumeScaling(Scene scene, LoadSceneMode mode) // for attaching to the scene being loaded
+    {
+        if (GameManager.gameMuted) // mute scene if game is muted -- definitely a better way of doing this
+        {
+            var audioSourcesInScene = FindObjectsByType(typeof(AudioSource), FindObjectsSortMode.None);
+
+            foreach (AudioSource audioSource in audioSourcesInScene)
+            {
+                audioSource.volume = 0;
+            }
+        }
+        else 
+        {
+            this.GetComponent<AudioSource>().volume = 0.683f * GameManager.gameVolume;
+
+            var audioSourcesInScene = FindObjectsByType(typeof(AudioSource), FindObjectsSortMode.None);
+            foreach (AudioSource audioSource in audioSourcesInScene)
+            {
+                audioSource.volume *= GameManager.gameVolume;
+            }
+        }
+    }
+
 }

@@ -12,25 +12,31 @@ public class VolumeSlider : MonoBehaviour
     void Start()
     {
         slider = GetComponent<Slider>();
+        slider.value = GameManager.gameVolume;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void HandleVolumeSlideChange()
     {
         GameManager.gameVolume = slider.value;
+        Debug.Log("Game Volume: " + GameManager.gameVolume);
+        Debug.Log("Game Muted: " + GameManager.gameMuted);
 
-        if (slider.value == 0f)
+
+        if (GameManager.gameVolume <= 0.1f)
         {
-            GameObject.Find("Mute Mode").GetComponentInChildren<Toggle>().isOn = true;
             GameManager.gameMuted = true;
+            GameObject.Find("Mute Mode").GetComponentInChildren<Image>().color = Color.black;
         }
-        else if (slider.value > 0f && tempValue == 0f)
+        else
         {
-            GameObject.Find("Mute Mode").GetComponentInChildren<Toggle>().isOn = false;
             GameManager.gameMuted = false;
+            GameObject.Find("Mute Mode").GetComponentInChildren<Image>().color = Color.white;
+            GameManager.gameVolume = slider.value;
         }
+    }
 
-
-        tempValue = slider.value;
+    public void PlayValueChangeSound()
+    {
+        ScriptUtils.PlaySound(null, GameObject.Find("Game Tracker").GetComponent<GameTracker>().menuInteractSound);
     }
 }

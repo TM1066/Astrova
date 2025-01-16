@@ -180,16 +180,21 @@ public static class GameManager
         //SAVING PLAYER TO LEADERBOARD
         AddUserToLeaderboard(currentUser.userName, currentUser.score, currentUser.color);
         currentUser.score = 0;
-
-        ScriptUtils.PlaySound(null, GameObject.Find("Game Tracker").GetComponent<GameTracker>().PlayerDeathSound);
-
-        GameObject.Find("Music Player").GetComponent<AudioSource>().loop = false;
-
-        while (GameObject.Find("Music Player").GetComponent<AudioSource>().isPlaying) // Line us up for the last scene to play the outro to the song
+        if (!gameMuted)
         {
-            yield return null;
-        }
+            ScriptUtils.PlaySound(null, GameObject.Find("Game Tracker").GetComponent<GameTracker>().PlayerDeathSound);
 
+            GameObject.Find("Music Player").GetComponent<AudioSource>().loop = false;
+
+            while (GameObject.Find("Music Player").GetComponent<AudioSource>().isPlaying) // Line us up for the last scene to play the outro to the song
+            {
+                yield return null;
+            }
+        }
+        else 
+        {
+            yield return new WaitForSecondsRealtime(4);
+        }
         SceneManager.LoadScene("End Scene"); // Reload Scene
         Time.timeScale = 1f;
     }

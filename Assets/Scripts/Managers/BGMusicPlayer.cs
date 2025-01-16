@@ -18,6 +18,7 @@ public class BGMusicPlayer : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = 0;
+        targetVolume *= GameManager.gameVolume;
     }
 
     void Update()

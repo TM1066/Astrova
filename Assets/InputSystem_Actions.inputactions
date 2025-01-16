@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Game Exit",
+                    "type": "Button",
+                    "id": "18ba7d16-ad7f-4251-884f-57e24ee65f79",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -190,6 +199,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Go Back",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d26e35e3-ceec-4416-a70c-3d061ffc959e",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Game Exit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "18ddaa03-3116-4798-a378-a8fceb50cb5f",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Game Exit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

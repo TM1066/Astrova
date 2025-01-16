@@ -1783,7 +1783,7 @@ PrefabInstance:
     - target: {fileID: 1741420456399186212, guid: be854bb1342e1724b9a0091874526485, type: 3}
       propertyPath: m_Navigation.m_SelectOnUp
       value: 
-      objectReference: {fileID: 1423601314}
+      objectReference: {fileID: 6841655012476571676}
     - target: {fileID: 1741420456399186212, guid: be854bb1342e1724b9a0091874526485, type: 3}
       propertyPath: m_Navigation.m_SelectOnRight
       value: 
@@ -2040,7 +2040,7 @@ MonoBehaviour:
     m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 193213584}
-    m_SelectOnDown: {fileID: 1412934912}
+    m_SelectOnDown: {fileID: 6841655012476571676}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 3
@@ -2255,7 +2255,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1830922585
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2390,7 +2390,7 @@ PrefabInstance:
     - target: {fileID: 1741420456399186212, guid: be854bb1342e1724b9a0091874526485, type: 3}
       propertyPath: m_Navigation.m_SelectOnUp
       value: 
-      objectReference: {fileID: 1423601314}
+      objectReference: {fileID: 6841655012476571676}
     - target: {fileID: 1741420456399186212, guid: be854bb1342e1724b9a0091874526485, type: 3}
       propertyPath: m_Navigation.m_SelectOnLeft
       value: 
@@ -2744,23 +2744,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2066439558254956252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6067927681475315237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1392db2c56c1d04ebb8d6ae01689e1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 0}
-  image: {fileID: 773240539908832783}
-  particleSystem: {fileID: 0}
-  complimentaryColor: 0
-  dependOnColorfulShipsOption: 1
 --- !u!224 &3341344752943277992
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2884,7 +2867,6 @@ GameObject:
   - component: {fileID: 6310370574025344606}
   - component: {fileID: 6746910400047669600}
   - component: {fileID: 773240539908832783}
-  - component: {fileID: 2066439558254956252}
   m_Layer: 5
   m_Name: Fill Inline
   m_TagString: Untagged
@@ -2972,12 +2954,36 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 2
   m_WholeNumbers: 0
   m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6841655012476571677}
+        m_TargetAssemblyTypeName: VolumeSlider, Assembly-CSharp
+        m_MethodName: HandleVolumeSlideChange
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6841655012476571677}
+        m_TargetAssemblyTypeName: VolumeSlider, Assembly-CSharp
+        m_MethodName: PlayValueChangeSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6841655012476571677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3006,7 +3012,7 @@ RectTransform:
   m_Father: {fileID: 9145759467095145327}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0.6499634, y: -1.0410004}
   m_SizeDelta: {x: 2.5, y: 3.282}
   m_Pivot: {x: 0.5, y: 0.5}

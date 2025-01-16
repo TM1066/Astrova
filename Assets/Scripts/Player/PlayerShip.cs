@@ -208,7 +208,7 @@ public class PlayerShip : MonoBehaviour
 
 
             //HANDLING VOLUME
-            engine.audioSource.volume = engine.spriteRenderer.color.a *  engine.audioVolumeModifier * 0.05f;
+            engine.audioSource.volume = (engine.spriteRenderer.color.a * engine.audioVolumeModifier * 0.05f) * GameManager.gameVolume;
             
         }
 
@@ -626,7 +626,7 @@ public class PlayerShip : MonoBehaviour
     {
         powerUpDict[powerUpKey] = true; 
         Debug.Log("Power up: " + powerUpKey + " enabled");
-        yield return new WaitForSeconds(6); // power up duration no workinggg
+        yield return new WaitForSeconds(10); // power up duration no workinggg
         powerUpDict[powerUpKey] = false;
         Debug.Log("Power up: " + powerUpKey + " disabled");
     }

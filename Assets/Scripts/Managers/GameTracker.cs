@@ -1,10 +1,8 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.AI;
 using TMPro;
-using UnityEngine.Animations;
 using UnityEngine.InputSystem;
+using System.IO;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine.InputSystem.Controls;
@@ -36,6 +34,7 @@ public class GameTracker : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject); // Keep this object across scenes
+            GameManager.SetLeaderboardFilePath(Path.Combine(Application.persistentDataPath, "leaderboard.json")); // I hate having this here it's so spaghetti 😔
             GameManager.LoadLeaderboard();
 
             exitAction.action.performed += ExitCheck;
@@ -81,7 +80,14 @@ public class GameTracker : MonoBehaviour
         }
         else 
         {
-            this.GetComponent<AudioSource>().volume = 0.683f;
+            this.GetComponent<AudioSource>().volume = 0.683f * GameManager.gameVolume;
+
+            var audioSourcesInScene = FindObjectsByType(typeof(AudioSource), FindObjectsSortMode.None);
+            foreach (AudioSource audioSource in audioSourcesInScene)
+            {
+                
+                //audioSource.volume = 1 * GameManager.gameVolume;
+            }
         }
         // GET RID OF EVIL NO GOOD GAME OBJECTS THAT WON'T GET DELETED PROPERLY (baddddd way to do this)
 

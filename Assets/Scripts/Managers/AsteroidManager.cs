@@ -22,7 +22,7 @@ public class AsteroidManager : MonoBehaviour
     private float maxSpawnHeight;
     private float maxSpawnWidth;
 
-    private List<GameObject> currentAsteroids = new List<GameObject>();
+    public List<GameObject> currentAsteroids = new List<GameObject>();
 
 
     private void OnTriggerExit2D (Collider2D other)
@@ -114,6 +114,8 @@ public class AsteroidManager : MonoBehaviour
                 }
             }
         }
+
+        currentAsteroids.RemoveAll(delegate (GameObject o) { return o == null; });
     }
 
     private void PopulateAsteroids()

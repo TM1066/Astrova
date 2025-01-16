@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class SpawnPrefabWithinTriggerArea : MonoBehaviour
 {
@@ -21,6 +22,11 @@ public class SpawnPrefabWithinTriggerArea : MonoBehaviour
     // objectt is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if (!objectPrefab.GetComponent<VisibleChecker>())
+        {
+            objectPrefab.AddComponent<VisibleChecker>();
+        }
+
         objectSpawnArea = GetComponent<BoxCollider2D>();
 
         maxSpawnHeight = objectSpawnArea.size.y / 2;
@@ -30,8 +36,7 @@ public class SpawnPrefabWithinTriggerArea : MonoBehaviour
 
         SetObjects();
 
-        Debug.Log($" {objectPrefab.name} spawner Max Spawn Width: {maxSpawnWidth}, Max Spawn Height: {maxSpawnHeight}");
-
+        //Debug.Log($" {objectPrefab.name} spawner Max Spawn Width: {maxSpawnWidth}, Max Spawn Height: {maxSpawnHeight}");
     }
 
     private void OnTriggerExit2D (Collider2D other) // reset stars when the Player leaves the starred area
@@ -95,12 +100,6 @@ public class SpawnPrefabWithinTriggerArea : MonoBehaviour
                          spawnLocation.y < (playerTransform.position.y + cameraHalfHeight + padding);
         }
 
-            // attempts++;
-            // if (attempts >= maxAttempts)
-            // {
-            //     Debug.LogWarning("Spawnobject: Could not find a valid spawn position after multiple attempts.");
-            //     return; // Bail out to prevent crashing
-            // }
         // Set up the object properties
         float randomScale = UnityEngine.Random.Range(minSize, maxSize);
         objectInstance.transform.localScale = new Vector3(randomScale, randomScale, 1);
@@ -111,13 +110,12 @@ public class SpawnPrefabWithinTriggerArea : MonoBehaviour
         spawnedObjects.Add(objectInstance);
     }
 
-
-
     private void SetObjects()
     {
         objectPositions.Clear();
 
         GetRidOfNonVisibleObjects();
+        
 
         for (int i = 0; i < amountInArea; i++)
         {
@@ -137,20 +135,20 @@ public class SpawnPrefabWithinTriggerArea : MonoBehaviour
         {
             if (gameObject != null)
             {
-                // Check if the asteroid is outside the screen bounds
-                if (gameObject.GetComponent<VisibleChecker>().IsVisible != true) // z < 0 means the object is behind the camera
+                // Check if the object is outside the screen bounds
+                if (gameObject.GetComponent<VisibleChecker>().IsVisible != true) 
                 {
-                    Destroy(gameObject); // Remove the asteroid if it's not visible
+                    Destroy(gameObject); // Remove the object if it's not visible
                 }
                 else
                 {
-                    // For debugging: Color the visible asteroids
+                    // For debugging: Color the visible objects
                     //asteroid.GetComponent<SpriteRenderer>().color = Color.blue;
                 }
             }
         }
+        spawnedObjects.RemoveAll(delegate (GameObject o) { return o == null; }); // taking care of destroyed objects
     }
-
 
     void OnLevelWasLoaded(int level)
     {

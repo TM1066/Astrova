@@ -23,9 +23,9 @@ public class Buttons : MonoBehaviour
 
     }
 
-    public void Replay()
+    public void PlayAgain()
     {
         GameManager.leaderBoardChanged = new bool[10]{false,false,false,false,false,false,false,false,false,false}; // reset bool changed things
-        SceneManager.LoadScene("Name Input Screen");
+        SceneManager.LoadScene("Space Scene");
     }
 }

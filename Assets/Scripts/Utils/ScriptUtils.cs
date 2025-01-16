@@ -28,6 +28,39 @@ public static class ScriptUtils
         return new Color(r / count, g / count, b / count, a / count);
     }
 
+    public static Color GetRandomShiftedColor(Color baseColor, float shiftValue)
+    {
+        float shiftedR = UnityEngine.Random.Range(baseColor.r - shiftValue, baseColor.r + shiftValue);
+        float shiftedG = UnityEngine.Random.Range(baseColor.g - shiftValue, baseColor.g + shiftValue);
+        float shiftedB = UnityEngine.Random.Range(baseColor.b - shiftValue, baseColor.b + shiftValue);
+
+        return new Color(shiftedR, shiftedG, shiftedB, baseColor.a);
+    }
+
+    public static Color GetColorButNoAlpha(Color color)
+    {
+        return new Color (color.r, color.g, color.b, 0f);
+    }
+
+    public static ParticleSystem.MinMaxGradient GetColorButNoAlpha(ParticleSystem.MinMaxGradient color)
+    {
+        Color actualColor = color.color;
+
+        return new ParticleSystem.MinMaxGradient(new Color (actualColor.r, actualColor.g, actualColor.b, 0f));
+    }
+
+    public static Color GetColorButFullAlpha(Color color)
+    {
+        return new Color (color.r, color.g, color.b, 1f);
+    }
+
+    public static ParticleSystem.MinMaxGradient GetColorButFullAlpha(ParticleSystem.MinMaxGradient color)
+    {
+        Color actualColor = color.color;
+
+        return new ParticleSystem.MinMaxGradient(new Color (actualColor.r, actualColor.g, actualColor.b, 1f));
+    }
+
     public static int GetNumberFromString(string chars)
     {
         int n = 0;
@@ -119,7 +152,19 @@ public static class ScriptUtils
         while (timeElapsed < duration) 
         {
             startValue = Mathf.Lerp(startValue, finalValue, timeElapsed / duration);
-            timeElapsed += Time.fixedUnscaledDeltaTime;
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+    }
+   
+    public static IEnumerator SmoothValueLerpOverTime(float startValue,float finalValue, float duration)
+    {
+        float timeElapsed = 0;
+
+        while (timeElapsed < duration) 
+        {
+            startValue = Mathf.SmoothStep(startValue, finalValue, timeElapsed / duration);
+            timeElapsed += Time.deltaTime;
             yield return null;
         }
     }
@@ -155,7 +200,7 @@ public static class ScriptUtils
         while (timeElapsed < duration)
         {
             image.color = Color.Lerp(startColor, finalColor, timeElapsed / duration);
-            timeElapsed += Time.unscaledDeltaTime;
+            timeElapsed += Time.deltaTime;
             yield return null;
         }
 
@@ -170,12 +215,29 @@ public static class ScriptUtils
         while (timeElapsed < duration)
         {
             text.color = Color.Lerp(startColor, finalColor, timeElapsed / duration);
-            timeElapsed += Time.unscaledDeltaTime;
+            timeElapsed += Time.deltaTime;
             yield return null;
         }
 
         // Ensure the final color is set, in case the loop doesn't hit it exactly.
         text.color = finalColor;
+    }
+
+    public static IEnumerator ColorLerpOverTime(ParticleSystem particleSystem, ParticleSystem.MinMaxGradient startColor, ParticleSystem.MinMaxGradient finalColor, float duration)
+    {
+        float timeElapsed = 0;
+
+        var mainParticleSystem = particleSystem.main;
+
+        while (timeElapsed < duration)
+        {
+            mainParticleSystem.startColor = Color.Lerp(startColor.color, finalColor.color, timeElapsed / duration);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        // Ensure the final color is set, in case the loop doesn't hit it exactly.
+        mainParticleSystem.startColor = finalColor;
     }
 
     public static IEnumerator DestroyGameObjectAfterTime(GameObject gameObjectToDestroy, float seconds)
@@ -226,4 +288,15 @@ public static class ScriptUtils
         polygonCollider.SetPath(i, path.ToArray()); // Write Paths
         }
     }
+
+    public static GameObject FindPlayerObject()
+    {
+        return GameObject.Find("SpaceShip");
+    }
+
+    public static PlayerShip FindPlayerScript()
+    {
+        return GameObject.Find("SpaceShip").GetComponent<PlayerShip>();
+    }
+
 }

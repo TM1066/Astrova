@@ -388,7 +388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starPrefab: {fileID: 565355153638662768, guid: 607f3fe486380854ba1f79ef5ad2f0d6, type: 3}
-  starAmount: 50
+  starAmount: 40
   stars: []
 --- !u!1 &536943668
 GameObject:
@@ -539,7 +539,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Version: A0.1'
+  m_text: 'Version: 0.2'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ae081242c37e2d7448e01208e984eb62, type: 2}
   m_sharedMaterial: {fileID: -2980365314834916747, guid: ae081242c37e2d7448e01208e984eb62, type: 2}
@@ -748,7 +748,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8037428450774625137, guid: be854bb1342e1724b9a0091874526485, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -208
+      value: -397
       objectReference: {fileID: 0}
     - target: {fileID: 8037428450774625137, guid: be854bb1342e1724b9a0091874526485, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -994,30 +994,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Options
       objectReference: {fileID: 0}
-    - target: {fileID: 4306016340397366751, guid: be854bb1342e1724b9a0091874526485, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 40.597
-      objectReference: {fileID: 0}
-    - target: {fileID: 4306016340397366751, guid: be854bb1342e1724b9a0091874526485, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 46.158
-      objectReference: {fileID: 0}
-    - target: {fileID: 4306016340397366751, guid: be854bb1342e1724b9a0091874526485, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -139.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4306016340397366751, guid: be854bb1342e1724b9a0091874526485, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6700508318288905717, guid: be854bb1342e1724b9a0091874526485, type: 3}
-      propertyPath: m_fontSize
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 6700508318288905717, guid: be854bb1342e1724b9a0091874526485, type: 3}
-      propertyPath: m_fontSizeMax
-      value: 45
-      objectReference: {fileID: 0}
     - target: {fileID: 7809700053417439791, guid: be854bb1342e1724b9a0091874526485, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -1108,7 +1084,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8037428450774625137, guid: be854bb1342e1724b9a0091874526485, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -422
+      value: -206.09195
       objectReference: {fileID: 0}
     - target: {fileID: 8037428450774625137, guid: be854bb1342e1724b9a0091874526485, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1542,11 +1518,11 @@ MonoBehaviour:
   m_MoveRepeatRate: 0.1
   m_XRTrackingOrigin: {fileID: 0}
   m_ActionsAsset: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  m_PointAction: {fileID: 0}
+  m_PointAction: {fileID: -1654692200621890270, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_MoveAction: {fileID: -8784545083839296357, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_SubmitAction: {fileID: 392368643174621059, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_CancelAction: {fileID: 7727032971491509709, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  m_LeftClickAction: {fileID: 0}
+  m_LeftClickAction: {fileID: 3001919216989983466, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_MiddleClickAction: {fileID: -2185481485913320682, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_RightClickAction: {fileID: -4090225696740746782, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_ScrollWheelAction: {fileID: 6240969308177333660, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
@@ -1621,7 +1597,6 @@ MonoBehaviour:
   cubeUISprite: {fileID: 21300000, guid: b4b411d9131c00646b86d6934fe64734, type: 3}
   PlayerDeathSound: {fileID: 8300000, guid: e8ab29847e9960d4b8600cf30c477e07, type: 3}
   menuInteractSound: {fileID: 8300000, guid: 68d94b85927d70549ad247ca362378f4, type: 3}
-  exitAction: {fileID: 7727032971491509709, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!4 &2053929771
 Transform:
   m_ObjectHideFlags: 0

@@ -15,7 +15,7 @@ public class CameraArea : MonoBehaviour
             }
             catch 
             {
-                
+
             }
         }
     }

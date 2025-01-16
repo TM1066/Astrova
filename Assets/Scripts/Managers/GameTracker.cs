@@ -124,6 +124,8 @@ public class GameTracker : MonoBehaviour
             //Time.timeScale = 0f;
 
             //Enable Pause Menu
+
+            SceneManager.LoadScene("Main Menu");
         }
         else if (currentSceneName == "Name Input Screen") 
         {

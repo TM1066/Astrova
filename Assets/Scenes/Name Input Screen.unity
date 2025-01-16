@@ -484,7 +484,7 @@ GameObject:
   - component: {fileID: 432447574}
   - component: {fileID: 432447573}
   m_Layer: 5
-  m_Name: X
+  m_Name: B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -529,7 +529,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'X: Go Back'
+  m_text: 'B: Go Back'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ae081242c37e2d7448e01208e984eb62, type: 2}
   m_sharedMaterial: {fileID: -2980365314834916747, guid: ae081242c37e2d7448e01208e984eb62, type: 2}
@@ -1791,7 +1791,7 @@ GameObject:
   - component: {fileID: 1293586147}
   - component: {fileID: 1293586146}
   m_Layer: 5
-  m_Name: Z
+  m_Name: A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1836,7 +1836,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Z: Confirm'
+  m_text: 'A: Confirm'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ae081242c37e2d7448e01208e984eb62, type: 2}
   m_sharedMaterial: {fileID: -2980365314834916747, guid: ae081242c37e2d7448e01208e984eb62, type: 2}

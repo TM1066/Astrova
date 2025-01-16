@@ -539,7 +539,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Version: 0.2'
+  m_text: 'Version: A2'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ae081242c37e2d7448e01208e984eb62, type: 2}
   m_sharedMaterial: {fileID: -2980365314834916747, guid: ae081242c37e2d7448e01208e984eb62, type: 2}
@@ -1597,6 +1597,7 @@ MonoBehaviour:
   cubeUISprite: {fileID: 21300000, guid: b4b411d9131c00646b86d6934fe64734, type: 3}
   PlayerDeathSound: {fileID: 8300000, guid: e8ab29847e9960d4b8600cf30c477e07, type: 3}
   menuInteractSound: {fileID: 8300000, guid: 68d94b85927d70549ad247ca362378f4, type: 3}
+  exitAction: {fileID: 0}
 --- !u!4 &2053929771
 Transform:
   m_ObjectHideFlags: 0

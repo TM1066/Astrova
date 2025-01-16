@@ -291,7 +291,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 100}
+  m_AnchoredPosition: {x: 0, y: -225}
   m_SizeDelta: {x: 1177.2, y: 151.52}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &183605961
@@ -314,7 +314,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Space: Slow Down'
+  m_text: 'D: Slow Down'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ae081242c37e2d7448e01208e984eb62, type: 2}
   m_sharedMaterial: {fileID: -2980365314834916747, guid: ae081242c37e2d7448e01208e984eb62, type: 2}
@@ -405,7 +405,7 @@ GameObject:
   - component: {fileID: 237672161}
   - component: {fileID: 237672160}
   m_Layer: 5
-  m_Name: Z
+  m_Name: A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -427,7 +427,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 75}
   m_SizeDelta: {x: 961, y: 151.52}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &237672160
@@ -450,7 +450,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Z: Boost Forwards'
+  m_text: 'A: Boost Forwards'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ae081242c37e2d7448e01208e984eb62, type: 2}
   m_sharedMaterial: {fileID: -2980365314834916747, guid: ae081242c37e2d7448e01208e984eb62, type: 2}
@@ -595,11 +595,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1276317680}
+  - {fileID: 1627716706}
   - {fileID: 237672159}
   - {fileID: 2101098765}
   - {fileID: 1101548567}
   - {fileID: 183605960}
-  - {fileID: 1627716706}
   m_Father: {fileID: 673628198}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -854,7 +854,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -200}
+  m_AnchoredPosition: {x: 0, y: -125}
   m_SizeDelta: {x: 663.35, y: 151.52}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1101548568
@@ -1542,7 +1542,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 200}
+  m_AnchoredPosition: {x: 0, y: 225}
   m_SizeDelta: {x: 1357.94, y: 283.91}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1627716707
@@ -1565,7 +1565,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Arrow Keys: Ship Movement'
+  m_text: 'JoyStick: Ship Movement'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ae081242c37e2d7448e01208e984eb62, type: 2}
   m_sharedMaterial: {fileID: -2980365314834916747, guid: ae081242c37e2d7448e01208e984eb62, type: 2}
@@ -1838,7 +1838,7 @@ GameObject:
   - component: {fileID: 2101098767}
   - component: {fileID: 2101098766}
   m_Layer: 5
-  m_Name: X
+  m_Name: B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1860,7 +1860,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -100}
+  m_AnchoredPosition: {x: 0, y: -25}
   m_SizeDelta: {x: 663.35, y: 151.52}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2101098766
@@ -1883,7 +1883,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'X: Fire Weapon'
+  m_text: 'B: Fire Weapon'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ae081242c37e2d7448e01208e984eb62, type: 2}
   m_sharedMaterial: {fileID: -2980365314834916747, guid: ae081242c37e2d7448e01208e984eb62, type: 2}

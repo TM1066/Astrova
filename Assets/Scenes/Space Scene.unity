@@ -8733,7 +8733,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3884107147593769493, guid: f44cee1d96a76f24e828f4d73bdbb7c2, type: 3}
       propertyPath: m_Color.b
-      value: 0.418
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884107147593769493, guid: f44cee1d96a76f24e828f4d73bdbb7c2, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884107147593769493, guid: f44cee1d96a76f24e828f4d73bdbb7c2, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6841655013211116711, guid: f44cee1d96a76f24e828f4d73bdbb7c2, type: 3}
+      propertyPath: m_Value
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7206919544898320156, guid: f44cee1d96a76f24e828f4d73bdbb7c2, type: 3}
       propertyPath: ShapeModule.arc.value

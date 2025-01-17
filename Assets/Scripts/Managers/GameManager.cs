@@ -16,20 +16,20 @@ public static class GameManager
     private static User currentUser = new User("", 0, Color.cyan); // default user
 
     [Header ("Keys")]
-    public static KeyCode playerForwards = KeyCode.F; 
-    public static KeyCode altPlayerForwards = KeyCode.Z; 
+    public static KeyCode playerForwards = KeyCode.UpArrow; 
+    public static KeyCode altPlayerForwards = KeyCode.W; 
     public static KeyCode playerBackwards = KeyCode.DownArrow;
     public static KeyCode altPlayerBackwards = KeyCode.S;
     public static KeyCode playerLeft = KeyCode.LeftArrow;
     public static KeyCode altPlayerLeft = KeyCode.A;
     public static KeyCode playerRight = KeyCode.RightArrow;
     public static KeyCode altPlayerRight = KeyCode.D;
-    public static KeyCode playerStop = KeyCode.J;
-    public static KeyCode altPlayerStop = KeyCode.V;
-    public static KeyCode playerFire = KeyCode.X;
-    public static KeyCode altPlayerFire = KeyCode.G;
-    public static KeyCode playerShield = KeyCode.C;
-    public static KeyCode altPlayerShield = KeyCode.H;
+    public static KeyCode playerStop = KeyCode.Space;
+    public static KeyCode altPlayerStop = KeyCode.Return;
+    public static KeyCode playerFire = KeyCode.F;
+    public static KeyCode altPlayerFire = KeyCode.Z;
+    public static KeyCode playerShield = KeyCode.Q;
+    public static KeyCode altPlayerShield = KeyCode.X;
 
 
     private static bool colorfulShipsEnabled = false;

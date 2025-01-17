@@ -173,12 +173,12 @@ public class NameInput : MonoBehaviour
                     charScrollSpeed = 0.2f;
                 }
                 
-                if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.F))
+                if (Input.GetKeyDown(KeyCode.Z))
                 {
                     yield return new WaitForEndOfFrame(); // Ensure no conflicts with internal navigation
                     MoveToNextInputField();
                 }
-                else if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.G))
+                else if (Input.GetKeyDown(KeyCode.X))
                 {
                     yield return new WaitForEndOfFrame(); // Ensure no conflicts with internal navigation
                     MoveToPreviousInputField();

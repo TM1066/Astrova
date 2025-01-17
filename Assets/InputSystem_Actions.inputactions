@@ -212,17 +212,6 @@
                     "action": "Game Exit",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "18ddaa03-3116-4798-a378-a8fceb50cb5f",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Game Exit",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },

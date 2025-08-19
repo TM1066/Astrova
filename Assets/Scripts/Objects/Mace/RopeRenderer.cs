@@ -2,26 +2,30 @@ using UnityEngine;
 
 public class RopeRenderer : MonoBehaviour
 {
-    public Transform anchor; // The spaceship or anchor point
-    public GameObject ball; // The object at the end of the rope
-    public LineRenderer lineRenderer; // The LineRenderer component
-    public Rigidbody2D[] ropeSegments; // Array of rope segment Rigidbody2Ds
+    public Transform[] segments; //ship should be first and mace on the other, needs to be ordered!!!
+    public GameObject mace;
+    public LineRenderer lineRenderer;
 
     void Update()
     {
-        // Update the LineRenderer positions
-        lineRenderer.positionCount = ropeSegments.Length + 2; // +2 for anchor and ball
-
-        // Set the anchor position
-        lineRenderer.SetPosition(0, anchor.position);
-
-        // Set the positions of each rope segment
-        for (int i = 0; i < ropeSegments.Length; i++)
+        if (mace.activeSelf)
         {
-            lineRenderer.SetPosition(i + 1, ropeSegments[i].position);
+            lineRenderer.positionCount = segments.Length;
+            for (int i = 0; i < segments.Length; i++)
+            {
+                lineRenderer.SetPosition(i, segments[i].position);
+            }
         }
-
-        // Set the ball position
-        lineRenderer.SetPosition(lineRenderer.positionCount - 1, ball.transform.position);
+    }
+    private void Start()
+    {
+        var maceConnectorGradient = new Gradient();
+        maceConnectorGradient.colorKeys = new GradientColorKey[]
+        {
+            new GradientColorKey(GameManager.GetCurrentUserColorFullAlpha(), 0.75f),
+            // kind of wordy but it's easier than writing a new logic bit above
+            new GradientColorKey(GameManager.GetColorfulShipsEnabled() ? ScriptUtils.GetComplimentaryColor(GameManager.GetCurrentUserColorFullAlpha()) : Color.white, 0f)
+        };
+        lineRenderer.colorGradient = maceConnectorGradient;
     }
 }

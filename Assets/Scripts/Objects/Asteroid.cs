@@ -46,14 +46,14 @@ public class Asteroid : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other) 
+    private void OnCollisionEnter2D(Collision2D other)
     {
         TriggerCooldown(5f);
 
         if (other.gameObject.CompareTag("Shield") && !canDamagePlayer)
         {
             var player = GameObject.Find("SpaceShip");
-            float damage = Mathf.Abs((0.1f * this.transform.localScale.x) * (player.GetComponent<Rigidbody2D>().linearVelocityX + player.GetComponent<Rigidbody2D>().linearVelocityY)) / 40; 
+            float damage = Mathf.Abs((0.1f * this.transform.localScale.x) * (player.GetComponent<Rigidbody2D>().linearVelocityX + player.GetComponent<Rigidbody2D>().linearVelocityY)) / 40;
             damage = float.Parse(damage.ToString("n2"));
 
             other.gameObject.GetComponent<Shield>().DecreaseHealth(damage);
@@ -64,12 +64,17 @@ public class Asteroid : MonoBehaviour
             TriggerCooldown(5f);
 
             // Actual Damage Calculation
-            float damage = Mathf.Abs((0.1f * this.transform.localScale.x) * (other.gameObject.GetComponent<Rigidbody2D>().linearVelocityX + other.gameObject.GetComponent<Rigidbody2D>().linearVelocityY)) / 40; 
+            float damage = Mathf.Abs((0.1f * this.transform.localScale.x) * (other.gameObject.GetComponent<Rigidbody2D>().linearVelocityX + other.gameObject.GetComponent<Rigidbody2D>().linearVelocityY)) / 40;
             // Rounding to 2dp
             damage = float.Parse(damage.ToString("n2"));
 
             other.gameObject.GetComponent<PlayerShip>().DecreaseHealth(damage); // Change how much damage depending on Size
         }    
+        else if (other.gameObject.CompareTag("Mace"))
+        {
+            GameManager.IncrementCurrentScore();
+            DestroyThis();
+        }
     }
 
     void TriggerCooldown(float cooldownDuration)

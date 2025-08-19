@@ -167,5 +167,7 @@ public class GameTracker : MonoBehaviour
             }
         }
     }
-
+    // private void OnApplicationFocus() {
+    //     GameManager.gameMuted = GameManager.gameMuted ? false: true;
+    // }
 }

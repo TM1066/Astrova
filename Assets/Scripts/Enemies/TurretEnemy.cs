@@ -373,9 +373,18 @@ public class TurretEnemy : MonoBehaviour
                 Debug.LogWarning("Projectile script not found on object!");
             }
         }
+        else if (other.CompareTag("Mace"))
+        {
+            //DecreaseHealth((other.gameObject.GetComponent<Rigidbody2D>().linearVelocityX + other.gameObject.GetComponent<Rigidbody2D>().linearVelocityY)/ 40); // scale by mace speed
+            DecreaseHealth(10000); //just absolutely SMASH IT
+        }
         else
         {
             //Debug.Log($"Collision ignored with: {other.gameObject.name}");
+        }
+        if (other.GetComponent<Mace>())
+        {
+            DecreaseHealth(10000); //just absolutely SMASH IT - because rn it's not seeing the tag
         }
     }
 }

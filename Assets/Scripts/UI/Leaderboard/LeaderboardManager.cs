@@ -15,6 +15,10 @@ public class LeaderboardManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI[] nameTexts = new TextMeshProUGUI[10];
     [SerializeField] List<Image> colorDisplays = new List<Image>();
 
+    // I am so sorry 😔, it's this or copy the whole script
+    // true for menu, false for end screen
+    [SerializeField] bool menuOrEnd = false;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -46,7 +50,14 @@ public class LeaderboardManager : MonoBehaviour
         foreach (User user in GameManager.leaderboard)
         {
             nameTexts[leaderboardAccessIndex].text = user.userName;
-            colorDisplays[leaderboardAccessIndex].color = new Color(user.color.r, user.color.g, user.color.b, 0f);
+            if (!menuOrEnd)
+            {
+                colorDisplays[leaderboardAccessIndex].color = new Color(user.color.r, user.color.g, user.color.b, 0f);
+            }
+            else
+            {
+                colorDisplays[leaderboardAccessIndex].color = new Color(user.color.r, user.color.g, user.color.b, 1f);
+            }
             scoreTexts[leaderboardAccessIndex].text = user.score.ToString();
 
             leaderboardAccessIndex++;

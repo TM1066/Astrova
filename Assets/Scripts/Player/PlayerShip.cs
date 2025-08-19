@@ -7,7 +7,12 @@ using UnityEditor;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
-
+/*
+*Honestly, maybe this should be like 12 scripts
+*attached to the ship for modularity, but
+*I like it this way and ITS MY GAME LEAVE ME ALONE
+*MY DAD WORKS AT BLIZZARD
+*/
 public class PlayerShip : MonoBehaviour
 {
     // Movement
@@ -57,15 +62,19 @@ public class PlayerShip : MonoBehaviour
     private bool isDead = false;
 
     //POWERUPS
-    private Dictionary<string, bool> powerUpDict = new Dictionary<string, bool>() { 
-        {"Triple Shot", false}, 
+    
+    private Dictionary<string, bool> powerUpDict = new Dictionary<string, bool>() {
+        {"Triple Shot", false},
         {"Infinite Shield", false},
-        {"Invincible", false}
-        };
+        {"Invincible", false},
+        {"Mace",false}
+    };
+    [Header("Power Ups")]
+    public GameObject maceObject;
 
     //Audio Stuff
-    [Header ("Audio Stuff")]
     private AudioSource thisAudioPlayer; 
+    [Header("Audio Stuff")]
     [SerializeField] AudioClip fireAudio;
     [SerializeField] AudioClip hurtAudio;
     //[SerializeField] float maxEngineVolume = 1f;
@@ -624,11 +633,50 @@ public class PlayerShip : MonoBehaviour
 
     private IEnumerator ActivatePowerUp(string powerUpKey)
     {
-        powerUpDict[powerUpKey] = true; 
+        powerUpDict[powerUpKey] = true;
         Debug.Log("Power up: " + powerUpKey + " enabled");
         yield return new WaitForSeconds(10); // power up duration no workinggg
         powerUpDict[powerUpKey] = false;
         Debug.Log("Power up: " + powerUpKey + " disabled");
+
+        switch (powerUpKey)
+        {
+            //right now mace is the only special'n
+            case "Mace":
+                Time.timeScale = 0;
+                maceObject.SetActive(true); // flashy effect
+                yield return new WaitForSecondsRealtime(0.1f);
+                maceObject.SetActive(false);
+                yield return new WaitForSecondsRealtime(0.2f);
+                maceObject.SetActive(true);
+                yield return new WaitForSecondsRealtime(0.3f);
+                maceObject.SetActive(false);
+                yield return new WaitForSecondsRealtime(0.5f);
+                maceObject.SetActive(true);
+                Time.timeScale = 1;
+
+                yield return new WaitForSeconds(UnityEngine.Random.Range(15, 30)); // how long until the power up disables
+
+                Time.timeScale = 0;
+                maceObject.SetActive(false); // flashy off effect
+                yield return new WaitForSecondsRealtime(0.1f);
+                maceObject.SetActive(true);
+                yield return new WaitForSecondsRealtime(0.2f);
+                maceObject.SetActive(false);
+                yield return new WaitForSecondsRealtime(0.3f);
+                maceObject.SetActive(true);
+                yield return new WaitForSecondsRealtime(0.5f);
+                maceObject.SetActive(false);
+                powerUpDict[powerUpKey] = false;
+                Debug.Log("Power up: " + powerUpKey + " disabled");
+                Time.timeScale = 1;
+                break;
+            default:
+                yield return new WaitForSeconds(UnityEngine.Random.Range(5, 12));
+                powerUpDict[powerUpKey] = false;
+                Debug.Log("Power up: " + powerUpKey + " disabled");
+                break;
+        }
     }
 
     public void ActivatePowerUpHandler(string powerUpKey)

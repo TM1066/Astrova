@@ -633,11 +633,18 @@ public class PlayerShip : MonoBehaviour
 
     private IEnumerator ActivatePowerUp(string powerUpKey)
     {
+        //check if the powerup is currently active and stalls until the other process shuts it off
+        while (powerUpDict[powerUpKey])
+        {
+            //giving a 1 second delay to it activating
+            yield return new WaitForSeconds(1); 
+        }
+
         powerUpDict[powerUpKey] = true;
         Debug.Log("Power up: " + powerUpKey + " enabled");
-        yield return new WaitForSeconds(10); // power up duration no workinggg
-        powerUpDict[powerUpKey] = false;
-        Debug.Log("Power up: " + powerUpKey + " disabled");
+        // yield return new WaitForSeconds(10); // power up duration no workinggg
+        // powerUpDict[powerUpKey] = false;
+        // Debug.Log("Power up: " + powerUpKey + " disabled");
 
         switch (powerUpKey)
         {

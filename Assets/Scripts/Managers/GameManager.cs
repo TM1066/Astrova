@@ -13,7 +13,7 @@ public static class GameManager
     public enum Difficulties {easy, moderate, hard};
     static public Difficulties currentDifficulty = Difficulties.easy; // default to easy
 
-    private static User currentUser = new User("", 0, Color.cyan); // default user
+    private static User currentUser = new User("", 0, Color.cyan); // default user - I like cyan
 
     [Header ("Keys")]
     public static KeyCode playerForwards = KeyCode.UpArrow; 

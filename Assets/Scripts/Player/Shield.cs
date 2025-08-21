@@ -125,21 +125,28 @@ public class Shield : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        try //Push things away that touch it (Mainly to fix asteroid collision)
+        if (collision.transform.gameObject.name == "Mace") // not my favourite solution but it stops the mace from flying off
         {
-            Rigidbody2D playerRig = GameObject.Find("SpaceShip").GetComponent<Rigidbody2D>();
-            float forceMagnitude = 5f;
 
-            // Calculate the direction
-            Vector2 direction = playerRig.position - collision.gameObject.GetComponent<Rigidbody2D>().position;
-            Vector2 oppositeDirection = -direction.normalized;
-
-            // Apply the force
-            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(oppositeDirection * forceMagnitude, ForceMode2D.Impulse);
         }
-        catch 
+        else
         {
+            try //Push things away that touch it (Mainly to fix asteroid collision)
+            {
+                Rigidbody2D playerRig = GameObject.Find("SpaceShip").GetComponent<Rigidbody2D>();
+                float forceMagnitude = 5f;
 
+                // Calculate the direction
+                Vector2 direction = playerRig.position - collision.gameObject.GetComponent<Rigidbody2D>().position;
+                Vector2 oppositeDirection = -direction.normalized;
+
+                // Apply the force
+                collision.gameObject.GetComponent<Rigidbody2D>().AddForce(oppositeDirection * forceMagnitude, ForceMode2D.Impulse);
+            }
+            catch
+            {
+
+            }
         }
     }
 

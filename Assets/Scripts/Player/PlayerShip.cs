@@ -71,6 +71,7 @@ public class PlayerShip : MonoBehaviour
     };
     [Header("Power Ups")]
     public GameObject maceObject;
+    //public delegate void OnPowerUp();
 
     //Audio Stuff
     private AudioSource thisAudioPlayer; 
@@ -679,7 +680,7 @@ public class PlayerShip : MonoBehaviour
                 Time.timeScale = 1;
                 break;
             default:
-                yield return new WaitForSeconds(UnityEngine.Random.Range(5, 12));
+                yield return new WaitForSeconds(UnityEngine.Random.Range(15, 30));
                 powerUpDict[powerUpKey] = false;
                 Debug.Log("Power up: " + powerUpKey + " disabled");
                 break;

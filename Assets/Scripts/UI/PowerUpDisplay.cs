@@ -16,11 +16,11 @@ public class PowerUpDisplay : MonoBehaviour
         //reheeheehee
 
         infiniShieldHighlight.color = ScriptUtils.FindPlayerScript().CheckPowerUp("Infinite Shield") ? GameManager.GetCurrentUserColorFullAlpha() : Color.black;
-        //infiniShieldBG.color = ScriptUtils.FindPlayerScript().CheckPowerUp("Infinite Shield") ? Color.white : Color.black;
+        infiniShieldBG.color = ScriptUtils.FindPlayerScript().CheckPowerUp("Infinite Shield") ? GameManager.GetCurrentUserColorFullAlpha() + new Color(0.1f,0.1f,0.1f) : Color.black;
         maceHighlight.color = ScriptUtils.FindPlayerScript().CheckPowerUp("Mace") ? GameManager.GetCurrentUserColorFullAlpha() : Color.black;
-        //maceBG.color = ScriptUtils.FindPlayerScript().CheckPowerUp("Mace") ? Color.white : Color.black;
+        maceBG.color = ScriptUtils.FindPlayerScript().CheckPowerUp("Mace") ? GameManager.GetCurrentUserColorFullAlpha() + new Color(0.1f,0.1f,0.1f) : Color.black;
         tripleShotHighlight.color = ScriptUtils.FindPlayerScript().CheckPowerUp("Triple Shot") ? GameManager.GetCurrentUserColorFullAlpha() : Color.black;
-        //tripleShotBG.color = ScriptUtils.FindPlayerScript().CheckPowerUp("Triple Shot") ? Color.white : Color.black;
+        tripleShotBG.color = ScriptUtils.FindPlayerScript().CheckPowerUp("Triple Shot") ? GameManager.GetCurrentUserColorFullAlpha() + new Color(0.1f,0.1f,0.1f) : Color.black;
 
 
 
